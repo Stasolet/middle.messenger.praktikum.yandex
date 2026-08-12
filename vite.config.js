@@ -18,6 +18,7 @@ export default defineConfig({
     rollupOptions: {
       input: {
         index: 'src/pages/index/index.hbs',
+        chat: 'src/layouts/sidebar/sidebar.hbs',
       },
     },
   },

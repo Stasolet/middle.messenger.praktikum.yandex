@@ -1,0 +1,12 @@
+<aside class="sidebar">
+  <nav class="siebar-header">
+  <a href="" class="profile-link"></a>
+  {{> chat-search}}
+  </nav>
+  <nav class="chat-list">
+    {{#each chats}}
+    {{> chat-item}}
+    {{/each}}
+  </nav>
+</aside>
+{{> new-chat-button}}

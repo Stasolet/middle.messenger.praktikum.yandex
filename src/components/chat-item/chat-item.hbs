@@ -1,0 +1,21 @@
+<div class="chat-item">
+  <div class="chat-item__block">
+    <div class="chat-item__avatar">
+      <img src="https://placehold.co/64/lightgrey/lightgrey/png" alt="avatar" />
+    </div>
+    <div class="chat-item__name">
+      {{name}}
+    {{#with lastMessage}}
+      <time class="chat-item__date">{{time}}</time>
+    {{/with}}
+    </div>
+    <div class="chat-item__message">
+    {{#with lastMessage}}
+      <span class="chat-item__message-text">{{text}}</span>
+    {{/with}}
+    </div>
+    {{#if unreadCount}}
+      <span class="chat-item__badge">{{unreadCount}}</span>
+    {{/if}}
+  </div>
+</div>
