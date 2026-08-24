@@ -8,6 +8,32 @@ body{
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
   min-height: 100vh;
   background: #f5f5f5;
+  gap: 16px;
+}
+.page--centered a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #FFFFFF;
+  background: #4A6CF7;
+  border: none;
+  font-family: Inter;
+  font-weight: 500;
+  font-size: 23px;
+  height: 37px;
+  border-radius: 8px;
+  width: 340px;
+  padding-block: 10px 10px;
+  text-decoration: none;
+}
+.page--centered h1 {
+    margin-block: 20px 40px;
+    font-family: Inter;
+    font-weight: 500;
+    font-size: 3rem;
+    line-height: 20px;
+    text-align: center;
 }
