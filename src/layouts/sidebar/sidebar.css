@@ -5,82 +5,10 @@
   gap: 1rem;
   margin-block-end: 1rem;
   width: 400px;
+  height: 100vh;
+  overflow-y: auto;
 }
 
-.chat-item {
-  padding: 0.5rem;
-  border: 1px solid lightgrey;
-  border-radius: 0.5rem;
-  font-family: sans-serif, system-ui;
-}
-
-.chat-item__user-block {
-  display: flex;
-  flex-direction: row;
-  gap: 1rem;
-  justify-content: space-between;
-}
-
-.chat-item__block {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-
-.chat-item__avatar {
-  width: 3rem;
-  height: 3rem;
-  border-radius: 50%;
-  overflow: hidden;
-}
-
-.chat-item__date{
-  flex: 3;
-  text-align: right;
-  margin-right: 20px;
-}
-
-.chat-item__avatar img {
-  width: 100%;
-  height: 100%;
-}
-
-.chat-item__name {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.chat-item__message {
-  padding: 0.5rem;
-  background-color: lightgrey;
-  border-radius: 0.25rem;
-}
-
-.chat-item__badge {
-  position: absolute;
-  inset-inline-end: 0.5rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 1.5rem;
-  height: 1.5rem;
-  border-radius: 50%;
-  background-color: black;
-  color: white;
-}
-
-.chat-item__members {
-  display: flex;
-  align-items: center;
-}
-
-.chat-item__members-avatar {
-  width: 2rem;
-  height: 2rem;
-  border-radius: 50%;
-  overflow: hidden;
-}
 
 .chat-item__members-avatar+.chat-item__members-avatar {
   margin-inline-start: -1rem;
