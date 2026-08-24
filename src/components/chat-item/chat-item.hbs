@@ -5,7 +5,7 @@
         <img src="{{item.avatarUrl}}" alt="avatar" />
       </div>
       <div class="chat-item__name">
-        {{name}}
+        {{item.name}}
       </div>
       <div class="chat-item__date">
         <time class="chat-item__date">{{item.date}}</time>
@@ -14,7 +14,7 @@
     <div class="chat-item__message">
       <span class="chat-item__message-text">{{item.lastMessage}}</span>
     </div>
-    {{#if unreadCount}}
+    {{#if item.unreadCount}}
     <span class="chat-item__badge">{{item.unreadCount}}</span>
     {{/if}}
   </div>
