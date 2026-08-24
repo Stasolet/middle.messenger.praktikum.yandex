@@ -1,0 +1,32 @@
+[
+  {
+    "id": 1,
+    "isUser": false,
+    "text": "Стрелок, у меня тут товар редкий, бинт медицинский. Чистый, не из Зоны, с бартера на Кордоне достал. Замотаешь рану — как ни в чём не бывало, кровь остановит и от грязи защитит.\n\nДешёвых не бывает, слышь. Зона сама себя не зашьёт. Бери за 1500 рублей, торг с меня не сдёрнешь, это честная цена за живое.",
+    "image": null,
+    "time": "2026-06-19T11:56:00",
+    "metadata": {
+      "delivery_status": "delivered"
+    }
+  },
+  {
+    "id": 2,
+    "isUser": false,
+    "text": null,
+    "image": "https://tl.rulate.ru/i/translation/21/3/31808.jpg",
+    "time": "2026-06-19T11:56:00",
+    "metadata": {
+      "delivery_status": "delivered"
+    }
+  },
+  {
+    "id": 3,
+    "isUser": true,
+    "text": "Круто!",
+    "image": null,
+    "time": "2026-06-19T12:00:00",
+    "metadata": {
+      "delivery_status": "read"
+    }
+  }
+]

@@ -1,0 +1,55 @@
+<div class="chat">
+    <div class="chat__nav">
+        <div class="interlocutor-info">
+            <div class="interlocutor-info__avatar">
+                <img class="" src={{avatarUrl}} />
+            </div>
+            <span>{{name}}</span>
+        </div>
+        <button id="userActionBtn" class="round" type="button">
+            <span class="material-symbols-outlined">more_vert</span>
+        </button>
+    </div>
+    <div class="chat__messages">
+        <div class="start-date-container">
+            <span class="start-date-container__date">{{date}}</span>
+        </div>
+        {{#each messages}}
+        {{>chat-message}}
+        {{/each}}
+    </div>
+    <div class="chat__typing_zone">
+        <button id="attachmentBtn" class="typing_zone__attach round" type="button">
+            <span class="material-symbols-outlined">attach_file</span>
+        </button>
+        <input class="typing_zone__message" type="text">
+        <button class="typing_zone__send round" type="button">
+            <span class="material-symbols-outlined">arrow_forward</span>
+        </button>
+    </div>
+    <dialog id="userActionModal" class="user-options modal">
+        <button class="user-options__option">
+            <span class="material-symbols-outlined user-options__option-icon">add_circle</span>
+            <span class="user-options__option-name">Добавить пользователя</span>
+        </button>
+        <button class="user-options__option">
+            <span class="material-symbols-outlined user-options__option-icon">cancel</span>
+            <span class="user-options__option-name">Удалить пользователя</span>
+        </button>
+    </dialog>
+    <dialog id="attachmentModal" class="attach-options modal">
+        <button class="attach-options__option">
+            <span class="material-symbols-outlined attach-options__option-icon">photo</span>
+            <span class="attach-options__option-name">Фото или Видео</span>
+        </button>
+        <button class="attach-options__option">
+            <span class="material-symbols-outlined attach-options__option-icon">upload_file</span>
+            <span class="attach-options__option-name">Файл</span>
+        </button>
+        <button class="attach-options__option">
+            <span class="material-symbols-outlined attach-options__option-icon">share_location</span>
+            <span class="attach-options__option-name">Локация</span>
+        </button>
+
+    </dialog>
+</div>

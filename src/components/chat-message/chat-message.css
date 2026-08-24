@@ -1,0 +1,33 @@
+.material-symbols-outlined {
+  font-family: "Material Symbols Outlined Variable";
+  font-size: 24px;
+  display: inline-block;
+}
+.chat-message-container{
+  display:flex;
+  width: 100wh;
+
+}
+
+.chat-message{
+  display:flex;
+  width: 30%;
+
+}
+.chat-message--user{
+  background: lightblue;
+  border-radius: 18px 18px 0px 18px;
+  margin-left: auto;
+  padding: 0.5rem;
+
+}
+.chat-message--interlocutor{
+  background: lightgray;
+  border-radius: 0px 18px 18px 18px;
+  padding: 0.5rem;
+}
+
+.chat-message__content img {
+  max-width: 300px;
+  max-height: 300px;
+}
