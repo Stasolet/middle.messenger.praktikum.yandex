@@ -12,16 +12,17 @@ const formContents = {
   title: "Регистрация",
   buttonText: "Зарегистрироваться",
   fields: [
-    { label: "Почта", name: "email", type: "email" },
-    { label: "Логин", name: "login", type: "text" },
-    { label: "Имя", name: "name", type: "text" },
-    { label: "Фамилия", name: "surname", type: "text" },
-    { label: "Телефон", name: "phone", type: "tel" },
-    { label: "Пароль", name: "password", type: "password" },
+    { label: "Почта", name: "email", type: "email", labelPosition: "top" },
+    { label: "Логин", name: "login", type: "text", labelPosition: "top" },
+    { label: "Имя", name: "name", type: "text", labelPosition: "top" },
+    { label: "Фамилия", name: "surname", type: "text", labelPosition: "top" },
+    { label: "Телефон", name: "phone", type: "tel", labelPosition: "top" },
+    { label: "Пароль", name: "password", type: "password", labelPosition: "top" },
     {
       label: "Пароль (ещё раз)",
       name: "passwordRepeat",
       type: "password",
+      labelPosition: "top"
     },
   ],
   footer: { text: "Войти?", link: "/pages/login/login.html" },

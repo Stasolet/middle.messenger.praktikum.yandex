@@ -1,8 +1,3 @@
-.material-symbols-outlined {
-  font-family: "Material Symbols Outlined Variable";
-  font-size: 24px;
-  display: inline-block;
-}
 .chat-message-container{
   display:flex;
   width: 100wh;
@@ -12,6 +7,7 @@
 .chat-message{
   display:flex;
   width: 30%;
+  min-width: 450px;
 
 }
 .chat-message--user{

@@ -12,8 +12,8 @@ const formContents = {
   title: "Вход",
   buttonText: "Авторизоваться",
   fields: [
-    { label: "Логин", name: "login", type: "text" },
-    { label: "Пароль", name: "password", type: "password" },
+    { label: "Логин", name: "login", type: "text", labelPosition: "top" },
+    { label: "Пароль", name: "password", type: "password", labelPosition: "top" },
   ],
   footer: { text: "Нет аккаунта?", link: "/pages/signin/signin.html" },
 };

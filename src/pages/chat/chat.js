@@ -14,7 +14,7 @@ import "../../layouts/sidebar/sidebar.css";
 import "../../layouts/chat-direct/chat-direct.css";
 import "../../components/chat-message/chat-message.css";
 import "./chat.css";
-import "@fontsource-variable/material-symbols-outlined"; // <-- Импорт шрифта для иконок Material Symbols
+import "@fontsource-variable/material-symbols-outlined";
 
 import { eq } from "../../helpers/eq";
 import { date, time } from "../../helpers/datetime";

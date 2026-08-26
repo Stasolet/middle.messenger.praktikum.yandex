@@ -1,9 +1,24 @@
 .form-field {
   display: flex;
+}
+
+.form-field--left-label{
+  flex-direction: row;
+  justify-content: space-between;
+  border-bottom: 1px solid #4a6cf7;
+}
+
+
+.form-field--top-label{
   flex-direction: column;
 }
 
-.form-field__label {
+.form-field--left-label .form-field__label {
+    font-size: 1rem;
+    font-family: Inter;
+}
+
+.form-field--top-label .form-field__label {
     font-size: 0.75rem;
     color: #999999;
     font-family: Inter;
@@ -12,11 +27,17 @@
 
 .form-field__input {
   border: none;
-  border-bottom: 1px solid #4a6cf7;
   padding-block: 4px;
   font-size: 1rem;
   background: transparent;
   outline: none;
+}
+.form-field--top-label .form-field__input {
+  border-bottom: 1px solid #4a6cf7;
+}
+.form-field--left-label .form-field__input {
+  text-align: end;
+  color: #999999;
 }
 
 .form-field__error {
