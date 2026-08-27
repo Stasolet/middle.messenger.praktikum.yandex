@@ -6,10 +6,14 @@
   "scripts": {
     "dev": "vite --port 3000",
     "preview": "vite preview --port 3000",
-    "start": "vite build && vite preview --port 3000"
+    "start": "vite build && vite preview --port 3000",
+    "lint:css": "stylelint \"**/*.scss\"",
+    "lint:css:fix": "stylelint \"**/*.scss\" --fix"
   },
   "devDependencies": {
     "sass": "^1.103.1",
+    "stylelint": "^17.14.1",
+    "stylelint-config-standard-scss": "^17.0.0",
     "vite": "^8.2.0"
   },
   "dependencies": {

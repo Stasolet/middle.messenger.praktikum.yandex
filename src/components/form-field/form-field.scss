@@ -29,9 +29,11 @@
   background: transparent;
   outline: none;
 }
+
 .form-field--top-label .form-field__input {
   border-bottom: 1px solid $primary-color;
 }
+
 .form-field--left-label .form-field__input {
   text-align: end;
   color: $input-color;

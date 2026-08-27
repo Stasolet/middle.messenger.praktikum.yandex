@@ -9,7 +9,7 @@
   display: flex;
   justify-content: space-between;
   padding-top: 10px;
-  background-color: #ffffff;
+  background-color: #fff;
   min-height: 70px;
   padding-inline: 20px;
 }
@@ -61,18 +61,22 @@
   border-radius: 50%;
   overflow: hidden;
 }
+
 button {
   border: none;
   text-align: center;
   border-radius: 10px;
   background-color: transparent;
 }
+
 button .material-symbols-outlined {
   color: #3369f3;
 }
+
 button:hover {
-  background-color: rgba(1, 217, 255, 0.2);
+  background-color: rgb(1 217 255 / 20%);
 }
+
 .round {
   border-radius: 100%;
   aspect-ratio: 1/1;
@@ -101,7 +105,7 @@ button:hover {
   padding: 8px 0;
   background: #fff;
   border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 12px rgb(0 0 0 / 10%);
   list-style: none;
   min-width: 120px;
 }
@@ -115,6 +119,7 @@ button:hover {
   margin-top: 8px;
   top: 100%;
 }
+
 .drop-menu--rigthside .drop-menu__list {
   right: 0;
 }

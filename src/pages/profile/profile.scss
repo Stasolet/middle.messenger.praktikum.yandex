@@ -1,11 +1,13 @@
-@import url("../../index.scss");
+@import "../../index";
 
 .form__footer .internal-link {
     margin-block: 10px
 }
+
 .form__fields {
     margin-block: 50px;
 }
+
 .load-photo{
     background: $surface-contaniner-high-color;
     border: none;
@@ -13,15 +15,18 @@
     width: 130px;
     border-radius: 100%;
 }
+
 .my-frame{
     display: flex;
     flex-direction: column;
     align-items: center;
     width: 510px;
 }
+
 .my-frame .horizontal-spacer{
     border-bottom: 1px solid $surface-spacer-color;
 }
+
 .form-field{
     border-bottom: none;
     height: 18px;

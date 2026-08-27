@@ -1,27 +1,23 @@
 .chat-message-container {
   display: flex;
-  width: 100wh;
-
 }
 
 .chat-message {
   display: flex;
   width: 30%;
   min-width: 450px;
-
 }
 
 .chat-message--user {
   background: lightblue;
-  border-radius: 18px 18px 0px 18px;
+  border-radius: 18px 18px 0;
   margin-left: auto;
   padding: 0.5rem;
-
 }
 
 .chat-message--interlocutor {
   background: lightgray;
-  border-radius: 0px 18px 18px 18px;
+  border-radius: 0 18px 18px;
   padding: 0.5rem;
 }
 

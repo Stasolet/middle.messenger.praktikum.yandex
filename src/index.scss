@@ -3,6 +3,7 @@
 body {
   font-family: $font-base-name, sans-serif, system-ui;
 }
+
 .page--centered {
   margin: 0;
   display: flex;
@@ -13,6 +14,7 @@ body {
   background: $surface-color;
   gap: 16px;
 }
+
 .internal-link {
   color: $secondary-color;
   text-decoration: none;
@@ -20,13 +22,14 @@ body {
 }
 
 .internal-link--red {
-  color: #ff0000;
+  color: #f00;
 }
+
 .link-button {
   display: flex;
   justify-content: center;
   align-items: center;
-  color: #ffffff;
+  color: #fff;
   background: $primary-color;
   border: none;
   font-weight: $font-accent-weight;
@@ -34,9 +37,10 @@ body {
   height: 37px;
   border-radius: 8px;
   width: 340px;
-  padding-block: 10px 10px;
+  padding-block: 10px;
   text-decoration: none;
 }
+
 .header {
   margin-block: 20px 40px;
   font-weight: $font-accent-weight;
@@ -50,7 +54,7 @@ body {
 }
 
 .material-symbols-outlined {
-  font-family: "Material Symbols Outlined Variable";
+  font-family: "Material Symbols Outlined Variable", system-ui;
   font-size: 24px;
   display: inline-block;
 }
