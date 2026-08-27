@@ -10,7 +10,8 @@
     "lint:css": "stylelint \"**/*.scss\"",
     "lint:css:fix": "stylelint \"**/*.scss\" --fix",
     "format": "prettier --write .",
-    "check-format": "prettier --check ."
+    "check-format": "prettier --check .",
+    "build": "vite build"
   },
   "devDependencies": {
     "prettier": "^3.9.6",

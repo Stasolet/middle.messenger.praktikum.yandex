@@ -1,14 +1,14 @@
 import { defineConfig } from 'vite';
 import { resolve } from 'path';
 
-const variablesPath = resolve(import.meta.dirname, 'src/styles/variables.scss');
+const indexPath = resolve(import.meta.dirname, 'src/styles/global.scss');
 
 export default defineConfig({
   root: 'src',
   css: {
     preprocessorOptions: {
       scss: {
-        additionalData: `@use "${variablesPath}" as *;`,
+        additionalData: `@use "${indexPath}" as *;`,
       },
     },
   },
