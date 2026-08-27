@@ -9,10 +9,11 @@ import chatDirectTpl from "../../layouts/chat-direct/chat-direct.hbs?raw";
 import chatsMock from "../../mocks/chats.json";
 import chatMessagesMock from "../../mocks/chat-messages.json";
 
-import "../../components/chat-item/chat-item.css";
+import "../../components/chat-item/chat-item.scss";
 import "../../layouts/sidebar/sidebar.css";
 import "../../layouts/chat-direct/chat-direct.css";
 import "../../components/chat-message/chat-message.css";
+import "../../components/chat-search/chat-search.css"
 import "./chat.css";
 import "@fontsource-variable/material-symbols-outlined";
 

@@ -11,6 +11,7 @@ Handlebars.registerPartial("form-field", formFieldTpl);
 const formContents = {
   title: "Вход",
   buttonText: "Авторизоваться",
+  action: "/pages/chat/chat.html",
   fields: [
     { label: "Логин", name: "login", type: "text", labelPosition: "top" },
     { label: "Пароль", name: "password", type: "password", labelPosition: "top" },

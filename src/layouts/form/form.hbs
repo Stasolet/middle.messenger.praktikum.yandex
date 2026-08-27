@@ -1,4 +1,4 @@
-<form action="" class="form">
+<form action={{#if action}}{{action}}{{else}}#{{/if}} class="form">
     <h2 class="form__title">{{title}}</h2>
     <div class="form__fields">
         {{#each fields}}

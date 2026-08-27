@@ -2,7 +2,6 @@ import Handlebars from "handlebars";
 import errorTpl from "../../layouts/error/error.hbs?raw";
 
 import "../../layouts/error/error.css";
-import "../../index.css"
 const templateContent = {
   code: "404",
   message: "Не туда попали",
