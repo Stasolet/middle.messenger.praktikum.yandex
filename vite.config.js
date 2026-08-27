@@ -1,8 +1,17 @@
 import { defineConfig } from "vite";
 import { resolve } from "path";
 
+const variablesPath = resolve(import.meta.dirname, "src/styles/variables.scss")
+
 export default defineConfig({
   root: "src",
+  css: {
+    preprocessorOptions: {
+      scss: {
+        additionalData: `@use "${variablesPath}" as *;`
+      }
+    }
+  },
   build: {
     rollupOptions: {
       input: {

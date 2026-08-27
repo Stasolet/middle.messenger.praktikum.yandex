@@ -44,12 +44,12 @@
   flex: 3;
   text-align: right;
   margin-right: 20px;
-  font-size: 12px;
+  font-size: $font-base-size;
 }
 
 .chat-item__message {
   padding: 0.5rem;
-  font-size: 12px;
+  font-size: $font-base-size;
 }
 
 .chat-item__badge {
@@ -62,7 +62,7 @@
   border-radius: 50%;
   background-color: #4A6CF7;
   color: white;
-  font-size: 12px;
+  font-size: $font-base-size;
 
 }
 
