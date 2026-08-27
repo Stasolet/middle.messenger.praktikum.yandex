@@ -16,6 +16,14 @@
 
 .interlocutor-info {
   display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.interlocutor-info__name {
+  margin: 0;
+  font-size: $font-base-size;
+  font-weight: $font-accent-weight;
 }
 
 .interlocutor-info__avatar {
