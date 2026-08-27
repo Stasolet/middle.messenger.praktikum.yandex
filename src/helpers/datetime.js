@@ -1,7 +1,7 @@
 function time(timestamp) {
-    const date = new Date(timestamp);
-    const options = { hour: '2-digit', minute: '2-digit' };
-    return date.toLocaleTimeString('ru-RU', options);
+  const date = new Date(timestamp);
+  const options = { hour: '2-digit', minute: '2-digit' };
+  return date.toLocaleTimeString('ru-RU', options);
 }
 
 function date(timestamp) {
@@ -10,4 +10,4 @@ function date(timestamp) {
   return date.toLocaleDateString('ru-RU', options);
 }
 
-export {date, time}
+export { date, time };

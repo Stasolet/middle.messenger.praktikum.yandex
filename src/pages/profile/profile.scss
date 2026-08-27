@@ -1,33 +1,33 @@
 @import "../../index";
 
 .form__footer .internal-link {
-    margin-block: 10px
+  margin-block: 10px;
 }
 
 .form__fields {
-    margin-block: 50px;
+  margin-block: 50px;
 }
 
-.load-photo{
-    background: $surface-contaniner-high-color;
-    border: none;
-    height: 130px;
-    width: 130px;
-    border-radius: 100%;
+.load-photo {
+  background: $surface-contaniner-high-color;
+  border: none;
+  height: 130px;
+  width: 130px;
+  border-radius: 100%;
 }
 
-.my-frame{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 510px;
+.my-frame {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 510px;
 }
 
-.my-frame .horizontal-spacer{
-    border-bottom: 1px solid $surface-spacer-color;
+.my-frame .horizontal-spacer {
+  border-bottom: 1px solid $surface-spacer-color;
 }
 
-.form-field{
-    border-bottom: none;
-    height: 18px;
+.form-field {
+  border-bottom: none;
+  height: 18px;
 }
