@@ -14,8 +14,8 @@ const formContents = {
   fields: [
     { label: 'Почта', name: 'email', type: 'email', labelPosition: 'top' },
     { label: 'Логин', name: 'login', type: 'text', labelPosition: 'top' },
-    { label: 'Имя', name: 'name', type: 'text', labelPosition: 'top' },
-    { label: 'Фамилия', name: 'surname', type: 'text', labelPosition: 'top' },
+    { label: 'Имя', name: 'first_name', type: 'text', labelPosition: 'top' },
+    { label: 'Фамилия', name: 'second_name', type: 'text', labelPosition: 'top' },
     { label: 'Телефон', name: 'phone', type: 'tel', labelPosition: 'top' },
     {
       label: 'Пароль',

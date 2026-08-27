@@ -2,11 +2,11 @@
     <div class="chat__nav">
         <div class="interlocutor-info">
             <div class="interlocutor-info__avatar">
-                <img class="" src={{avatarUrl}} />
+                <img class="interlocutor-info__avatar-img" src="{{avatarUrl}}" alt="{{name}}" />
             </div>
             <span>{{name}}</span>
         </div>
-        <div id="userActionMenu" class="drop-menu drop-menu--open drop-menu--downside drop-menu--rigthside">
+        <div id="userActionMenu" class="drop-menu drop-menu--open drop-menu--downside drop-menu--rightside">
             <button id="userActionBtn" class="round" type="button">
                 <span class="material-symbols-outlined">more_vert</span>
             </button>
@@ -62,7 +62,7 @@
                 </li>
             </ul>
         </div>
-        <input class="typing_zone__message" type="text">
+        <input class="typing_zone__message" name="message" type="text">
         <button class="typing_zone__send round" type="button">
             <span class="material-symbols-outlined">arrow_forward</span>
         </button>
