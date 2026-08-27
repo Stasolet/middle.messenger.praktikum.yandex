@@ -1,7 +1,7 @@
 @import "@fontsource/inter/500.css";
 
-body{
-  font-family: 'Inter', sans-serif, system-ui;
+body {
+  font-family: $font-base-name, sans-serif, system-ui;
 }
 .page--centered {
   margin: 0;
@@ -10,28 +10,27 @@ body{
   align-items: center;
   flex-direction: column;
   min-height: 100vh;
-  background: #f5f5f5;
+  background: $surface-color;
   gap: 16px;
 }
-.internal-link{
-  color: #5b7cfa;
+.internal-link {
+  color: $secondary-color;
   text-decoration: none;
   font-size: 0.9rem;
 }
 
-.internal-link--red{
-  color: #FF0000;
+.internal-link--red {
+  color: #ff0000;
 }
 .link-button {
   display: flex;
   justify-content: center;
   align-items: center;
-  color: #FFFFFF;
-  background: #4A6CF7;
+  color: #ffffff;
+  background: $primary-color;
   border: none;
-  font-family: Inter;
-  font-weight: 500;
-  font-size: 23px;
+  font-weight: $font-accent-weight;
+  font-size: $font-title-size;
   height: 37px;
   border-radius: 8px;
   width: 340px;
@@ -39,16 +38,15 @@ body{
   text-decoration: none;
 }
 .header {
-    margin-block: 20px 40px;
-    font-family: Inter;
-    font-weight: 500;
-    font-size: 3rem;
-    line-height: 20px;
-    text-align: center;
+  margin-block: 20px 40px;
+  font-weight: $font-accent-weight;
+  font-size: 3rem;
+  line-height: 20px;
+  text-align: center;
 }
 
-.horizontal-spacer{
-  border-bottom: #4A6CF7 solid 1px;
+.horizontal-spacer {
+  border-bottom: $primary-color solid 1px;
 }
 
 .material-symbols-outlined {

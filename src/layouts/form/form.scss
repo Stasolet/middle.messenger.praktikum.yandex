@@ -16,20 +16,18 @@
 }
 .form__title{
     margin-block: 20px 40px;
-    font-family: Inter;
-    font-weight: 500;
-    font-size: 20px;
+    font-weight: $font-accent-weight;
+    font-size: $font-title-size;
     line-height: 20px;
     text-align: center;
 }
 .form__submit{
-    font-family: Inter;
-    font-weight: 500;
+    font-weight: $font-accent-weight;
     font-size: 13px;
     line-height: 13px;
     text-align: center;
     color: #FFFFFF;
-    background: #4A6CF7;
+    background: $primary-color;
     border-radius: 8px;
     height: 37px;
     border: none;

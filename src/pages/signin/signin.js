@@ -2,9 +2,9 @@ import Handlebars from "handlebars";
 import formFieldTpl from "../../components/form-field/form-field.hbs?raw";
 import formTpl from "../../layouts/form/form.hbs?raw";
 
-import "../../layouts/form/form.css";
-import "../../components/form-field/form-field.css";
-import "./signin.css";
+import "../../layouts/form/form.scss";
+import "../../components/form-field/form-field.scss";
+import "./signin.scss";
 
 Handlebars.registerPartial("form-field", formFieldTpl);
 
@@ -17,12 +17,17 @@ const formContents = {
     { label: "Имя", name: "name", type: "text", labelPosition: "top" },
     { label: "Фамилия", name: "surname", type: "text", labelPosition: "top" },
     { label: "Телефон", name: "phone", type: "tel", labelPosition: "top" },
-    { label: "Пароль", name: "password", type: "password", labelPosition: "top" },
+    {
+      label: "Пароль",
+      name: "password",
+      type: "password",
+      labelPosition: "top",
+    },
     {
       label: "Пароль (ещё раз)",
       name: "passwordRepeat",
       type: "password",
-      labelPosition: "top"
+      labelPosition: "top",
     },
   ],
   footer: { text: "Войти?", link: "/pages/login/login.html" },

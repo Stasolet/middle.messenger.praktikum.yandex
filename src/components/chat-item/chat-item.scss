@@ -18,11 +18,11 @@
 
 .chat-item {
   padding-block: 0.5rem;
-  border-block: 1px solid lightgrey;
+  border-block: 1px solid $surface-spacer-color;
   font-family: sans-serif, system-ui;
 }
-.chat-item:hover{
-  background-color: #E4EDFD;
+.chat-item:hover {
+  background-color: $surface-container-color;
 }
 .chat-item__user-block {
   display: flex;
@@ -36,11 +36,11 @@
   justify-content: space-between;
   gap: 0.5rem;
 }
-.other-data{
+.other-data {
   display: flex;
   flex-direction: column;
 }
-.chat-item__date{
+.chat-item__date {
   flex: 3;
   text-align: right;
   margin-right: 20px;
@@ -60,13 +60,12 @@
   width: 1.5rem;
   height: 1.5rem;
   border-radius: 50%;
-  background-color: #4A6CF7;
+  background-color: $primary-color;
   color: white;
   font-size: $font-base-size;
-
 }
 
-.chat-message__metadata{
+.chat-message__metadata {
   display: flex;
   margin-top: auto;
   margin-left: auto;
