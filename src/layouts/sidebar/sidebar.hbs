@@ -4,8 +4,12 @@
     {{> chat-search}}
   </header>
   <nav class="chat-list">
+    <ul>
     {{#each chats}}
+    <li>
     {{> chat-item item=.}}
+    </li>
     {{/each}}
+    </ul>
   </nav>
 </aside>
