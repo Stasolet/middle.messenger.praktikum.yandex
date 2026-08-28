@@ -93,3 +93,9 @@ const elements = document.querySelectorAll('.form-field__input');
 elements.forEach((element) => {
   element.disabled = true;
 });
+
+const avatarInput = document.getElementById('avatar-input');
+document.querySelector('.load-photo').addEventListener('click', () => {
+  avatarInput.click();
+});
+

@@ -17,6 +17,14 @@
   height: 130px;
   width: 130px;
   border-radius: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.load-photo__input {
+  display: none;
 }
 
 .profile-settings {
