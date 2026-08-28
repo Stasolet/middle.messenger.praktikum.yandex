@@ -11,6 +11,7 @@ $font-base-name: "Inter";
 $font-base-size: 1rem;
 $font-title-size: 20px;
 $font-accent-weight: 500;
+$header-height: 70px;
 
 body {
   font-family: $font-base-name, sans-serif, system-ui;
@@ -69,4 +70,12 @@ body {
   font-family: "Material Symbols Outlined Variable", system-ui;
   font-size: 24px;
   display: inline-block;
+}
+
+ul {
+  list-style-type: none;
+}
+
+button {
+  cursor: pointer;
 }
