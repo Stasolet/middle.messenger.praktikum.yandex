@@ -6,8 +6,8 @@ import sidebarTpl from '../../layouts/sidebar/sidebar.hbs?raw';
 import chatMessageTpl from '../../components/chat-message/chat-message.hbs?raw';
 import chatDirectTpl from '../../layouts/chat-direct/chat-direct.hbs?raw';
 
-import chatsMock from '../../mocks/chats.json';
-import chatMessagesMock from '../../mocks/chat-messages.json';
+import chatsMock from '../../../mocks/chats.json';
+import chatMessagesMock from '../../../mocks/chat-messages.json';
 
 import '../../components/chat-item/chat-item.scss';
 import '../../layouts/sidebar/sidebar.scss';
