@@ -1,6 +1,6 @@
 import Handlebars from 'handlebars';
 import formFieldTpl from '../../components/form-field/form-field.hbs?raw';
-import formTpl from './profile.hbs?raw';
+import profileFormTpl from './profile.hbs?raw';
 
 import '../../layouts/form/form.scss';
 import '../../components/form-field/form-field.scss';
@@ -63,12 +63,32 @@ const profileContent = {
       labelPosition: 'left',
       value: profileMock.phone,
     },
+    {
+      label: 'Старый пароль',
+      name: 'old_password',
+      type: 'password',
+      labelPosition: 'left',
+      placeholder: '•••••••••••',
+    },
+    {
+      label: 'Новый пароль',
+      name: 'new_password',
+      type: 'password',
+      labelPosition: 'left',
+      placeholder: '•••••••••••',
+    },
+    {
+      label: 'Повторите новый пароль',
+      name: 'new_password_repeat',
+      type: 'password',
+      placeholder: '•••••••••••',
+      labelPosition: 'left',
+    },
   ],
 };
 
-const compiledLoginForm = Handlebars.compile(formTpl);
-
-document.getElementById('profile-container').innerHTML = compiledLoginForm(profileContent);
+const compiledProfileForm = Handlebars.compile(profileFormTpl);
+document.getElementById('profile-container').innerHTML = compiledProfileForm(profileContent);
 const elements = document.querySelectorAll('.form-field__input');
 elements.forEach((element) => {
   element.disabled = true;

@@ -1,4 +1,4 @@
-<main class="my-frame">
+<form class="profile-settings">
     <button class="load-photo" type="button" aria-label="Загрузить фото аватара">
         <span class="material-symbols-outlined">
             add_a_photo
@@ -15,10 +15,18 @@
         {{/each}}
     </div>
     <div class="form__footer">
-        <button class="internal-link" type="button">Изменить данные</button>
-        <div class="horizontal-spacer"></div>
-        <button class="internal-link" type="button">Изменить пароль</button>
-        <div class="horizontal-spacer"></div>
-        <a class="internal-link internal-link--red" href="/pages/login/login.html">Выйти</a>
+        <ul>
+            <li>
+                <button class="internal-link" type="button">Изменить данные</button>
+                <div class="horizontal-spacer"></div>
+            </li>
+            <li>
+                <button class="internal-link" type="button">Изменить пароль</button>
+                <div class="horizontal-spacer"></div>
+            </li>
+            <li>
+                <a class="internal-link internal-link--red" href="/pages/login/login.html">Выйти</a>
+            </li>
+        </ul>
     </div>
-</main>
+</form>

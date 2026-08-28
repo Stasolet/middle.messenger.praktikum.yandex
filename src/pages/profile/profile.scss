@@ -19,14 +19,14 @@
   border-radius: 100%;
 }
 
-.my-frame {
+.profile-settings {
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 510px;
 }
 
-.my-frame .horizontal-spacer {
+.profile-settings .horizontal-spacer {
   border-bottom: 1px solid $surface-spacer-color;
 }
 
