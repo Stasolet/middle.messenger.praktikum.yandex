@@ -10,6 +10,7 @@ Handlebars.registerPartial('form-field', formFieldTpl);
 const formContents = {
   title: 'Регистрация',
   buttonText: 'Зарегистрироваться',
+  action: '/pages/login/login.html',
   fields: [
     { label: 'Почта', name: 'email', type: 'email', labelPosition: 'top' },
     { label: 'Логин', name: 'login', type: 'text', labelPosition: 'top' },
