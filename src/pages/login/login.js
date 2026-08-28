@@ -4,7 +4,6 @@ import formTpl from '../../layouts/form/form.hbs?raw';
 
 import '../../layouts/form/form.scss';
 import '../../components/form-field/form-field.scss';
-import './login.scss';
 
 Handlebars.registerPartial('form-field', formFieldTpl);
 
