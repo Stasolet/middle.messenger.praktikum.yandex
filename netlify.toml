@@ -1,0 +1,9 @@
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+# Fallback на кастомную страницу 404
+[[redirects]]
+  from = "/*"
+  to = "/error_404/"
+  status = 404
