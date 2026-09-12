@@ -1,0 +1,74 @@
+<div class="chat">
+    <nav class="chat__nav">
+        <div class="interlocutor-info">
+            <div class="interlocutor-info__avatar">
+                <img class="interlocutor-info__avatar-img" src="{{avatarUrl}}" alt="{{name}}" />
+            </div>
+            <h1 class="interlocutor-info__name">{{name}}</h1>
+        </div>
+        <div id="userActionMenu" class="drop-menu drop-menu--open drop-menu--downside drop-menu--rightside">
+            <button id="userActionBtn" class="round" type="button" aria-label="Действия с пользователем">
+                <span class="material-symbols-outlined">more_vert</span>
+            </button>
+            <ul class="drop-menu__list">
+                <li class="drop-menu__item">
+                    <button class="drop-menu__option" type="button">
+                        <span class="material-symbols-outlined drop-menu__option-icon">add_circle</span>
+                        <span class="drop-menu__option-name">Добавить пользователя</span>
+                    </button>
+                </li>
+                <li class="drop-menu__item">
+                    <button class="drop-menu__option" type="button">
+                        <span class="material-symbols-outlined drop-menu__option-icon">cancel</span>
+                        <span class="drop-menu__option-name">Удалить пользователя</span>
+                    </button>
+                </li>
+            </ul>
+        </div>
+
+    </nav>
+    <div class="chat__horizontal-spacer"></div>
+    <div class="chat__messages">
+        <div class="start-date-container">
+            <span class="start-date-container__date">{{date}}</span>
+        </div>
+        {{#each messages}}
+        {{>chat-message}}
+        {{/each}}
+    </div>
+    <div class="chat__typing_zone">
+        <div id="attachmentMenu" class="drop-menu drop-menu--open drop-menu--upside">
+            <button id="attachmentBtn" class="typing_zone__attach round" type="button">
+                <span class="material-symbols-outlined">attach_file</span>
+            </button>
+            <ul class="drop-menu__list">
+                <li class="drop-menu__item">
+                    <button class="drop-menu__option" type="button">
+                        <span class="material-symbols-outlined drop-menu__option-icon">photo</span>
+                        <span class="drop-menu__option-name">Фото или Видео</span>
+                    </button>
+                </li>
+                <li class="drop-menu__item">
+                    <button class="drop-menu__option" type="button">
+                        <span class="material-symbols-outlined drop-menu__option-icon">upload_file</span>
+                        <span class="drop-menu__option-name">Файл</span>
+                    </button>
+                </li>
+                <li class="drop-menu__item">
+                    <button class="drop-menu__option" type="button">
+                        <span class="material-symbols-outlined drop-menu__option-icon">share_location</span>
+                        <span class="drop-menu__option-name">Локация</span>
+                    </button>
+                </li>
+            </ul>
+        </div>
+        <form action="" class="send-mesage">
+        <input class="typing_zone__message" name="message" type="text">
+        <button class="typing_zone__send round" type="submit">
+            <span class="material-symbols-outlined">arrow_forward</span>
+        </button>
+        </form>
+    </div>
+
+
+</div>

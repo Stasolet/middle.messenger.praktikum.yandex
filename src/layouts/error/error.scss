@@ -1,0 +1,31 @@
+.error-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.error-container__error-code {
+  font-weight: $font-accent-weight;
+  font-size: 40px;
+  line-height: 40px;
+  letter-spacing: 0%;
+  text-align: center;
+  color: #1e1e1e;
+  margin: 0;
+}
+
+.error-container__error-message {
+  font-weight: $font-accent-weight;
+  font-size: $font-title-size;
+  line-height: 20px;
+  letter-spacing: 0%;
+  text-align: center;
+  color: #1e1e1e;
+  margin-block: 20px 70px;
+}
+
+.error-container__back-link {
+  color: $secondary-color;
+  text-decoration: none;
+  font-size: 0.9rem;
+}

@@ -1,0 +1,23 @@
+<div class="chat-message-container">
+  <div class="chat-message {{#if isUser}}chat-message--user {{else}} chat-message--interlocutor {{/if}}">
+    <div class="chat-message__content">
+      <p class="chat-message__text">
+        {{text}}</p>
+      {{#if image}}
+      <img src="{{image}}" alt="image" class="chat-message__image" />
+      {{/if}}
+    </div>
+    <div class="chat-message__metadata">
+      {{#if isUser}}
+      {{#if (eq metadata.delivery_status "read" )}}
+      <span class="material-symbols-outlined">done_all</span>
+      {{else if (eq metadata.delivery_status "delivered" )}}
+      <span class="material-symbols-outlined">check</span>
+      {{/if}}
+      {{/if}}
+      <div class="chat-message__time">
+        {{time_from_timestamp time}}
+      </div>
+    </div>
+  </div>
+</div>
