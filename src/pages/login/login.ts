@@ -24,4 +24,4 @@ const formContents = {
 };
 
 const compiledLoginForm = Handlebars.compile(formTpl);
-document.getElementById('login-form').innerHTML = compiledLoginForm(formContents);
+document.getElementById('login-form')!.innerHTML = compiledLoginForm(formContents);
