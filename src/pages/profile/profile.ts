@@ -87,15 +87,18 @@ const profileContent = {
   ],
 };
 
+interface Enableble extends Element {
+  disabled: boolean;
+}
+
 const compiledProfileForm = Handlebars.compile(profileFormTpl);
-document.getElementById('profile-container').innerHTML = compiledProfileForm(profileContent);
-const elements = document.querySelectorAll('.form-field__input');
+document.getElementById('profile-container')!.innerHTML = compiledProfileForm(profileContent);
+const elements: NodeListOf<Enableble> = document.querySelectorAll('.form-field__input');
 elements.forEach((element) => {
   element.disabled = true;
 });
 
-const avatarInput = document.getElementById('avatar-input');
-document.querySelector('.load-photo').addEventListener('click', () => {
+const avatarInput = document.getElementById('avatar-input')!;
+document.querySelector('.load-photo')!.addEventListener('click', () => {
   avatarInput.click();
 });
-

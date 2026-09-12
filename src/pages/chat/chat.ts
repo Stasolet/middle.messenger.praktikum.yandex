@@ -17,8 +17,8 @@ import '../../components/chat-search/chat-search.scss';
 import './chat.scss';
 import '@fontsource-variable/material-symbols-outlined';
 
-import { eq } from '../../helpers/eq';
-import { date, time } from '../../helpers/datetime';
+import { eq } from '../../helpers/eq.ts';
+import { date, time } from '../../helpers/datetime.ts';
 
 Handlebars.registerHelper('eq', eq);
 Handlebars.registerHelper('date_from_timestamp', date);
@@ -28,7 +28,7 @@ Handlebars.registerPartial('chat-item', chatItemTpl);
 Handlebars.registerPartial('chat-search', chatSearchTpl);
 
 const compiledSidebar = Handlebars.compile(sidebarTpl);
-document.getElementById('chats-list').innerHTML = compiledSidebar({
+document.getElementById('chats-list')!.innerHTML = compiledSidebar({
   chats: chatsMock,
 });
 
@@ -39,4 +39,4 @@ const directMessagesContent = {
 };
 Handlebars.registerPartial('chat-message', chatMessageTpl);
 const compiledChatDirect = Handlebars.compile(chatDirectTpl);
-document.getElementById('chat-direct').innerHTML = compiledChatDirect(directMessagesContent);
+document.getElementById('chat-direct')!.innerHTML = compiledChatDirect(directMessagesContent);
