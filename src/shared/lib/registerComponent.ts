@@ -1,7 +1,7 @@
 import { type HelperOptions } from 'handlebars';
 import Handlebars from 'handlebars';
 
-import { type BlockOwnProps, type ComponentConstructor } from '../components/base/base';
+import { type BlockOwnProps, type ComponentConstructor } from '../ui/base/base';
 
 /** Уникальный инкрементальный идентификатор для заглушки */
 let uniqueId = 0;
