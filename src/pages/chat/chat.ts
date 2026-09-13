@@ -1,24 +1,24 @@
 import Handlebars from 'handlebars';
-import chatItemTpl from '../../components/chat-item/chat-item.hbs?raw';
-import chatSearchTpl from '../../components/chat-search/chat-search.hbs?raw';
-import sidebarTpl from '../../layouts/sidebar/sidebar.hbs?raw';
+import chatItemTpl from '../../widgets/chat-item/ui/chat-item.hbs';
+import chatSearchTpl from '../../widgets/chat-search/ui/chat-search.hbs';
+import sidebarTpl from '../../widgets/sidebar/ui/sidebar.hbs';
 
-import chatMessageTpl from '../../components/chat-message/chat-message.hbs?raw';
-import chatDirectTpl from '../../layouts/chat-direct/chat-direct.hbs?raw';
+import chatMessageTpl from '../../widgets/chat-message/ui/chat-message.hbs';
+import chatDirectTpl from '../../widgets/chat-direct/ui/chat-direct.hbs';
 
 import chatsMock from '../../../mocks/chats.json';
 import chatMessagesMock from '../../../mocks/chat-messages.json';
 
-import '../../components/chat-item/chat-item.scss';
-import '../../layouts/sidebar/sidebar.scss';
-import '../../layouts/chat-direct/chat-direct.scss';
-import '../../components/chat-message/chat-message.scss';
-import '../../components/chat-search/chat-search.scss';
+import '../../widgets/chat-item/ui/chat-item.scss';
+import '../../widgets/sidebar/ui/sidebar.scss';
+import '../../widgets/chat-direct/ui/chat-direct.scss';
+import '../../widgets/chat-message/ui/chat-message.scss';
+import '../../widgets/chat-search/ui/chat-search.scss';
 import './chat.scss';
 import '@fontsource-variable/material-symbols-outlined';
 
-import { eq } from '../../helpers/eq.ts';
-import { date, time } from '../../helpers/datetime.ts';
+import { eq } from '../../shared/lib/eq.ts';
+import { date, time } from '../../shared/lib/datetime.ts';
 
 Handlebars.registerHelper('eq', eq);
 Handlebars.registerHelper('date_from_timestamp', date);

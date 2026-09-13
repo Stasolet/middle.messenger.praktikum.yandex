@@ -1,9 +1,9 @@
 import Handlebars from 'handlebars';
-import formFieldTpl from '../../components/form-field/form-field.hbs?raw';
-import formTpl from '../../layouts/form/form.hbs?raw';
+import formFieldTpl from '../../shared/ui/form-field/form-field.hbs';
+import formTpl from '../../widgets/form/ui/form.hbs';
 
-import '../../layouts/form/form.scss';
-import '../../components/form-field/form-field.scss';
+import '../../widgets/form/ui/form.scss';
+import '../../shared/ui/form-field/form-field.scss';
 
 Handlebars.registerPartial('form-field', formFieldTpl);
 

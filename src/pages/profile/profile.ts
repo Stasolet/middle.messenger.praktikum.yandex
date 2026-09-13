@@ -1,9 +1,9 @@
 import Handlebars from 'handlebars';
-import formFieldTpl from '../../components/form-field/form-field.hbs?raw';
-import profileFormTpl from './profile.hbs?raw';
+import formFieldTpl from '../../shared/ui/form-field/form-field.hbs';
+import profileFormTpl from './profile.hbs';
 
-import '../../layouts/form/form.scss';
-import '../../components/form-field/form-field.scss';
+import '../../widgets/form/ui/form.scss';
+import '../../shared/ui/form-field/form-field.scss';
 import './profile.scss';
 import '@fontsource-variable/material-symbols-outlined';
 
