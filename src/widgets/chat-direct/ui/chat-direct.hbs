@@ -36,7 +36,7 @@
         {{>chat-message}}
         {{/each}}
     </div>
-    <div class="chat__typing_zone">
+    <form action="" class="chat__typing_zone">
         <div id="attachmentMenu" class="drop-menu drop-menu--open drop-menu--upside">
             <button id="attachmentBtn" class="typing_zone__attach round" type="button">
                 <span class="material-symbols-outlined">attach_file</span>
@@ -62,13 +62,9 @@
                 </li>
             </ul>
         </div>
-        <form action="" class="send-mesage">
         <input class="typing_zone__message" name="message" type="text">
         <button class="typing_zone__send round" type="submit">
             <span class="material-symbols-outlined">arrow_forward</span>
         </button>
-        </form>
-    </div>
-
-
+    </form>
 </div>
