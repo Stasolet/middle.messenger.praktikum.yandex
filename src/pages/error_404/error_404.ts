@@ -1,11 +1,12 @@
-import Handlebars from 'handlebars';
-import errorTpl from '../../widgets/error/error.hbs?raw';
+import { Error, type ErrorProps } from '../../widgets/error';
 
-import '../../widgets/error/error.scss';
-const templateContent = {
-  code: '404',
+const templateContent: ErrorProps = {
+  code: 400,
   message: 'Не туда попали',
 };
 
-const compileError = Handlebars.compile(errorTpl);
-document.getElementById('error-container')!.innerHTML = compileError(templateContent);
+const error = new Error(templateContent);
+const errorElement = error.element();
+if (errorElement){
+  document.getElementById('error-container')!.appendChild(errorElement);
+}

@@ -1,12 +1,12 @@
-import Handlebars from 'handlebars';
-import errorTpl from '../../widgets/error/error.hbs?raw';
+import { Error, type ErrorProps } from '../../widgets/error';
 
-import '../../widgets/error/error.scss';
-
-const templateContent = {
-  code: '500',
+const templateContent: ErrorProps = {
+  code: 500,
   message: 'Мы уже фиксим',
 };
 
-const compileError = Handlebars.compile(errorTpl);
-document.getElementById('error-container')!.innerHTML = compileError(templateContent);
+const error = new Error(templateContent);
+const errorElement = error.element();
+if (errorElement){
+  document.getElementById('error-container')!.appendChild(errorElement);
+}

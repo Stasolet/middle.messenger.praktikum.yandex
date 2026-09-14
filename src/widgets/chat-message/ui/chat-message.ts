@@ -1,8 +1,8 @@
-import { BaseBlock } from '../../../shared/ui/base/base';
+import { BaseBlock } from '../../../shared/ui';
 import template from './chat-message.hbs';
 import './chat-message.scss';
 
-export default class ChatMessage extends BaseBlock {
-  readonly componentName = 'ChatMessage';
+export class ChatMessage extends BaseBlock {
+  static componentName = 'ChatMessage';
   protected template = template;
 }

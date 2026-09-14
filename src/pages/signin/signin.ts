@@ -1,13 +1,8 @@
-import Handlebars from 'handlebars';
-import formFieldTpl from '../../shared/ui/form-field/form-field.hbs';
-import formTpl from '../../widgets/form/ui/form.hbs';
+import { Form, type FormProps } from '../../widgets/form';
+import { initHbs } from '../../shared/lib';
+initHbs();
 
-import '../../widgets/form/ui/form.scss';
-import '../../shared/ui/form-field/form-field.scss';
-
-Handlebars.registerPartial('form-field', formFieldTpl);
-
-const formContents = {
+const formContents: FormProps = {
   title: 'Регистрация',
   buttonText: 'Зарегистрироваться',
   action: '/pages/login/login.html',
@@ -33,5 +28,8 @@ const formContents = {
   footer: { text: 'Войти?', link: '/pages/login/login.html' },
 };
 
-const compiledLoginForm = Handlebars.compile(formTpl);
-document.getElementById('signin-form')!.innerHTML = compiledLoginForm(formContents);
+const form = new Form(formContents);
+const formElement = form.element();
+if (formElement) {
+  document.getElementById('signin-form')!.appendChild(formElement);
+}

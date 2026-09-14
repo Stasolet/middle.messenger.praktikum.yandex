@@ -1,7 +1,7 @@
 export type Chat = {
-  id: Number;
+  id: number;
   name: string;
   lastMessage: string;
-  lastMessageDate: string | Date | Number;
-  unreadCount: Number;
+  lastMessageDate: string | Date | number;
+  unreadCount: number;
 };

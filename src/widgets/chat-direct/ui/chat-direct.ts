@@ -1,8 +1,8 @@
-import { BaseBlock } from '../../../shared/ui/base/base';
+import { BaseBlock } from '../../../shared/ui';
 import template from './chat-direct.hbs';
 import './chat-direct.scss';
 
-export default class ChatDirect extends BaseBlock {
-  readonly componentName = 'ChatDirect';
+export class ChatDirect extends BaseBlock {
+  static componentName = 'ChatDirect';
   protected template = template;
 }

@@ -1,13 +1,13 @@
 import Handlebars from 'handlebars';
-import formFieldTpl from '../../shared/ui/form-field/form-field.hbs';
+import { type FormProps } from '../../widgets/form';
+import { initHbs } from '../../shared/lib';
+initHbs();
 import profileFormTpl from './profile.hbs';
 
 import '../../widgets/form/ui/form.scss';
 import '../../shared/ui/form-field/form-field.scss';
 import './profile.scss';
 import '@fontsource-variable/material-symbols-outlined';
-
-Handlebars.registerPartial('form-field', formFieldTpl);
 
 const profileMock = {
   email: 'stasolet@gmail.com',
@@ -18,7 +18,7 @@ const profileMock = {
   phone: 88005553535,
 };
 
-const profileContent = {
+const profileContent: FormProps = {
   title: profileMock.nickName,
   fields: [
     {

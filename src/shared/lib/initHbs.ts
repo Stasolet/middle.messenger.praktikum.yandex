@@ -1,5 +1,5 @@
 import { registerComponent } from './registerComponent';
-import FormField from '../ui/form-field/form-field';
+import { FormField } from '../ui';
 
 export const initHbs = () => {
   registerComponent(FormField);

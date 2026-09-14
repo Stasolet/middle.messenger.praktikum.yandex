@@ -8,7 +8,7 @@
     <h1 class="form__title">{{title}}</h1>
     <div class="form__fields">
         {{#each fields}}
-        {{> form-field}}
+        {{{ FormField this }}}
         {{#if @last}}
         {{else}}
         <div class="horizontal-spacer"></div>

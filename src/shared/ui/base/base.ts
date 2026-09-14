@@ -3,9 +3,12 @@ import Handlebars from 'handlebars';
 type EventName = keyof HTMLElementEventMap;
 type EventCallback = (e: Event) => void;
 
+export interface ComponentLike {
+  element(): Element | null;
+}
 export interface BlockOwnProps {
   __children?: Array<{
-    component: BaseBlock<any, any>;
+    component: ComponentLike;
     embed(node: DocumentFragment): void;
   }>;
   __refs?: Record<string, Element>;
@@ -32,7 +35,7 @@ export abstract class BaseBlock<
   protected props = {} as Props;
   protected events: Partial<{ [K in keyof Emap]: (e: Emap[K]) => void }> = {};
   private domElement: Element | null = null;
-  protected children: BaseBlock<any, any>[] = [];
+  protected children: ComponentLike[] = [];
 
   constructor(props: Props = {} as Props) {
     this.props = props;

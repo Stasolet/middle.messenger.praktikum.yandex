@@ -1,13 +1,8 @@
-import Handlebars from 'handlebars';
-import formFieldTpl from '../../shared/ui/form-field/form-field.hbs';
-import formTpl from '../../widgets/form/ui/form.hbs';
+import { Form, type FormProps } from '../../widgets/form';
+import { initHbs } from '../../shared/lib';
+initHbs();
 
-import '../../widgets/form/ui/form.scss';
-import '../../shared/ui/form-field/form-field.scss';
-
-Handlebars.registerPartial('form-field', formFieldTpl);
-
-const formContents = {
+const formContents: FormProps = {
   title: 'Вход',
   buttonText: 'Авторизоваться',
   action: '/pages/chat/chat.html',
@@ -23,5 +18,8 @@ const formContents = {
   footer: { text: 'Нет аккаунта?', link: '/pages/signin/signin.html' },
 };
 
-const compiledLoginForm = Handlebars.compile(formTpl);
-document.getElementById('login-form')!.innerHTML = compiledLoginForm(formContents);
+const form = new Form(formContents);
+const formElement = form.element();
+if (formElement) {
+  document.getElementById('login-form')!.appendChild(formElement);
+}

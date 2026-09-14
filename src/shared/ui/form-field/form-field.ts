@@ -1,8 +1,16 @@
-import { BaseBlock } from '../../../shared/ui/base/base';
+import { BaseBlock, type BlockOwnProps } from '../../../shared/ui/base/base';
 import template from './form-field.hbs';
 import './form-field.scss';
+export interface FormFieldProps extends BlockOwnProps {
+  name: string;
+  label: string;
+  type: 'text' | 'password' | 'email' | 'tel' | 'number';
+  placeholder?: string;
+  value?: string | Number;
+  labelPosition?: 'top' | 'left';
+}
 
-export default class FormField extends BaseBlock {
+export class FormField extends BaseBlock<FormFieldProps> {
   static componentName = 'FormField';
   protected template = template;
 }

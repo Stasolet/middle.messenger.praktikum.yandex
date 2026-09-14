@@ -1,1 +1,3 @@
-export type Message = {};
+export type Message = {
+    content: string
+};

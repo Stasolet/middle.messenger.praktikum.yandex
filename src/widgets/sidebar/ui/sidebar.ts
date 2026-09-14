@@ -1,8 +1,8 @@
-import { BaseBlock } from '../../../shared/ui/base/base';
+import { BaseBlock } from '../../../shared/ui';
 import template from './sidebar.hbs';
 import './sidebar.scss';
 
-export default class Sidebar extends BaseBlock {
-  readonly componentName = 'Sidebar';
+export class Sidebar extends BaseBlock {
+  static componentName = 'Sidebar';
   protected template = template;
 }
