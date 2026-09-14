@@ -1,18 +1,32 @@
+import { defineConfig } from 'eslint/config';
 import js from '@eslint/js';
 import globals from 'globals';
 import tseslint from 'typescript-eslint';
-import { defineConfig } from 'eslint/config';
 
 export default defineConfig([
   {
+    ignores: ['dist', 'node_modules', 'coverage'],
+  },
+  {
     files: ['**/*.{js,mjs,cjs,ts,mts,cts}'],
-    plugins: { js },
-    extends: ['js/recommended'],
-    languageOptions: { globals: globals.browser },
+    extends: [js.configs.recommended],
+    languageOptions: {
+      ecmaVersion: 'latest',
+      globals: globals.browser,
+    },
     rules: {
-      'no-unused-vars': 'error',
+      'no-unused-vars': 'off',
       'no-undef': 'error',
+      semi: ['error', 'always'],
     },
   },
-  tseslint.configs.recommended,
+  // 3. Конфигурация для TypeScript файлов
+  {
+    files: ['**/*.{ts,mts,cts}'],
+    extends: [tseslint.configs.recommended],
+    rules: {
+      '@typescript-eslint/no-unused-vars': 'error',
+      // Правило member-delimiter-style просто удалено отсюда
+    },
+  },
 ]);
