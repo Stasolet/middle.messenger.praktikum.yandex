@@ -5,30 +5,38 @@ type EventCallback = (e: Event) => void;
 
 export interface ComponentLike {
   element(): Element | null;
+  unmountComponent(): void;
 }
-export interface BlockOwnProps {
+
+export type BaseRefs = Record<string, Element>;
+export type ChildComponentsMap = Record<string, ComponentLike>;
+export interface BaseProps<
+  Refs extends BaseRefs = BaseRefs,
+  Child extends ChildComponentsMap = ChildComponentsMap,
+> {
   __children?: Array<{
     component: ComponentLike;
     embed(node: DocumentFragment): void;
   }>;
-  __refs?: Record<string, Element>;
+  __refs?: Refs;
+  __namedChildren?: Child;
+  ref?: string;
 }
+export type BaseEventsMap = Partial<Record<EventName, Event>>;
 
 export interface ComponentConstructor<
-  P extends BlockOwnProps = BlockOwnProps,
-  E extends Partial<Record<keyof HTMLElementEventMap, Event>> = Partial<
-    Record<keyof HTMLElementEventMap, Event>
-  >,
-  R extends Record<string, Element> = Record<string, Element>,
+  P extends BaseProps = BaseProps,
+  E extends BaseEventsMap = BaseEventsMap,
+  R extends BaseRefs = BaseRefs,
 > {
   new (props: P): BaseBlock<P, E, R>;
   componentName: string;
 }
 
 export abstract class BaseBlock<
-  Props extends BlockOwnProps = BlockOwnProps,
-  Emap extends Partial<Record<EventName, Event>> = Partial<Record<EventName, Event>>,
-  Refs extends Record<string, Element> = Record<string, Element>,
+  Props extends BaseProps = BaseProps,
+  Emap extends BaseEventsMap = BaseEventsMap,
+  Refs extends BaseRefs = BaseRefs,
 > {
   protected abstract template: string;
   protected refs: Refs = {} as Refs;
@@ -36,7 +44,7 @@ export abstract class BaseBlock<
   protected events: Partial<{ [K in keyof Emap]: (e: Emap[K]) => void }> = {};
   private domElement: Element | null = null;
   protected children: ComponentLike[] = [];
-
+  protected namedChildren: ChildComponentsMap = {};
   constructor(props: Props = {} as Props) {
     this.props = props;
   }
@@ -44,16 +52,16 @@ export abstract class BaseBlock<
   private compile(): Element | null {
     const html = Handlebars.compile(this.template)(this.props);
     const templateElement = document.createElement('template');
-
     templateElement.innerHTML = html;
-
     const fragment = templateElement.content;
 
     if (this.props.__children) {
       this.children = this.props.__children.map((child) => child.component);
       this.props.__children.forEach((child) => child.embed(fragment));
     }
-
+    if (this.props.__namedChildren) {
+      this.namedChildren = { ...this.props.__namedChildren };
+    }
     const defaultRefs = (this.props.__refs ?? {}) as Partial<Refs>;
     this.refs = { ...defaultRefs } as Refs;
     for (const element of fragment.querySelectorAll('[ref]')) {
@@ -73,8 +81,10 @@ export abstract class BaseBlock<
     this.componentDidMount();
   }
   protected componentWillUnmount() {}
-  private unmountComponent() {
+  protected unmountComponent() {
     if (this.domElement) {
+      this.children.forEach((child) => child.unmountComponent());
+
       this.removeListeners();
       this.componentWillUnmount();
     }
@@ -97,7 +107,13 @@ export abstract class BaseBlock<
     return this.domElement;
   }
   public setProps(props: Partial<Props>) {
-    this.props = { ...this.props, ...props, __children: [], __refs: {} } as Props;
+    this.props = {
+      ...this.props,
+      ...props,
+      __children: [],
+      __refs: {},
+      __namedChildren: {},
+    } as Props;
     this.render();
   }
 

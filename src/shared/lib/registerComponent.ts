@@ -1,7 +1,7 @@
 import { type HelperOptions } from 'handlebars';
 import Handlebars from 'handlebars';
 
-import { type BlockOwnProps, type ComponentConstructor } from '../ui';
+import { type BaseProps, type ComponentConstructor } from '../ui';
 
 /** Уникальный инкрементальный идентификатор для заглушки */
 let uniqueId = 0;
@@ -54,7 +54,7 @@ let uniqueId = 0;
  * // Использование в шаблоне
  * // {{{Button label="Отправить" onClick=handleSubmit}}}
  */
-function registerComponent<P extends BlockOwnProps>(Component: ComponentConstructor<P>) {
+function registerComponent<P extends BaseProps>(Component: ComponentConstructor<P>) {
   Handlebars.registerHelper(Component.componentName, function (this: unknown, ...args: unknown[]) {
     const options = args[args.length - 1] as HelperOptions;
     const positionArgs = args.slice(0, -1);
@@ -71,8 +71,10 @@ function registerComponent<P extends BlockOwnProps>(Component: ComponentConstruc
 
     const root = options.data.root;
     // Если передали ref, сохраняем ссылку на DOM элемент компонента
-    if ('ref' in mergedProps) {
-      (root.__refs = root.__refs || {})[mergedProps.ref as string] = component.element()!;
+    if ('ref' in mergedProps && mergedProps.ref) {
+      const refName = mergedProps.ref as string;
+      (root.__refs = root.__refs || {})[refName] = component.element()!;
+      (root.__namedChildren = root.__namedChildren || {})[refName] = component;
     }
 
     (root.__children = root.__children || []).push({
