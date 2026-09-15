@@ -1,12 +1,17 @@
-import Handlebars from 'handlebars';
-import { type FormProps } from '../../widgets/form';
+import {
+  BaseBlock,
+  type BaseProps,
+  type FormFieldProps,
+  type BaseEventsMap,
+  type BaseRefs,
+} from '../../shared/ui';
 import { initHbs } from '../../shared/lib';
 initHbs();
-import profileFormTpl from './profile.hbs';
-
 import '../../widgets/form/ui/form.scss';
-import '../../shared/ui/form-field/form-field.scss';
+
+import template from './profile.hbs';
 import './profile.scss';
+
 import '@fontsource-variable/material-symbols-outlined';
 
 const profileMock = {
@@ -18,7 +23,12 @@ const profileMock = {
   phone: 88005553535,
 };
 
-const profileContent: FormProps = {
+interface ProfileProps extends BaseProps {
+  title: string;
+  fields: FormFieldProps[];
+}
+
+const profileContent: ProfileProps = {
   title: profileMock.nickName,
   fields: [
     {
@@ -91,14 +101,34 @@ interface Enableble extends Element {
   disabled: boolean;
 }
 
-const compiledProfileForm = Handlebars.compile(profileFormTpl);
-document.getElementById('profile-container')!.innerHTML = compiledProfileForm(profileContent);
-const elements: NodeListOf<Enableble> = document.querySelectorAll('.form-field__input');
-elements.forEach((element) => {
-  element.disabled = true;
-});
+interface ProfileRefs extends BaseRefs {
+  avatarInput: HTMLElement;
+  avatarButton: HTMLElement;
+}
+class Profile extends BaseBlock<ProfileProps, BaseEventsMap, ProfileRefs> {
+  protected template = template;
+  private avatarCallback?: (e: Event) => void;
+  protected componentDidMount(): void {
+    const elements: NodeListOf<Enableble> = document.querySelectorAll('.form-field__input');
+    elements.forEach((element) => {
+      element.disabled = true;
+    });
 
-const avatarInput = document.getElementById('avatar-input')!;
-document.querySelector('.load-photo')!.addEventListener('click', () => {
-  avatarInput.click();
-});
+    const avatarInput = this.refs['avatarInput'];
+    this.avatarCallback = () => {
+      avatarInput.click();
+    };
+    this.refs['avatarButton'].addEventListener('click', this.avatarCallback);
+  }
+  protected componentWillUnmount(): void {
+    if (this.avatarCallback && this.refs['avatarButton']) {
+      this.refs['avatarButton'].removeEventListener('click', this.avatarCallback);
+    }
+  }
+}
+const profile = new Profile(profileContent);
+const profileElement = profile.element()
+
+if (profileElement){
+  document.getElementById('profile-container')!.appendChild(profileElement);
+}

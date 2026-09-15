@@ -1,7 +1,7 @@
-import { BaseBlock, type BlockOwnProps } from '../../../shared/ui/base/base';
+import { BaseBlock, type BaseProps } from '../../../shared/ui/base/base';
 import template from './form-field.hbs';
 import './form-field.scss';
-export interface FormFieldProps extends BlockOwnProps {
+export interface FormFieldProps extends BaseProps {
   name: string;
   label: string;
   type: 'text' | 'password' | 'email' | 'tel' | 'number';

@@ -7,6 +7,6 @@ const templateContent: ErrorProps = {
 
 const error = new Error(templateContent);
 const errorElement = error.element();
-if (errorElement){
+if (errorElement) {
   document.getElementById('error-container')!.appendChild(errorElement);
 }

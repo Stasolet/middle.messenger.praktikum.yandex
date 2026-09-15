@@ -1,13 +1,13 @@
 <aside class="sidebar">
   <header class="sidebar-header">
     <a href="/pages/profile/profile.html" class="profile-link">Профиль</a>
-    {{> chat-search}}
+    {{{ ChatSearch }}}
   </header>
   <nav class="chat-list">
     <ul>
     {{#each chats}}
     <li>
-    {{> chat-item item=.}}
+    {{{ ChatItem this}}}
     </li>
     {{/each}}
     </ul>

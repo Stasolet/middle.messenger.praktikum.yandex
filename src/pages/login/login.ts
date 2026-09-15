@@ -7,12 +7,13 @@ const formContents: FormProps = {
   buttonText: 'Авторизоваться',
   action: '/pages/chat/chat.html',
   fields: [
-    { label: 'Логин', name: 'login', type: 'text', labelPosition: 'top' },
+    { label: 'Логин', name: 'login', type: 'text', labelPosition: 'top', ref: 'login' },
     {
       label: 'Пароль',
       name: 'password',
       type: 'password',
       labelPosition: 'top',
+      ref: 'password',
     },
   ],
   footer: { text: 'Нет аккаунта?', link: '/pages/signin/signin.html' },

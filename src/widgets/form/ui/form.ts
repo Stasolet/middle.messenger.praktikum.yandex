@@ -1,10 +1,10 @@
-import { BaseBlock, type BlockOwnProps, type FormFieldProps } from '../../../shared/ui';
+import { BaseBlock, type BaseProps, type FormFieldProps } from '../../../shared/ui';
 import template from './form.hbs';
 import './form.scss';
 
-export interface FormProps extends BlockOwnProps {
+export interface FormProps extends BaseProps {
   title: string;
-  buttonText?: string;
+  buttonText: string;
   action?: string;
   fields: FormFieldProps[];
   footer?: {
