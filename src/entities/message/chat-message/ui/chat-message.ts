@@ -1,4 +1,4 @@
-import { BaseBlock } from '../../../shared/ui';
+import { BaseBlock } from '../../../../shared/ui';
 import template from './chat-message.hbs';
 import './chat-message.scss';
 

@@ -6,11 +6,11 @@ import { ChatSearch } from '../../../features/chat-search';
 import { registerComponent } from '../../../shared/lib';
 import { ChatItem } from '../../../entities/chat';
 
-registerComponent(ChatSearch)
-registerComponent(ChatItem)
+registerComponent(ChatSearch);
+registerComponent(ChatItem);
 
-export interface SidebarProps extends BaseProps{
-  chats: Chat[]
+export interface SidebarProps extends BaseProps {
+  chats: Chat[];
 }
 
 export class Sidebar extends BaseBlock<SidebarProps> {

@@ -33,7 +33,7 @@
             <span class="start-date-container__date">{{date}}</span>
         </div>
         {{#each messages}}
-        {{>chat-message}}
+        {{{ ChatMessage . }}}
         {{/each}}
     </div>
     <form action="" class="chat__typing_zone">

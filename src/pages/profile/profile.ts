@@ -127,8 +127,8 @@ class Profile extends BaseBlock<ProfileProps, BaseEventsMap, ProfileRefs> {
   }
 }
 const profile = new Profile(profileContent);
-const profileElement = profile.element()
+const profileElement = profile.element();
 
-if (profileElement){
+if (profileElement) {
   document.getElementById('profile-container')!.appendChild(profileElement);
 }
