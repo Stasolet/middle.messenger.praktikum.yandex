@@ -1,7 +1,7 @@
 import Handlebars from 'handlebars';
 
 type EventName = keyof HTMLElementEventMap;
-type EventCallback = (e: Event) => void;
+export type EventCallback<E extends Event = Event> = (e: E) => void;
 
 export interface ComponentLike {
   element(): Element | null;
@@ -22,26 +22,23 @@ export interface BaseProps<
   __namedChildren?: Child;
   ref?: string;
 }
-export type BaseEventsMap = Partial<Record<EventName, Event>>;
 
 export interface ComponentConstructor<
   P extends BaseProps = BaseProps,
-  E extends BaseEventsMap = BaseEventsMap,
   R extends BaseRefs = BaseRefs,
 > {
-  new (props: P): BaseBlock<P, E, R>;
+  new (props: P): BaseBlock<P, R>;
   componentName: string;
 }
 
 export abstract class BaseBlock<
   Props extends BaseProps = BaseProps,
-  Emap extends BaseEventsMap = BaseEventsMap,
   Refs extends BaseRefs = BaseRefs,
 > {
   protected abstract template: string;
   protected refs: Refs = {} as Refs;
   protected props = {} as Props;
-  protected events: Partial<{ [K in keyof Emap]: (e: Emap[K]) => void }> = {};
+  protected events: Partial<{ [K in EventName]: EventCallback }> = {};
   private domElement: Element | null = null;
   protected children: ComponentLike[] = [];
   protected namedChildren: ChildComponentsMap = {};
