@@ -2,7 +2,6 @@ import {
   BaseBlock,
   type BaseProps,
   type FormFieldProps,
-  type BaseEventsMap,
   type BaseRefs,
 } from '../../shared/ui';
 import { initHbs } from '../../shared/lib';
@@ -37,6 +36,7 @@ const profileContent: ProfileProps = {
       type: 'email',
       labelPosition: 'left',
       value: profileMock.email,
+      enabled: false,
     },
     {
       label: 'Логин',
@@ -44,6 +44,7 @@ const profileContent: ProfileProps = {
       type: 'text',
       labelPosition: 'left',
       value: profileMock.login,
+      enabled: false,
     },
     {
       label: 'Имя',
@@ -51,6 +52,7 @@ const profileContent: ProfileProps = {
       type: 'text',
       labelPosition: 'left',
       value: profileMock.name,
+      enabled: false,
     },
     {
       label: 'Фамилия',
@@ -58,6 +60,7 @@ const profileContent: ProfileProps = {
       type: 'text',
       labelPosition: 'left',
       value: profileMock.surname,
+      enabled: false,
     },
     {
       label: 'Имя в чате',
@@ -65,6 +68,7 @@ const profileContent: ProfileProps = {
       type: 'text',
       labelPosition: 'left',
       value: profileMock.nickName,
+      enabled: false,
     },
     {
       label: 'Телефон',
@@ -72,6 +76,7 @@ const profileContent: ProfileProps = {
       type: 'tel',
       labelPosition: 'left',
       value: profileMock.phone,
+      enabled: false,
     },
     {
       label: 'Старый пароль',
@@ -79,6 +84,7 @@ const profileContent: ProfileProps = {
       type: 'password',
       labelPosition: 'left',
       placeholder: '•••••••••••',
+      enabled: false,
     },
     {
       label: 'Новый пароль',
@@ -86,6 +92,7 @@ const profileContent: ProfileProps = {
       type: 'password',
       labelPosition: 'left',
       placeholder: '•••••••••••',
+      enabled: false,
     },
     {
       label: 'Повторите новый пароль',
@@ -93,38 +100,27 @@ const profileContent: ProfileProps = {
       type: 'password',
       placeholder: '•••••••••••',
       labelPosition: 'left',
+      enabled: false,
     },
   ],
 };
-
-interface Enableble extends Element {
-  disabled: boolean;
-}
 
 interface ProfileRefs extends BaseRefs {
   avatarInput: HTMLElement;
   avatarButton: HTMLElement;
 }
-class Profile extends BaseBlock<ProfileProps, BaseEventsMap, ProfileRefs> {
+class Profile extends BaseBlock<ProfileProps, ProfileRefs> {
   protected template = template;
-  private avatarCallback?: (e: Event) => void;
-  protected componentDidMount(): void {
-    const elements: NodeListOf<Enableble> = document.querySelectorAll('.form-field__input');
-    elements.forEach((element) => {
-      element.disabled = true;
-    });
-
-    const avatarInput = this.refs['avatarInput'];
-    this.avatarCallback = () => {
-      avatarInput.click();
-    };
-    this.refs['avatarButton'].addEventListener('click', this.avatarCallback);
-  }
-  protected componentWillUnmount(): void {
-    if (this.avatarCallback && this.refs['avatarButton']) {
-      this.refs['avatarButton'].removeEventListener('click', this.avatarCallback);
+  protected events = {
+    "click": (e: Event) => {
+      const target = e.target as HTMLElement;
+      
+      if (target.closest('[data-action="change-avatar"]')) {
+        const avatarInput = this.refs['avatarInput'] as HTMLInputElement;
+        avatarInput.click();
+      }
     }
-  }
+  };
 }
 const profile = new Profile(profileContent);
 const profileElement = profile.element();

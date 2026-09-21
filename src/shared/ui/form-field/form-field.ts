@@ -8,9 +8,17 @@ export interface FormFieldProps extends BaseProps {
   placeholder?: string;
   value?: string | Number;
   labelPosition?: 'top' | 'left';
+  enabled?: boolean;
 }
 
 export class FormField extends BaseBlock<FormFieldProps> {
   static componentName = 'FormField';
   protected template = template;
+  constructor(props: FormFieldProps) {
+    super({
+      ...props,
+      enabled: props.enabled ?? true,
+    });
+  }
 }
+
