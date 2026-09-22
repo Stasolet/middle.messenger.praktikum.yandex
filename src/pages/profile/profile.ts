@@ -1,9 +1,4 @@
-import {
-  BaseBlock,
-  type BaseProps,
-  type FormFieldProps,
-  type BaseRefs,
-} from '../../shared/ui';
+import { BaseBlock, type BaseProps, type FormFieldProps, type BaseRefs } from '../../shared/ui';
 import { initHbs, validations } from '../../shared/lib';
 initHbs();
 import '../../widgets/form/ui/form.scss';
@@ -121,14 +116,14 @@ interface ProfileRefs extends BaseRefs {
 class Profile extends BaseBlock<ProfileProps, ProfileRefs> {
   protected template = template;
   protected events = {
-    "click": (e: Event) => {
+    click: (e: Event) => {
       const target = e.target as HTMLElement;
-      
+
       if (target.closest('[data-action="change-avatar"]')) {
         const avatarInput = this.refs['avatarInput'] as HTMLInputElement;
         avatarInput.click();
       }
-    }
+    },
   };
 }
 const profile = new Profile(profileContent);
