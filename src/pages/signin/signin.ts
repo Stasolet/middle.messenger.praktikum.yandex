@@ -1,5 +1,5 @@
 import { Form, type FormProps } from '../../widgets/form';
-import { initHbs } from '../../shared/lib';
+import { initHbs, validations } from '../../shared/lib';
 initHbs();
 
 const formContents: FormProps = {
@@ -7,22 +7,24 @@ const formContents: FormProps = {
   buttonText: 'Зарегистрироваться',
   action: '/pages/login/login.html',
   fields: [
-    { label: 'Почта', name: 'email', type: 'email', labelPosition: 'top' },
-    { label: 'Логин', name: 'login', type: 'text', labelPosition: 'top' },
-    { label: 'Имя', name: 'first_name', type: 'text', labelPosition: 'top' },
-    { label: 'Фамилия', name: 'second_name', type: 'text', labelPosition: 'top' },
-    { label: 'Телефон', name: 'phone', type: 'tel', labelPosition: 'top' },
+    { label: 'Почта', name: 'email', type: 'email', labelPosition: 'top', validators: [validations.required, validations.email]},
+    { label: 'Логин', name: 'login', type: 'text', labelPosition: 'top',  validators: [validations.required, validations.login]},
+    { label: 'Имя', name: 'first_name', type: 'text', labelPosition: 'top', validators: [validations.name] },
+    { label: 'Фамилия', name: 'second_name', type: 'text', labelPosition: 'top', validators: [validations.name]},
+    { label: 'Телефон', name: 'phone', type: 'tel', labelPosition: 'top', validators: [validations.required, validations.phone] },
     {
       label: 'Пароль',
       name: 'password',
       type: 'password',
       labelPosition: 'top',
+      validators: [validations.required, validations.password]
     },
     {
       label: 'Пароль (ещё раз)',
       name: 'passwordRepeat',
       type: 'password',
       labelPosition: 'top',
+      validators: [validations.required, validations.password]
     },
   ],
   footer: { text: 'Войти?', link: '/pages/login/login.html' },

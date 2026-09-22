@@ -4,7 +4,7 @@ import {
   type FormFieldProps,
   type BaseRefs,
 } from '../../shared/ui';
-import { initHbs } from '../../shared/lib';
+import { initHbs, validations } from '../../shared/lib';
 initHbs();
 import '../../widgets/form/ui/form.scss';
 
@@ -36,6 +36,7 @@ const profileContent: ProfileProps = {
       type: 'email',
       labelPosition: 'left',
       value: profileMock.email,
+      validators: [validations.required, validations.email],
       enabled: false,
     },
     {
@@ -45,6 +46,7 @@ const profileContent: ProfileProps = {
       labelPosition: 'left',
       value: profileMock.login,
       enabled: false,
+      validators: [validations.required, validations.login],
     },
     {
       label: 'Имя',
@@ -53,6 +55,7 @@ const profileContent: ProfileProps = {
       labelPosition: 'left',
       value: profileMock.name,
       enabled: false,
+      validators: [validations.name],
     },
     {
       label: 'Фамилия',
@@ -61,6 +64,7 @@ const profileContent: ProfileProps = {
       labelPosition: 'left',
       value: profileMock.surname,
       enabled: false,
+      validators: [validations.name],
     },
     {
       label: 'Имя в чате',
@@ -69,6 +73,7 @@ const profileContent: ProfileProps = {
       labelPosition: 'left',
       value: profileMock.nickName,
       enabled: false,
+      validators: [validations.name],
     },
     {
       label: 'Телефон',
@@ -77,6 +82,7 @@ const profileContent: ProfileProps = {
       labelPosition: 'left',
       value: profileMock.phone,
       enabled: false,
+      validators: [validations.required, validations.phone],
     },
     {
       label: 'Старый пароль',
@@ -85,6 +91,7 @@ const profileContent: ProfileProps = {
       labelPosition: 'left',
       placeholder: '•••••••••••',
       enabled: false,
+      validators: [validations.required, validations.password],
     },
     {
       label: 'Новый пароль',
@@ -93,6 +100,7 @@ const profileContent: ProfileProps = {
       labelPosition: 'left',
       placeholder: '•••••••••••',
       enabled: false,
+      validators: [validations.required, validations.password],
     },
     {
       label: 'Повторите новый пароль',
@@ -101,6 +109,7 @@ const profileContent: ProfileProps = {
       placeholder: '•••••••••••',
       labelPosition: 'left',
       enabled: false,
+      validators: [validations.required, validations.password],
     },
   ],
 };
