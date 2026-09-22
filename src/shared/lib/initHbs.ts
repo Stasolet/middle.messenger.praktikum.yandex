@@ -1,11 +1,12 @@
 import Handlebars from 'handlebars';
 
 import { registerComponent } from './registerComponent';
-import { FormField, Input } from '../ui';
+import { Button, FormField, Input } from '../ui';
 import { eq } from './eq.ts';
 import { date, time } from './datetime.ts';
 
 export const initHbs = () => {
+  registerComponent(Button);
   registerComponent(FormField);
   registerComponent(Input);
   Handlebars.registerHelper('eq', eq);

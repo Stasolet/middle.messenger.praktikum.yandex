@@ -1,0 +1,5 @@
+.btn {
+  /* button не наследует шрифт страницы (UA-стили) — сбрасываем явно */
+  font-family: inherit;
+  cursor: pointer;
+}
