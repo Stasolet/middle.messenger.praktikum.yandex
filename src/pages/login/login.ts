@@ -1,18 +1,18 @@
 import { Form, type FormProps } from '../../widgets/form';
-import { initHbs, validations } from '../../shared/lib';
+import { initHbs, logFormValues, validations } from '../../shared/lib';
 initHbs();
 
 const formContents: FormProps = {
   title: 'Вход',
   buttonText: 'Авторизоваться',
   action: '/pages/chat/chat.html',
+  onSubmit: logFormValues,
   fields: [
     {
       label: 'Логин',
       name: 'login',
       type: 'text',
       labelPosition: 'top',
-      ref: 'login',
       validators: [validations.required, validations.login],
     },
     {
@@ -20,7 +20,6 @@ const formContents: FormProps = {
       name: 'password',
       type: 'password',
       labelPosition: 'top',
-      ref: 'password',
       validators: [validations.required, validations.password],
     },
   ],

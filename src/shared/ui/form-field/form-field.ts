@@ -1,4 +1,8 @@
-import { BaseBlock, type BaseProps } from '../../../shared/ui/base/base';
+import {
+  BaseBlock,
+  type BaseProps,
+  type ComponentLike,
+} from '../../../shared/ui/base/base';
 import template from './form-field.hbs';
 import './form-field.scss';
 import { validations } from '../../../shared/lib/';
@@ -47,11 +51,16 @@ export class FormField extends BaseBlock<FormFieldProps, FormFieldRefs> {
     };
   }
 
+  /** Имя поля из props */
+  get name(): string {
+    return this.props.name;
+  }
+
   getValue(): string {
     return this.refs.input?.value ?? '';
   }
 
-  private setError(error: string) {
+  setError(error: string) {
     this.props.error = error;
     const node = this.refs.error;
     if (!node) {
@@ -75,3 +84,11 @@ export class FormField extends BaseBlock<FormFieldProps, FormFieldRefs> {
     return error;
   }
 }
+
+/**
+ * Type guard: дочерний компонент — поле формы.
+ * FormField формально не расширяет ComponentLike (unmountComponent protected),
+ * поэтому предикат — пересечение.
+ */
+export const isFormField = (component: ComponentLike): component is FormField & ComponentLike =>
+  component instanceof FormField;

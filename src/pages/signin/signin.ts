@@ -1,11 +1,16 @@
 import { Form, type FormProps } from '../../widgets/form';
-import { initHbs, validations } from '../../shared/lib';
+import { initHbs, logFormValues, validations } from '../../shared/lib';
 initHbs();
 
 const formContents: FormProps = {
   title: 'Регистрация',
   buttonText: 'Зарегистрироваться',
   action: '/pages/login/login.html',
+  onSubmit: logFormValues,
+  onValidate: (values): Record<string, string> =>
+    values.password === values.passwordRepeat
+      ? {}
+      : { passwordRepeat: 'Пароли не совпадают' },
   fields: [
     {
       label: 'Почта',
