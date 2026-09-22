@@ -14,7 +14,7 @@ let uniqueId = 0;
  * @example
  * // 1. Передача props через hash-атрибуты (как обычные HTML-атрибуты)
  * // Шаблон:
- * // {{{Button label="Нажми меня" className="primary" type="submit"}}}
+ * // {{{Button text="Нажми меня" type="submit"}}}
  *
  * @example
  * // 2. Передача объекта props целиком (полезно в {{#each}})

@@ -3,7 +3,7 @@ import {
   ChatMessage,
   type ChatMessageProps,
 } from '../../../entities/message/chat-message';
-import { BaseBlock, type BaseProps } from '../../../shared/ui';
+import { BaseBlock, type BaseProps, Input } from '../../../shared/ui';
 import template from './chat-direct.hbs';
 import './chat-direct.scss';
 
@@ -23,19 +23,24 @@ export class ChatDirect extends BaseBlock<ChatDirectProps> {
     submit: (e: Event) => {
       e.preventDefault();
 
-      const input = this.refs.messageInput;
-      if (!(input instanceof HTMLInputElement)) {
+      const input = this.namedChildren['messageInput'] as unknown as Input | undefined;
+      if (!input) {
         return;
       }
 
-      const error = validations.required(input.value);
+      const value = input.getValue();
+      const error = validations.required(value);
       if (error) {
         console.log(error);
         return;
       }
 
-      console.log({ message: input.value });
-      input.value = '';
+      console.log({ message: value });
+
+      const node = input.element();
+      if (node instanceof HTMLInputElement) {
+        node.value = '';
+      }
     },
   };
 }

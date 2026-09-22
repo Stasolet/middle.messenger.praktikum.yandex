@@ -5,8 +5,6 @@ import './button.scss';
 export interface ButtonProps extends BaseProps {
   text: string;
   type?: 'button' | 'submit' | 'reset';
-  /** Класс-«скин» от родителя (напр. form__submit) — внешний вид задаёт виджет */
-  className?: string;
   name?: string;
   ariaLabel?: string;
   disabled?: boolean;

@@ -51,10 +51,10 @@
   display: flex;
   justify-content: space-between;
   margin-top: auto;
-}
 
-.typing_zone__message {
-  width: 100%;
+  .input {
+    width: 100%;
+  }
 }
 
 button {

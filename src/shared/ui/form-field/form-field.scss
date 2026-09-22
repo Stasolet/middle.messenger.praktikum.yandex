@@ -22,11 +22,11 @@
   font-weight: $font-accent-weight;
 }
 
-.form-field--top-label .form-field__input {
+.form-field--top-label .input {
   border-bottom: 1px solid $primary-color;
 }
 
-.form-field--left-label .form-field__input {
+.form-field--left-label .input {
   text-align: end;
   color: $input-color;
 }
