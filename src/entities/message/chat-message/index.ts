@@ -1,1 +1,1 @@
-export { ChatMessage } from './ui/chat-message';
+export { ChatMessage, type ChatMessageProps } from './ui/chat-message';
