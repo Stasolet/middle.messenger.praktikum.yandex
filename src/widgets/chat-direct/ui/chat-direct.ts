@@ -7,7 +7,7 @@ import './chat-direct.scss';
 registerComponent(ChatMessage);
 
 type Message = {
-  id: Number;
+  id: number;
   isUser: boolean;
   text?: string;
   image?: string;
