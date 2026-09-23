@@ -81,9 +81,12 @@ export abstract class BaseBlock<
     }
   }
   protected render() {
+    if (this.domElement) {
+      this.unmountComponent();
+    }
+
     const fragment = this.compile();
     if (this.domElement && fragment) {
-      this.unmountComponent();
       this.domElement.replaceWith(fragment);
     }
 
