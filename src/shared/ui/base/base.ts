@@ -10,24 +10,18 @@ export interface ComponentLike {
 
 export type BaseRefs = Record<string, Element>;
 export type ChildComponentsMap = Record<string, ComponentLike>;
-export interface BaseProps<
-  Refs extends BaseRefs = BaseRefs,
-  Child extends ChildComponentsMap = ChildComponentsMap,
-> {
+export interface BaseProps {
   __children?: Array<{
     component: ComponentLike;
     embed(node: DocumentFragment): void;
   }>;
-  __refs?: Refs;
-  __namedChildren?: Child;
+  __refs?: BaseRefs;
+  __namedChildren?: ChildComponentsMap;
   ref?: string;
 }
 
-export interface ComponentConstructor<
-  P extends BaseProps = BaseProps,
-  R extends BaseRefs = BaseRefs,
-> {
-  new (props: P): BaseBlock<P, R>;
+export interface ComponentConstructor<P extends BaseProps = BaseProps> {
+  new (props: P): BaseBlock<P>;
   componentName: string;
 }
 

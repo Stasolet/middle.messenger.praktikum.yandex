@@ -18,8 +18,7 @@ export interface ProfileProps extends BaseProps {
 }
 
 interface ProfileRefs extends BaseRefs {
-  avatarInput: HTMLElement;
-  avatarButton: HTMLElement;
+  avatarInput: HTMLInputElement;
 }
 
 export class Profile extends BaseBlock<ProfileProps, ProfileRefs> {
@@ -35,7 +34,7 @@ export class Profile extends BaseBlock<ProfileProps, ProfileRefs> {
       const target = e.target as HTMLElement;
 
       if (target.closest('[data-action="change-avatar"]')) {
-        const avatarInput = this.refs['avatarInput'] as HTMLInputElement;
+        const avatarInput = this.refs['avatarInput'];
         avatarInput.click();
       }
     },

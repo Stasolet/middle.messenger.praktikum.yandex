@@ -17,7 +17,6 @@ export interface FormFieldProps extends BaseProps {
 }
 
 type FormFieldRefs = {
-  label: HTMLLabelElement;
   input: HTMLInputElement;
   error: HTMLElement;
 };
