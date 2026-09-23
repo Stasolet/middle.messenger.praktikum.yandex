@@ -1,3 +1,5 @@
+[![Netlify Status](https://api.netlify.com/api/v1/badges/3640e24e-50f8-4a5b-8fce-a29ae04ddc25/deploy-status?branch=sprint_2)](https://app.netlify.com/projects/praktikum-stasolet/deploys)
+
 # Мессенджер
 
 Многопользовательский веб-чат — учебный проект (Яндекс практика, middle). Приложение на TypeScript (strict) без фреймворков: шаблонизатор Handlebars, препроцессор Sass, сборка на Vite.
