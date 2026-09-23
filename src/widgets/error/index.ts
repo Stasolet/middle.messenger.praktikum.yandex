@@ -1,1 +1,1 @@
-export { Error, type ErrorProps } from './ui/error';
+export { ErrorWidget, type ErrorWidgetProps } from './ui/error';

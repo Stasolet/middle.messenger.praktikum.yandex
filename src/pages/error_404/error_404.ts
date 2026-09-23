@@ -1,12 +1,12 @@
-import { Error, type ErrorProps } from '../../widgets/error';
+import { ErrorWidget, type ErrorWidgetProps } from '../../widgets/error';
 
-const templateContent: ErrorProps = {
+const templateContent: ErrorWidgetProps = {
   code: 404,
   message: 'Не туда попали',
 };
 
-const error = new Error(templateContent);
-const errorElement = error.element();
+const errorPage = new ErrorWidget(templateContent);
+const errorElement = errorPage.element();
 if (errorElement) {
   document.getElementById('error-container')!.appendChild(errorElement);
 }
