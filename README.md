@@ -49,7 +49,7 @@ npm run format
 
 ## Развёртывание
 
-Проект развёрнут на Netlify: https://deploy-preview-5--praktikum-stasolet.netlify.app/
+Проект развёрнут на Netlify: https://sprint-2--praktikum-stasolet.netlify.app
 
 ## Pull request
 
