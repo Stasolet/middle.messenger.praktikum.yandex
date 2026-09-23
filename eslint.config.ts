@@ -18,6 +18,7 @@ export default defineConfig([
       'no-unused-vars': 'off',
       'no-undef': 'error',
       semi: ['error', 'always'],
+      "eol-last": ["error", "always"]
     },
   },
   // 3. Конфигурация для TypeScript файлов
