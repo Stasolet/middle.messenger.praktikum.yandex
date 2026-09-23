@@ -1,8 +1,7 @@
 import { Sidebar } from '../../widgets/sidebar';
 import { ChatDirect } from '../../widgets/chat-direct';
-
-import chatsMock from '../../../mocks/chats.json';
-import chatMessagesMock from '../../../mocks/chat-messages.json';
+import { chatsService } from '../../entities/chat';
+import { messagesService } from '../../entities/message';
 
 import './chat.scss';
 import '@fontsource-variable/material-symbols-outlined';
@@ -10,21 +9,23 @@ import '@fontsource-variable/material-symbols-outlined';
 import { initHbs } from '../../shared/lib';
 initHbs();
 
-const sidebar = new Sidebar({ chats: chatsMock });
+const chats = chatsService.getChats();
+
+const sidebar = new Sidebar({ chats });
 const sidebarElement = sidebar.element();
 if (sidebarElement) {
   document.getElementById('chats-list')!.appendChild(sidebarElement);
 }
 
-const directMessagesContent = {
-  name: chatsMock[0].name,
-  avatarUrl: chatsMock[0].avatarUrl,
-  messages: chatMessagesMock,
-};
-const currentChat = new ChatDirect(directMessagesContent);
-const currentChatElement = currentChat.element();
-if (currentChatElement) {
-  document.getElementById('chat-direct')!.appendChild(currentChatElement);
+const currentChatInfo = chatsService.getChatById(chats[0].id);
+if (currentChatInfo) {
+  const currentChat = new ChatDirect({
+    name: currentChatInfo.name,
+    avatarUrl: currentChatInfo.avatarUrl,
+    messages: messagesService.getMessages(currentChatInfo.id),
+  });
+  const currentChatElement = currentChat.element();
+  if (currentChatElement) {
+    document.getElementById('chat-direct')!.appendChild(currentChatElement);
+  }
 }
-// Handlebars.registerPartial('chat-message', chatMessageTpl);
-// const compiledChatDirect = Handlebars.compile(chatDirectTpl);

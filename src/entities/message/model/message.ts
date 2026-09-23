@@ -1,3 +1,10 @@
 export type Message = {
-  content: string;
+  id: number;
+  isUser: boolean;
+  text?: string;
+  image?: string;
+  time: string | Date;
+  metadata: {
+    delivery_status: string;
+  };
 };

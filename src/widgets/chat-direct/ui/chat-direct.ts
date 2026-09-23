@@ -1,8 +1,5 @@
 import { registerComponent, validations } from '../../../shared/lib';
-import {
-  ChatMessage,
-  type ChatMessageProps,
-} from '../../../entities/message/chat-message';
+import { ChatMessage, messagesService, type Message } from '../../../entities/message';
 import { BaseBlock, type BaseProps, Input } from '../../../shared/ui';
 import template from './chat-direct.hbs';
 import './chat-direct.scss';
@@ -12,7 +9,7 @@ registerComponent(ChatMessage);
 interface ChatDirectProps extends BaseProps {
   name: string;
   avatarUrl: string;
-  messages: ChatMessageProps[];
+  messages: Message[];
 }
 
 export class ChatDirect extends BaseBlock<ChatDirectProps> {
@@ -35,7 +32,7 @@ export class ChatDirect extends BaseBlock<ChatDirectProps> {
         return;
       }
 
-      console.log({ message: value });
+      messagesService.send(value);
 
       const node = input.element();
       if (node instanceof HTMLInputElement) {

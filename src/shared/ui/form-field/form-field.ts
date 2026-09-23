@@ -1,8 +1,4 @@
-import {
-  BaseBlock,
-  type BaseProps,
-  type ComponentLike,
-} from '../../../shared/ui/base/base';
+import { BaseBlock, type BaseProps, type ComponentLike } from '../../../shared/ui/base/base';
 import template from './form-field.hbs';
 import './form-field.scss';
 import { validations } from '../../../shared/lib/';

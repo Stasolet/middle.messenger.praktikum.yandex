@@ -7,12 +7,10 @@ const formContents: FormProps = {
   buttonText: 'Зарегистрироваться',
   onSubmit: (values) => {
     logFormValues(values);
-    window.location.href = '/pages/login/login.html';
+    window.location.assign('/pages/login/login.html');
   },
   onValidate: (values): Record<string, string> =>
-    values.password === values.passwordRepeat
-      ? {}
-      : { passwordRepeat: 'Пароли не совпадают' },
+    values.password === values.passwordRepeat ? {} : { passwordRepeat: 'Пароли не совпадают' },
   fields: [
     {
       label: 'Почта',

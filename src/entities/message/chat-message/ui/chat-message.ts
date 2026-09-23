@@ -1,17 +1,9 @@
 import { BaseBlock, type BaseProps } from '../../../../shared/ui';
+import { type Message } from '../../model/message';
 import template from './chat-message.hbs';
 import './chat-message.scss';
 
-export interface ChatMessageProps extends BaseProps {
-  id: number;
-  isUser: boolean;
-  text?: string;
-  image?: string;
-  time: string | Date;
-  metadata: {
-    delivery_status: string;
-  };
-}
+export type ChatMessageProps = BaseProps & Message;
 
 export class ChatMessage extends BaseBlock<ChatMessageProps> {
   static componentName = 'ChatMessage';

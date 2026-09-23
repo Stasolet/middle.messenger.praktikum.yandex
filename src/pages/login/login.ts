@@ -7,7 +7,7 @@ const formContents: FormProps = {
   buttonText: 'Авторизоваться',
   onSubmit: (values) => {
     logFormValues(values);
-    window.location.href = '/pages/chat/chat.html';
+    window.location.assign('/pages/chat/chat.html');
   },
   fields: [
     {
