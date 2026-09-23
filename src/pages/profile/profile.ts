@@ -57,7 +57,7 @@ const profileContent: ProfileProps = {
       labelPosition: 'left',
       value: profileMock.name,
       enabled: false,
-      validators: [validations.name],
+      validators: [validations.required, validations.name],
     },
     {
       label: 'Фамилия',
@@ -66,7 +66,7 @@ const profileContent: ProfileProps = {
       labelPosition: 'left',
       value: profileMock.surname,
       enabled: false,
-      validators: [validations.name],
+      validators: [validations.required, validations.name],
     },
     {
       label: 'Имя в чате',
@@ -75,7 +75,7 @@ const profileContent: ProfileProps = {
       labelPosition: 'left',
       value: profileMock.nickName,
       enabled: false,
-      validators: [validations.name],
+      validators: [validations.required, validations.name],
     },
     {
       label: 'Телефон',

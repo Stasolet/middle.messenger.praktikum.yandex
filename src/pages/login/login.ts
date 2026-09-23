@@ -5,8 +5,10 @@ initHbs();
 const formContents: FormProps = {
   title: 'Вход',
   buttonText: 'Авторизоваться',
-  action: '/pages/chat/chat.html',
-  onSubmit: logFormValues,
+  onSubmit: (values) => {
+    logFormValues(values);
+    window.location.href = '/pages/chat/chat.html';
+  },
   fields: [
     {
       label: 'Логин',

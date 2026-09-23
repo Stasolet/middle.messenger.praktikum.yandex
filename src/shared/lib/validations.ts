@@ -63,7 +63,7 @@ export const name: Validator = (value) => {
 export const email: Validator = (value) => {
   if (!value) return null;
 
-  const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  const regex = /^[^\s@]+@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*\.[a-zA-Z]{2,}$/;
   if (!regex.test(value)) {
     return 'Некорректный email';
   }
@@ -85,8 +85,8 @@ export const phone: Validator = (value) => {
 export const password: Validator = (value) => {
   if (!value) return null;
 
-  if (value.length < 8) {
-    return 'Пароль должен быть не менее 8 символов';
+  if (value.length < 8 || value.length > 40) {
+    return 'Пароль должен быть от 8 до 40 символов';
   }
   if (!/[A-Z]/.test(value)) {
     return 'Должна быть хотя бы одна заглавная буква';

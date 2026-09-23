@@ -5,8 +5,10 @@ initHbs();
 const formContents: FormProps = {
   title: 'Регистрация',
   buttonText: 'Зарегистрироваться',
-  action: '/pages/login/login.html',
-  onSubmit: logFormValues,
+  onSubmit: (values) => {
+    logFormValues(values);
+    window.location.href = '/pages/login/login.html';
+  },
   onValidate: (values): Record<string, string> =>
     values.password === values.passwordRepeat
       ? {}
@@ -31,14 +33,14 @@ const formContents: FormProps = {
       name: 'first_name',
       type: 'text',
       labelPosition: 'top',
-      validators: [validations.name],
+      validators: [validations.required, validations.name],
     },
     {
       label: 'Фамилия',
       name: 'second_name',
       type: 'text',
       labelPosition: 'top',
-      validators: [validations.name],
+      validators: [validations.required, validations.name],
     },
     {
       label: 'Телефон',

@@ -17,7 +17,6 @@ import './form.scss';
 export interface FormProps extends BaseProps {
   title: string;
   buttonText: string;
-  action?: string;
   fields: FormFieldProps[];
   footer?: {
     text: string;
@@ -78,10 +77,6 @@ export class Form extends BaseBlock<FormProps> {
       }
 
       (this.props.onSubmit ?? logFormValues)(values);
-
-      if (this.props.action) {
-        window.location.href = this.props.action;
-      }
     },
   };
 }
