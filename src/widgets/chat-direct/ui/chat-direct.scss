@@ -49,11 +49,18 @@
 
 .chat__typing_zone {
   display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
   justify-content: space-between;
   margin-top: auto;
 
   .input {
     width: 100%;
+    padding-inline: 16px;
+    border: 1px solid $surface-spacer-color;
+    border-radius: 24px;
+    background: #fff;
   }
 }
 
