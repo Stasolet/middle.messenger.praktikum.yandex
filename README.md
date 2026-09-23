@@ -1,19 +1,27 @@
+[![Netlify Status](https://api.netlify.com/api/v1/badges/3640e24e-50f8-4a5b-8fce-a29ae04ddc25/deploy-status?branch=sprint_2)](https://app.netlify.com/projects/praktikum-stasolet/deploys)
+
 # Мессенджер
 
-Многопользовательский веб-чат. Одностраничное приложение на чистом JavaScript: шаблонизатор Handlebars, препроцессор Sass, сборка на Vite.
+Многопользовательский веб-чат — учебный проект (Яндекс практика, middle). Приложение на TypeScript (strict) без фреймворков: шаблонизатор Handlebars, препроцессор Sass, сборка на Vite.
 
 ## Возможности
 
-- Авторизация и регистрация
+- Авторизация и регистрация с валидацией полей (по blur и при submit)
 - Список чатов и переписка (заглушка)
 - Настройки профиля
 - Служебные страницы 404 / 500
 
+## Архитектура
+
+- **Feature-Sliced Design:** `src/shared` → `src/entities` → `src/features` → `src/widgets` → `src/pages`, импорты только снизу вверх.
+- **Компонентный подход:** UI-компонеты наследуют `BaseBlock` — рендер Handlebars-шаблона (`.hbs`), сбор refs и обработка событий.
+- **MVC-слои:** модель — типы данных в `model/` срезов, представление — Handlebars-шаблоны, контроллер — обработчики событий компонентов.
+
 ## Стек
 
-- **Язык:** JavaScript (ESM)
-- **Сборка:** Vite
-- **Стили:** Sass
+- **Язык:** TypeScript (strict)
+- **Сборка:** Vite (MPA — свой `.html` на страницу)
+- **Стили:** Sass (SCSS)
 - **Шаблонизатор:** Handlebars
 - **Развёртывание:** Netlify
 
@@ -34,8 +42,8 @@ npm run start
 # Сборка в dist
 npm run build
 
-# Проверка стилей
-npm run lint:css
+# Проверки: типы, ESLint, Stylelint
+npm run lint
 
 # Форматирование кода
 npm run format
@@ -43,8 +51,8 @@ npm run format
 
 ## Развёртывание
 
-Проект развёрнут на Netlify: https://deploy-preview-4--praktikum-stasolet.netlify.app/
+Проект развёрнут на Netlify: https://sprint-2--praktikum-stasolet.netlify.app
 
 ## Pull request
 
-https://github.com/Stasolet/middle.messenger.praktikum.yandex/pull/4
+https://github.com/Stasolet/middle.messenger.praktikum.yandex/pull/5
