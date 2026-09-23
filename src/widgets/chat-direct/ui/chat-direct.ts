@@ -1,6 +1,6 @@
-import { registerComponent, validations } from '../../../shared/lib';
+import { collectFormValues, registerComponent, validations } from '../../../shared/lib';
 import { ChatMessage, messagesService, type Message } from '../../../entities/message';
-import { BaseBlock, type BaseProps, Input } from '../../../shared/ui';
+import { BaseBlock, type BaseProps } from '../../../shared/ui';
 import template from './chat-direct.hbs';
 import './chat-direct.scss';
 
@@ -20,24 +20,20 @@ export class ChatDirect extends BaseBlock<ChatDirectProps> {
     submit: (e: Event) => {
       e.preventDefault();
 
-      const input = this.namedChildren['messageInput'] as unknown as Input | undefined;
-      if (!input) {
+      const form = e.target;
+      if (!(form instanceof HTMLFormElement)) {
         return;
       }
 
-      const value = input.getValue();
-      const error = validations.required(value);
+      const values = collectFormValues(form);
+      const error = validations.required(values.message);
       if (error) {
         console.log(error);
         return;
       }
 
-      messagesService.send(value);
-
-      const node = input.element();
-      if (node instanceof HTMLInputElement) {
-        node.value = '';
-      }
+      messagesService.send(values);
+      form.reset();
     },
   };
 }
