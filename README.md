@@ -49,8 +49,8 @@ npm run format
 
 ## Развёртывание
 
-Проект развёрнут на Netlify: https://deploy-preview-4--praktikum-stasolet.netlify.app/
+Проект развёрнут на Netlify: https://deploy-preview-5--praktikum-stasolet.netlify.app/
 
 ## Pull request
 
-https://github.com/Stasolet/middle.messenger.praktikum.yandex/pull/4
+https://github.com/Stasolet/middle.messenger.praktikum.yandex/pull/5
