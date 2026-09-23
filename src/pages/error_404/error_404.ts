@@ -1,7 +1,7 @@
 import { Error, type ErrorProps } from '../../widgets/error';
 
 const templateContent: ErrorProps = {
-  code: 400,
+  code: 404,
   message: 'Не туда попали',
 };
 
