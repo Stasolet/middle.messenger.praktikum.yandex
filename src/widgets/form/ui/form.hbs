@@ -1,0 +1,14 @@
+<form class='form'>
+  <h1 class='form__title'>{{title}}</h1>
+  <div class='form__fields'>
+    {{#each fields}}
+      {{{FormField this}}}
+    {{/each}}
+  </div>
+  {{{Button text=buttonText type='submit'}}}
+  {{#if footer}}
+    <div class='form__footer'>
+      <a class='internal-link' href='{{footer.link}}'>{{footer.text}}</a>
+    </div>
+  {{/if}}
+</form>

@@ -1,0 +1,5 @@
+<div class="form-field form-field--{{labelPosition}}-label">
+  <label class="form-field__label" for="field-{{name}}" ref="label">{{label}}</label>
+  {{{Input name=name type=type placeholder=placeholder value=value enabled=enabled ref="input"}}}
+  <p class="form-field__error" ref="error" {{#unless error}}hidden{{/unless}}>{{error}}</p>
+</div>

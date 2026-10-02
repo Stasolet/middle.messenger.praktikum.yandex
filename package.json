@@ -10,17 +10,27 @@
     "dev": "vite --port 3000",
     "preview": "vite preview --port 3000",
     "start": "vite build && vite preview --port 3000",
+    "lint": "npm run typecheck && npm run lint:js && npm run lint:css",
     "lint:css": "stylelint \"**/*.scss\"",
     "lint:css:fix": "stylelint \"**/*.scss\" --fix",
+    "lint:js": "eslint .",
+    "lint:js:fix": "eslint --fix .",
     "format": "prettier --write .",
     "check-format": "prettier --check .",
+    "typecheck": "tsc --noEmit",
     "build": "vite build"
   },
   "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "eslint": "^10.10.0",
+    "globals": "^17.12.0",
+    "jiti": "^2.7.0",
     "prettier": "^3.9.6",
     "sass": "^1.103.1",
     "stylelint": "^17.14.1",
     "stylelint-config-standard-scss": "^17.0.0",
+    "typescript": "^6.0.3",
+    "typescript-eslint": "^8.70.0",
     "vite": "^8.2.0"
   },
   "dependencies": {
