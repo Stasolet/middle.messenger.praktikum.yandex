@@ -10,6 +10,7 @@ TypeScript + Vite (MPA: несколько `.html`-точек входа в `vit
 
 Feature-Sliced Design: `src/shared` → `src/entities` → `src/features` → `src/widgets` → `src/pages`. Импорт только снизу вверх; внутри слайса — через barrel `index.ts`.
 Данные: `mocks/*.json` → `shared/api` (transport, единственное место импорта JSON) → `entities/*/model/*-service` (домен) → страницы (composition root).
+Общеслайсовые утилиты (trim, merge, set, isEqual, deepCopy, queryString) — `src/shared/lib/utils.ts`, экспорт через баррел `shared/lib` namespace'ом `utils`.
 
 ## Рендеринг
 
@@ -22,7 +23,7 @@ Feature-Sliced Design: `src/shared` → `src/entities` → `src/features` → `s
 
 ## Дочерние компоненты
 
-Регистрируются один раз: `registerComponent(X)` (см. `initHbs()` в `src/shared/lib/initHbs.ts`, вызывается во входах страниц). В шаблонах: `{{{X prop=value ref="name"}}}`.
+Регистрируются один раз: `registerComponent(X)` (см. `initHbs()` в `src/shared/lib/hbs/initHbs.ts`, вызывается во входах страниц). В шаблонах: `{{{X prop=value ref="name"}}}`.
 Helper кладёт в props родителя: `__children` (embed в шаблон), а при наличии `ref` — `__namedChildren[name]` = **инстанс** ребёнка и `__refs[name]` = его DOM-элемент. Это канал связи родитель↔ребёнок для точечного доступа. Для перечисления детей use `this.children` (все, без ref) + type guard, напр. `isFormField`; в `namedChildren` поле без `ref` не попадёт — не полагаться на него как на реестр.
 
 ## Документация по областям — обязательно к прочтению
