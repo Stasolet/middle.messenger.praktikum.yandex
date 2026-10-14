@@ -1,12 +1,21 @@
-import { ErrorWidget, type ErrorWidgetProps } from '../../widgets/error';
+import { BaseBlock, type BaseRefs } from '../../shared/ui';
+import { ErrorWidget } from '../../widgets/error';
+import type { PageProps } from '../../shared/router';
+import template from './error_500.hbs';
 
-const templateContent: ErrorWidgetProps = {
-  code: 500,
-  message: 'Мы уже фиксим',
-};
+interface Error500PageRefs extends BaseRefs {
+  root: HTMLElement;
+}
 
-const errorPage = new ErrorWidget(templateContent);
-const errorElement = errorPage.element();
-if (errorElement) {
-  document.getElementById('error-container')!.appendChild(errorElement);
+export class Error500Page extends BaseBlock<PageProps, Error500PageRefs> {
+  protected template = template;
+
+  protected componentDidMount(): void {
+    const error = new ErrorWidget({ code: 500, message: 'Мы уже фиксим' });
+
+    const errorElement = error.element();
+    if (errorElement) {
+      this.refs.root.appendChild(errorElement);
+    }
+  }
 }
