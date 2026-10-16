@@ -118,6 +118,64 @@ const routes = {
     return reply(200, profile);
   },
 
+  'PUT /user/profile': async (req, reply) => {
+    const account = findAccount(loginFromRequest(req));
+
+    if (!account) {
+      return unauthorized(reply);
+    }
+
+    const body = await readJsonBody(req);
+
+    if (!body) {
+      return reply(400, { error: 'Ожидался объект с полями профиля' });
+    }
+
+    const owner = findAccount(body.login ?? account.login);
+    if (owner && owner !== account) {
+      return reply(400, { error: 'Логин уже зарегистрирован' });
+    }
+
+    const fields = [
+      'first_name',
+      'second_name',
+      'display_name',
+      'login',
+      'email',
+      'phone',
+      'avatar',
+    ];
+    for (const field of fields) {
+      if (field in body) {
+        account[field] = body[field];
+      }
+    }
+
+    const { password, ...profile } = account;
+    return reply(200, profile);
+  },
+
+  'PUT /user/password': async (req, reply) => {
+    const account = findAccount(loginFromRequest(req));
+
+    if (!account) {
+      return unauthorized(reply);
+    }
+
+    const body = await readJsonBody(req);
+
+    if (!body?.newPassword) {
+      return reply(400, { error: 'Новый пароль обязателен' });
+    }
+
+    if (body.oldPassword !== account.password) {
+      return reply(400, { error: 'Старый пароль указан неверно' });
+    }
+
+    account.password = body.newPassword;
+    return reply(200, {});
+  },
+
   'GET /chats': async (req, reply) => {
     if (!loginFromRequest(req)) {
       return unauthorized(reply);

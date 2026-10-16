@@ -11,6 +11,16 @@
   margin-block: 50px;
 }
 
+/* переопределяет display: flex у .form__fields, иначе скрытая группа остаётся на месте */
+.profile-settings .form__fields[hidden] {
+  display: none;
+}
+
+.profile-settings .form__footer .internal-link:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
 .load-photo {
   background: $surface-container-high-color;
   border: none;

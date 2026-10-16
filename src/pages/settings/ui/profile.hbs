@@ -1,4 +1,4 @@
-<form class='profile-settings'>
+<form class='profile-settings' novalidate>
   <input
     class='load-photo__input'
     type='file'
@@ -14,22 +14,39 @@
     </span>
   </button>
   <h1 class='form__title'>{{title}}</h1>
-  <div class='form__fields'>
-    {{#each fields}}
+  <div class='form__fields' ref='profileFields'>
+    {{#each profileFields}}
       {{{FormField this}}}
       {{#if @last}}{{else}}
         <div class='horizontal-spacer'></div>
       {{/if}}
     {{/each}}
   </div>
+  <div class='form__fields' ref='passwordFields' hidden>
+    {{#each passwordFields}}
+      {{{FormField this}}}
+      {{#if @last}}{{else}}
+        <div class='horizontal-spacer'></div>
+      {{/if}}
+    {{/each}}
+  </div>
+  <p class='form__error' ref='error' hidden></p>
   <div class='form__footer'>
     <ul>
-      <li>
-        <button class='internal-link' type='button'>Изменить данные</button>
+      <li ref='editProfileItem'>
+        <button class='internal-link' type='button' data-action='edit-profile'>Изменить данные</button>
         <div class='horizontal-spacer'></div>
       </li>
-      <li>
-        <button class='internal-link' type='button'>Изменить пароль</button>
+      <li ref='editPasswordItem'>
+        <button class='internal-link' type='button' data-action='edit-password'>Изменить пароль</button>
+        <div class='horizontal-spacer'></div>
+      </li>
+      <li ref='saveItem' hidden>
+        <button class='internal-link' type='submit' data-action='save'>Сохранить</button>
+        <div class='horizontal-spacer'></div>
+      </li>
+      <li ref='cancelItem' hidden>
+        <button class='internal-link' type='button' data-action='cancel'>Отмена</button>
         <div class='horizontal-spacer'></div>
       </li>
       <li>
