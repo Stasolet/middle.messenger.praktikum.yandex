@@ -1,0 +1,190 @@
+[
+  {
+    "id": 1,
+    "title": "Сидорович",
+    "avatar": "https://avatarko.ru/img/avatar/2/igra_muzhchina_kapyushon_Stalker_1688.jpg",
+    "unread_count": 2,
+    "created_by": 1,
+    "last_message": {
+      "id": 101,
+      "user": {
+        "id": 2,
+        "first_name": "Сидор",
+        "second_name": "Сидоров",
+        "display_name": "Сидорович",
+        "avatar": "https://avatarko.ru/img/avatar/2/igra_muzhchina_kapyushon_Stalker_1688.jpg"
+      },
+      "type": "text",
+      "content": "Стрелок, у меня товар редкий, бинт медицинский",
+      "time": "2026-10-16T07:49:00.000Z"
+    }
+  },
+  {
+    "id": 2,
+    "title": "Клык",
+    "avatar": "https://avatarko.ru/img/avatar/2/igra_kapyushon_oruzhie_Stalker_1986.jpg",
+    "unread_count": 0,
+    "created_by": 1,
+    "last_message": {
+      "id": 102,
+      "user": {
+        "id": 4,
+        "first_name": "Клык",
+        "second_name": "",
+        "display_name": "Клык",
+        "avatar": "https://avatarko.ru/img/avatar/2/igra_kapyushon_oruzhie_Stalker_1986.jpg"
+      },
+      "type": "text",
+      "content": "Стрелок, у Сидоровича инфу узнал?",
+      "time": "2026-10-16T09:00:00.000Z"
+    }
+  },
+  {
+    "id": 3,
+    "title": "Сахаров",
+    "avatar": "https://avatarko.ru/img/avatar/16/protivogaz_Stalker_15514.jpg",
+    "unread_count": 4,
+    "created_by": 1,
+    "last_message": {
+      "id": 103,
+      "user": {
+        "id": 5,
+        "first_name": "Сахаров",
+        "second_name": "",
+        "display_name": "Сахаров",
+        "avatar": "https://avatarko.ru/img/avatar/16/protivogaz_Stalker_15514.jpg"
+      },
+      "type": "text",
+      "content": "Артефакт Медуза, принесите для исследований",
+      "time": "2026-10-15T12:12:00.000Z"
+    }
+  },
+  {
+    "id": 4,
+    "title": "Лукаш",
+    "avatar": "https://avatarko.ru/img/avatar/16/igra_Stalker_15026.jpg",
+    "unread_count": 0,
+    "created_by": 1,
+    "last_message": {
+      "id": 104,
+      "user": {
+        "id": 6,
+        "first_name": "Лукаш",
+        "second_name": "",
+        "display_name": "Лукаш",
+        "avatar": "https://avatarko.ru/img/avatar/16/igra_Stalker_15026.jpg"
+      },
+      "type": "text",
+      "content": "Зона — это болезнь, а мы лекарство",
+      "time": "2026-10-12T06:30:00.000Z"
+    }
+  },
+  {
+    "id": 5,
+    "title": "Чёрный Капюшон",
+    "avatar": "https://avatarko.ru/img/avatar/19/igra_muzhchina_Stalker_18312.jpg",
+    "unread_count": 0,
+    "created_by": 1,
+    "last_message": {
+      "id": 105,
+      "user": {
+        "id": 7,
+        "first_name": "Чёрный Капюшон",
+        "second_name": "",
+        "display_name": "Чёрный Капюшон",
+        "avatar": "https://avatarko.ru/img/avatar/19/igra_muzhchina_Stalker_18312.jpg"
+      },
+      "type": "text",
+      "content": "Заказ принят. Цель — Радар",
+      "time": "2026-10-10T15:45:00.000Z"
+    }
+  },
+  {
+    "id": 6,
+    "title": "Профессор",
+    "avatar": null,
+    "unread_count": 0,
+    "created_by": 1,
+    "last_message": {
+      "id": 106,
+      "user": {
+        "id": 8,
+        "first_name": "Профессор",
+        "second_name": "",
+        "display_name": "Профессор",
+        "avatar": null
+      },
+      "type": "text",
+      "content": "Пси-излучение растёт, нужны данные",
+      "time": "2026-10-08T11:20:00.000Z"
+    }
+  },
+  {
+    "id": 7,
+    "title": "Болотный Доктор",
+    "avatar": "https://avatarko.ru/img/avatar/6/igra_Stalker_5056.jpg",
+    "unread_count": 1,
+    "created_by": 1,
+    "last_message": {
+      "id": 107,
+      "user": {
+        "id": 9,
+        "first_name": "Болотный Доктор",
+        "second_name": "",
+        "display_name": "Болотный Доктор",
+        "avatar": "https://avatarko.ru/img/avatar/6/igra_Stalker_5056.jpg"
+      },
+      "type": "text",
+      "content": "Рану обработал, отдыхай на Болотах",
+      "time": "2026-10-14T05:00:00.000Z"
+    }
+  },
+  {
+    "id": 8,
+    "title": "Призрак",
+    "avatar": null,
+    "unread_count": 0,
+    "created_by": 1,
+    "last_message": {
+      "id": 108,
+      "user": {
+        "id": 10,
+        "first_name": "Призрак",
+        "second_name": "",
+        "display_name": "Призрак",
+        "avatar": null
+      },
+      "type": "text",
+      "content": "Стрелок, О-Сознание — это правда",
+      "time": "2026-10-13T17:15:00.000Z"
+    }
+  },
+  {
+    "id": 9,
+    "title": "Кордон — общий чат",
+    "avatar": "https://avatarko.ru/img/avatar/16/protivogaz_Stalker_gazeta_15590.jpg",
+    "unread_count": 0,
+    "created_by": 2,
+    "last_message": {
+      "id": 109,
+      "user": {
+        "id": 2,
+        "first_name": "Сидор",
+        "second_name": "Сидоров",
+        "display_name": "Сидорович",
+        "avatar": "https://avatarko.ru/img/avatar/2/igra_muzhchina_kapyushon_Stalker_1688.jpg"
+      },
+      "type": "text",
+      "content": "Военные патруль усилили, осторожнее",
+      "time": "2026-10-05T11:10:00.000Z"
+    }
+  },
+  {
+    "id": 10,
+    "title": "Тайник на Агропроме",
+    "avatar": null,
+    "unread_count": 0,
+    "created_by": 1,
+    "last_message": null
+  }
+]

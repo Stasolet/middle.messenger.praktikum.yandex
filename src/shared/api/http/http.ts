@@ -1,7 +1,8 @@
 import { utils } from '../../lib';
 import { createRequestError, TransportError } from './request-error';
 
-export const API_BASE_URL = 'https://ya-praktikum.tech/api/v2';
+// Адрес можно подменить на локальную заглушку: VITE_API_BASE_URL=http://localhost:4111 npm run dev
+export const API_BASE_URL = import.meta.env.VITE_API_BASE_URL ?? 'https://ya-praktikum.tech/api/v2';
 const REQUEST_TIMEOUT_MS = 10_000;
 
 type HttpMethod = 'GET' | 'POST' | 'PUT' | 'DELETE';
