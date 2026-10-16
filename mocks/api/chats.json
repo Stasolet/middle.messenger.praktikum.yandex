@@ -6,17 +6,17 @@
     "unread_count": 2,
     "created_by": 1,
     "last_message": {
-      "id": 101,
+      "id": 200,
       "user": {
-        "id": 2,
-        "first_name": "Сидор",
-        "second_name": "Сидоров",
-        "display_name": "Сидорович",
-        "avatar": "https://avatarko.ru/img/avatar/2/igra_muzhchina_kapyushon_Stalker_1688.jpg"
+        "id": 1,
+        "first_name": "Станислав",
+        "second_name": "Емельянов",
+        "display_name": "Стрелок",
+        "avatar": null
       },
       "type": "text",
-      "content": "Стрелок, у меня товар редкий, бинт медицинский",
-      "time": "2026-10-16T07:49:00.000Z"
+      "content": "круто!",
+      "time": "2024-01-15T07:49:00.000Z"
     }
   },
   {
@@ -26,9 +26,9 @@
     "unread_count": 0,
     "created_by": 1,
     "last_message": {
-      "id": 102,
+      "id": 201,
       "user": {
-        "id": 4,
+        "id": 3,
         "first_name": "Клык",
         "second_name": "",
         "display_name": "Клык",
@@ -36,7 +36,7 @@
       },
       "type": "text",
       "content": "Стрелок, у Сидоровича инфу узнал?",
-      "time": "2026-10-16T09:00:00.000Z"
+      "time": "2024-01-15T09:00:00.000Z"
     }
   },
   {
@@ -46,9 +46,9 @@
     "unread_count": 4,
     "created_by": 1,
     "last_message": {
-      "id": 103,
+      "id": 202,
       "user": {
-        "id": 5,
+        "id": 4,
         "first_name": "Сахаров",
         "second_name": "",
         "display_name": "Сахаров",
@@ -56,7 +56,7 @@
       },
       "type": "text",
       "content": "Артефакт Медуза, принесите для исследований",
-      "time": "2026-10-15T12:12:00.000Z"
+      "time": "2024-01-15T12:12:00.000Z"
     }
   },
   {
@@ -66,9 +66,9 @@
     "unread_count": 0,
     "created_by": 1,
     "last_message": {
-      "id": 104,
+      "id": 203,
       "user": {
-        "id": 6,
+        "id": 5,
         "first_name": "Лукаш",
         "second_name": "",
         "display_name": "Лукаш",
@@ -76,7 +76,7 @@
       },
       "type": "text",
       "content": "Зона — это болезнь, а мы лекарство",
-      "time": "2026-10-12T06:30:00.000Z"
+      "time": "2024-01-12T06:30:00.000Z"
     }
   },
   {
@@ -86,9 +86,9 @@
     "unread_count": 0,
     "created_by": 1,
     "last_message": {
-      "id": 105,
+      "id": 204,
       "user": {
-        "id": 7,
+        "id": 6,
         "first_name": "Чёрный Капюшон",
         "second_name": "",
         "display_name": "Чёрный Капюшон",
@@ -96,39 +96,99 @@
       },
       "type": "text",
       "content": "Заказ принят. Цель — Радар",
-      "time": "2026-10-10T15:45:00.000Z"
+      "time": "2024-01-10T15:45:00.000Z"
     }
   },
   {
     "id": 6,
     "title": "Профессор",
-    "avatar": null,
+    "avatar": "https://avatarko.ru/img/avatar/6/igra_Stalker_5334.jpg",
     "unread_count": 0,
     "created_by": 1,
     "last_message": {
-      "id": 106,
+      "id": 205,
       "user": {
-        "id": 8,
+        "id": 7,
         "first_name": "Профессор",
         "second_name": "",
         "display_name": "Профессор",
-        "avatar": null
+        "avatar": "https://avatarko.ru/img/avatar/6/igra_Stalker_5334.jpg"
       },
       "type": "text",
       "content": "Пси-излучение растёт, нужны данные",
-      "time": "2026-10-08T11:20:00.000Z"
+      "time": "2024-01-08T11:20:00.000Z"
     }
   },
   {
     "id": 7,
+    "title": "Псих",
+    "avatar": "https://avatarko.ru/img/avatar/34/igra_kapyushon_Stalker_33059.jpg",
+    "unread_count": 0,
+    "created_by": 1,
+    "last_message": {
+      "id": 206,
+      "user": {
+        "id": 8,
+        "first_name": "Псих",
+        "second_name": "",
+        "display_name": "Псих",
+        "avatar": "https://avatarko.ru/img/avatar/34/igra_kapyushon_Stalker_33059.jpg"
+      },
+      "type": "text",
+      "content": "Ха-ха, Зона с нами говорит!",
+      "time": "2024-01-08T08:00:00.000Z"
+    }
+  },
+  {
+    "id": 8,
+    "title": "Шустрый",
+    "avatar": "https://avatarko.ru/img/avatar/8/igra_protivogaz_Stalker_7087.jpg",
+    "unread_count": 0,
+    "created_by": 1,
+    "last_message": {
+      "id": 207,
+      "user": {
+        "id": 9,
+        "first_name": "Шустрый",
+        "second_name": "",
+        "display_name": "Шустрый",
+        "avatar": "https://avatarko.ru/img/avatar/8/igra_protivogaz_Stalker_7087.jpg"
+      },
+      "type": "text",
+      "content": "Тайник на Агропроме, бегом!",
+      "time": "2020-05-01T06:15:00.000Z"
+    }
+  },
+  {
+    "id": 9,
+    "title": "Бес",
+    "avatar": "https://avatarko.ru/img/avatar/13/igra_Stalker_12240.jpg",
+    "unread_count": 0,
+    "created_by": 1,
+    "last_message": {
+      "id": 208,
+      "user": {
+        "id": 10,
+        "first_name": "Бес",
+        "second_name": "",
+        "display_name": "Бес",
+        "avatar": "https://avatarko.ru/img/avatar/13/igra_Stalker_12240.jpg"
+      },
+      "type": "text",
+      "content": "Блокпост на Кордоне, пропустим за долю",
+      "time": "2020-04-12T13:30:00.000Z"
+    }
+  },
+  {
+    "id": 10,
     "title": "Болотный Доктор",
     "avatar": "https://avatarko.ru/img/avatar/6/igra_Stalker_5056.jpg",
     "unread_count": 1,
     "created_by": 1,
     "last_message": {
-      "id": 107,
+      "id": 209,
       "user": {
-        "id": 9,
+        "id": 11,
         "first_name": "Болотный Доктор",
         "second_name": "",
         "display_name": "Болотный Доктор",
@@ -136,51 +196,471 @@
       },
       "type": "text",
       "content": "Рану обработал, отдыхай на Болотах",
-      "time": "2026-10-14T05:00:00.000Z"
+      "time": "2024-01-14T05:00:00.000Z"
     }
   },
   {
-    "id": 8,
+    "id": 11,
     "title": "Призрак",
-    "avatar": null,
+    "avatar": "https://avatarko.ru/img/avatar/18/kapyushon_protivogaz_Stalker_17746.jpg",
     "unread_count": 0,
     "created_by": 1,
     "last_message": {
-      "id": 108,
+      "id": 210,
       "user": {
-        "id": 10,
+        "id": 12,
         "first_name": "Призрак",
         "second_name": "",
         "display_name": "Призрак",
-        "avatar": null
+        "avatar": "https://avatarko.ru/img/avatar/18/kapyushon_protivogaz_Stalker_17746.jpg"
       },
       "type": "text",
       "content": "Стрелок, О-Сознание — это правда",
-      "time": "2026-10-13T17:15:00.000Z"
+      "time": "2024-01-13T17:15:00.000Z"
     }
   },
   {
-    "id": 9,
+    "id": 12,
+    "title": "Петренко",
+    "avatar": "https://avatarko.ru/img/avatar/12/igra_Stalker_11064.jpg",
+    "unread_count": 3,
+    "created_by": 1,
+    "last_message": {
+      "id": 211,
+      "user": {
+        "id": 13,
+        "first_name": "Петренко",
+        "second_name": "",
+        "display_name": "Петренко",
+        "avatar": "https://avatarko.ru/img/avatar/12/igra_Stalker_11064.jpg"
+      },
+      "type": "text",
+      "content": "Свобода — враги Зоны, уничтожить",
+      "time": "2024-01-13T11:30:00.000Z"
+    }
+  },
+  {
+    "id": 13,
+    "title": "Скряга",
+    "avatar": "https://avatarko.ru/img/avatar/14/igra_Stalker_13255.jpg",
+    "unread_count": 0,
+    "created_by": 1,
+    "last_message": {
+      "id": 212,
+      "user": {
+        "id": 14,
+        "first_name": "Скряга",
+        "second_name": "",
+        "display_name": "Скряга",
+        "avatar": "https://avatarko.ru/img/avatar/14/igra_Stalker_13255.jpg"
+      },
+      "type": "text",
+      "content": "Броню починил, 2000 рублей",
+      "time": "2024-01-11T14:45:00.000Z"
+    }
+  },
+  {
+    "id": 14,
+    "title": "Крот",
+    "avatar": "https://avatarko.ru/img/avatar/15/igra_Stalker_radiaciya_14421.jpg",
+    "unread_count": 0,
+    "created_by": 1,
+    "last_message": {
+      "id": 213,
+      "user": {
+        "id": 15,
+        "first_name": "Крот",
+        "second_name": "",
+        "display_name": "Крот",
+        "avatar": "https://avatarko.ru/img/avatar/15/igra_Stalker_radiaciya_14421.jpg"
+      },
+      "type": "text",
+      "content": "Подкоп под Агропром готов, лезь",
+      "time": "2024-01-09T08:20:00.000Z"
+    }
+  },
+  {
+    "id": 15,
+    "title": "Повар",
+    "avatar": "https://avatarko.ru/img/avatar/13/igra_Stalker_12862.jpg",
+    "unread_count": 5,
+    "created_by": 1,
+    "last_message": {
+      "id": 214,
+      "user": {
+        "id": 16,
+        "first_name": "Повар",
+        "second_name": "",
+        "display_name": "Повар",
+        "avatar": "https://avatarko.ru/img/avatar/13/igra_Stalker_12862.jpg"
+      },
+      "type": "text",
+      "content": "Антирад в котёл кинул, не боись",
+      "time": "2024-01-07T16:00:00.000Z"
+    }
+  },
+  {
+    "id": 16,
+    "title": "Воронин",
+    "avatar": "https://avatarko.ru/img/avatar/24/muzhchina_oruzhie_Stalker_radiaciya_23714.jpg",
+    "unread_count": 0,
+    "created_by": 1,
+    "last_message": {
+      "id": 215,
+      "user": {
+        "id": 17,
+        "first_name": "Воронин",
+        "second_name": "",
+        "display_name": "Воронин",
+        "avatar": "https://avatarko.ru/img/avatar/24/muzhchina_oruzhie_Stalker_radiaciya_23714.jpg"
+      },
+      "type": "text",
+      "content": "Задание: зачистить Тёмную Долину",
+      "time": "2024-01-06T07:10:00.000Z"
+    }
+  },
+  {
+    "id": 17,
+    "title": "Лебедев",
+    "avatar": "https://avatarko.ru/img/avatar/30/igra_Stalker_29622.jpg",
+    "unread_count": 0,
+    "created_by": 1,
+    "last_message": {
+      "id": 216,
+      "user": {
+        "id": 18,
+        "first_name": "Лебедев",
+        "second_name": "",
+        "display_name": "Лебедев",
+        "avatar": "https://avatarko.ru/img/avatar/30/igra_Stalker_29622.jpg"
+      },
+      "type": "text",
+      "content": "Эмиссия близко, нужно укрытие",
+      "time": "2024-01-05T19:30:00.000Z"
+    }
+  },
+  {
+    "id": 18,
+    "title": "Шрам",
+    "avatar": "https://avatarko.ru/img/avatar/1/igra_stalker.gif",
+    "unread_count": 0,
+    "created_by": 1,
+    "last_message": {
+      "id": 217,
+      "user": {
+        "id": 19,
+        "first_name": "Шрам",
+        "second_name": "",
+        "display_name": "Шрам",
+        "avatar": "https://avatarko.ru/img/avatar/1/igra_stalker.gif"
+      },
+      "type": "text",
+      "content": "Разряд поймал, но живой, как видишь",
+      "time": "2024-01-04T10:45:00.000Z"
+    }
+  },
+  {
+    "id": 19,
+    "title": "Новичок",
+    "avatar": "https://avatarko.ru/img/avatar/2/igra_Stalker.jpg",
+    "unread_count": 0,
+    "created_by": 1,
+    "last_message": {
+      "id": 218,
+      "user": {
+        "id": 20,
+        "first_name": "Новичок",
+        "second_name": "",
+        "display_name": "Новичок",
+        "avatar": "https://avatarko.ru/img/avatar/2/igra_Stalker.jpg"
+      },
+      "type": "text",
+      "content": "Где тут Сидорович? Я первый раз в Зоне",
+      "time": "2024-01-03T04:00:00.000Z"
+    }
+  },
+  {
+    "id": 20,
+    "title": "Снайпер",
+    "avatar": "https://avatarko.ru/img/avatar/10/oruzhie_Stalker_noch_9456.jpg",
+    "unread_count": 1,
+    "created_by": 1,
+    "last_message": {
+      "id": 219,
+      "user": {
+        "id": 21,
+        "first_name": "Снайпер",
+        "second_name": "",
+        "display_name": "Снайпер",
+        "avatar": "https://avatarko.ru/img/avatar/10/oruzhie_Stalker_noch_9456.jpg"
+      },
+      "type": "text",
+      "content": "На холме занял позицию, жду цель",
+      "time": "2024-01-02T13:25:00.000Z"
+    }
+  },
+  {
+    "id": 21,
+    "title": "Дикий",
+    "avatar": "https://avatarko.ru/img/avatar/33/igra_Stalker_spinoj_33620.jpg",
+    "unread_count": 0,
+    "created_by": 1,
+    "last_message": {
+      "id": 220,
+      "user": {
+        "id": 22,
+        "first_name": "Дикий",
+        "second_name": "",
+        "display_name": "Дикий",
+        "avatar": "https://avatarko.ru/img/avatar/33/igra_Stalker_spinoj_33620.jpg"
+      },
+      "type": "text",
+      "content": "Кошельки и артефакты — на стол, тихо",
+      "time": "2023-12-30T15:00:00.000Z"
+    }
+  },
+  {
+    "id": 22,
+    "title": "Меченый",
+    "avatar": "https://avatarko.ru/img/avatar/31/protivogaz_30434.jpg",
+    "unread_count": 0,
+    "created_by": 1,
+    "last_message": {
+      "id": 221,
+      "user": {
+        "id": 23,
+        "first_name": "Меченый",
+        "second_name": "",
+        "display_name": "Меченый",
+        "avatar": "https://avatarko.ru/img/avatar/31/protivogaz_30434.jpg"
+      },
+      "type": "text",
+      "content": "Татуировка на руке... кто я такой?",
+      "time": "2023-12-28T06:40:00.000Z"
+    }
+  },
+  {
+    "id": 23,
+    "title": "Костоправ",
+    "avatar": "https://avatarko.ru/img/avatar/1/Stalker_protivogaz.jpg",
+    "unread_count": 2,
+    "created_by": 1,
+    "last_message": {
+      "id": 222,
+      "user": {
+        "id": 24,
+        "first_name": "Костоправ",
+        "second_name": "",
+        "display_name": "Костоправ",
+        "avatar": "https://avatarko.ru/img/avatar/1/Stalker_protivogaz.jpg"
+      },
+      "type": "text",
+      "content": "Свободу Зоне! Долг — фашисты",
+      "time": "2023-12-25T09:00:00.000Z"
+    }
+  },
+  {
+    "id": 24,
+    "title": "Мерзавчик",
+    "avatar": "https://avatarko.ru/img/avatar/16/igra_Stalker_15016.jpg",
+    "unread_count": 0,
+    "created_by": 1,
+    "last_message": {
+      "id": 223,
+      "user": {
+        "id": 25,
+        "first_name": "Мерзавчик",
+        "second_name": "",
+        "display_name": "Мерзавчик",
+        "avatar": "https://avatarko.ru/img/avatar/16/igra_Stalker_15016.jpg"
+      },
+      "type": "text",
+      "content": "Тайник скинул на Кордоне, забери",
+      "time": "2023-12-20T12:30:00.000Z"
+    }
+  },
+  {
+    "id": 25,
+    "title": "Фанат",
+    "avatar": "https://avatarko.ru/img/avatar/12/igra_Stalker_11107.jpg",
+    "unread_count": 0,
+    "created_by": 1,
+    "last_message": {
+      "id": 224,
+      "user": {
+        "id": 26,
+        "first_name": "Фанат",
+        "second_name": "",
+        "display_name": "Фанат",
+        "avatar": "https://avatarko.ru/img/avatar/12/igra_Stalker_11107.jpg"
+      },
+      "type": "text",
+      "content": "Слышал, Стрелок к Монолиту пошёл",
+      "time": "2023-12-18T05:50:00.000Z"
+    }
+  },
+  {
+    "id": 26,
     "title": "Кордон — общий чат",
     "avatar": "https://avatarko.ru/img/avatar/16/protivogaz_Stalker_gazeta_15590.jpg",
     "unread_count": 0,
     "created_by": 2,
     "last_message": {
-      "id": 109,
+      "id": 225,
       "user": {
         "id": 2,
-        "first_name": "Сидор",
-        "second_name": "Сидоров",
+        "first_name": "Сидорович",
+        "second_name": "",
         "display_name": "Сидорович",
         "avatar": "https://avatarko.ru/img/avatar/2/igra_muzhchina_kapyushon_Stalker_1688.jpg"
       },
       "type": "text",
       "content": "Военные патруль усилили, осторожнее",
-      "time": "2026-10-05T11:10:00.000Z"
+      "time": "2023-12-15T11:10:00.000Z"
     }
   },
   {
-    "id": 10,
+    "id": 27,
+    "title": "Бар «100 рентген»",
+    "avatar": "https://avatarko.ru/img/avatar/5/igra_Stalker_4708.jpg",
+    "unread_count": 0,
+    "created_by": 2,
+    "last_message": {
+      "id": 226,
+      "user": {
+        "id": 3,
+        "first_name": "Клык",
+        "second_name": "",
+        "display_name": "Клык",
+        "avatar": "https://avatarko.ru/img/avatar/2/igra_kapyushon_oruzhie_Stalker_1986.jpg"
+      },
+      "type": "text",
+      "content": "Сегодня вечером — турнир по артефактам",
+      "time": "2023-12-10T18:00:00.000Z"
+    }
+  },
+  {
+    "id": 28,
+    "title": "Янтарь — лаборатория",
+    "avatar": "https://avatarko.ru/img/avatar/17/igra_Stalker_16059.jpg",
+    "unread_count": 7,
+    "created_by": 2,
+    "last_message": {
+      "id": 227,
+      "user": {
+        "id": 4,
+        "first_name": "Сахаров",
+        "second_name": "",
+        "display_name": "Сахаров",
+        "avatar": "https://avatarko.ru/img/avatar/16/protivogaz_Stalker_15514.jpg"
+      },
+      "type": "text",
+      "content": "Зомби у озера, не подходите без пси-шлема",
+      "time": "2023-12-05T07:30:00.000Z"
+    }
+  },
+  {
+    "id": 29,
+    "title": "Долг — штаб",
+    "avatar": "https://avatarko.ru/img/avatar/13/igra_Stalker_12202.jpg",
+    "unread_count": 0,
+    "created_by": 2,
+    "last_message": {
+      "id": 228,
+      "user": {
+        "id": 5,
+        "first_name": "Лукаш",
+        "second_name": "",
+        "display_name": "Лукаш",
+        "avatar": "https://avatarko.ru/img/avatar/16/igra_Stalker_15026.jpg"
+      },
+      "type": "text",
+      "content": "Всем бойцам: сбор на базе в 18:00",
+      "time": "2023-11-28T14:15:00.000Z"
+    }
+  },
+  {
+    "id": 30,
+    "title": "Свобода — база",
+    "avatar": "https://avatarko.ru/img/avatar/16/igra_Stalker_15758.jpg",
+    "unread_count": 0,
+    "created_by": 2,
+    "last_message": {
+      "id": 229,
+      "user": {
+        "id": 6,
+        "first_name": "Чёрный Капюшон",
+        "second_name": "",
+        "display_name": "Чёрный Капюшон",
+        "avatar": "https://avatarko.ru/img/avatar/19/igra_muzhchina_Stalker_18312.jpg"
+      },
+      "type": "text",
+      "content": "Координаты лагеря на Военных Складах",
+      "time": "2023-11-20T16:45:00.000Z"
+    }
+  },
+  {
+    "id": 31,
+    "title": "Радар — Монолит",
+    "avatar": "https://avatarko.ru/img/avatar/19/igra_Stalker_18373.jpg",
+    "unread_count": 0,
+    "created_by": 2,
+    "last_message": {
+      "id": 230,
+      "user": {
+        "id": 7,
+        "first_name": "Профессор",
+        "second_name": "",
+        "display_name": "Профессор",
+        "avatar": "https://avatarko.ru/img/avatar/6/igra_Stalker_5334.jpg"
+      },
+      "type": "text",
+      "content": "Исполнитель желаний ждёт. Монолит с нами",
+      "time": "2023-11-10T08:00:00.000Z"
+    }
+  },
+  {
+    "id": 32,
+    "title": "Припять — выжившие",
+    "avatar": "https://avatarko.ru/img/avatar/15/igra_Stalker_14975.jpg",
+    "unread_count": 0,
+    "created_by": 2,
+    "last_message": {
+      "id": 231,
+      "user": {
+        "id": 8,
+        "first_name": "Псих",
+        "second_name": "",
+        "display_name": "Псих",
+        "avatar": "https://avatarko.ru/img/avatar/34/igra_kapyushon_Stalker_33059.jpg"
+      },
+      "type": "text",
+      "content": "Гостиница Полесье зачищена, можно ночевать",
+      "time": "2023-10-30T10:20:00.000Z"
+    }
+  },
+  {
+    "id": 33,
+    "title": "ЧАЭС — сектор",
+    "avatar": "https://avatarko.ru/img/avatar/2/igra_Stalker_protivogaz.jpg",
+    "unread_count": 0,
+    "created_by": 2,
+    "last_message": {
+      "id": 232,
+      "user": {
+        "id": 9,
+        "first_name": "Шустрый",
+        "second_name": "",
+        "display_name": "Шустрый",
+        "avatar": "https://avatarko.ru/img/avatar/8/igra_protivogaz_Stalker_7087.jpg"
+      },
+      "type": "text",
+      "content": "Зона расширяется. Готовьтесь к выбросу",
+      "time": "2023-10-15T06:00:00.000Z"
+    }
+  },
+  {
+    "id": 34,
     "title": "Тайник на Агропроме",
     "avatar": null,
     "unread_count": 0,
