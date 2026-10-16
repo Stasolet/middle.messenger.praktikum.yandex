@@ -12,6 +12,7 @@ import {
   type FormValues,
   type SubmitHandler,
 } from '../../../shared/lib';
+import { errorMessage } from '../../../shared/api';
 import template from './form.hbs';
 import './form.scss';
 
@@ -87,8 +88,7 @@ export class Form extends BaseBlock<FormProps, FormRefs> {
       return;
     }
 
-    node.textContent =
-      error instanceof Error && error.message ? error.message : 'Не удалось выполнить запрос';
+    node.textContent = errorMessage(error);
     node.hidden = false;
   }
 

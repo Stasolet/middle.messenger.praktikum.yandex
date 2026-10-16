@@ -13,20 +13,38 @@
                 data-action="toggle-menu" aria-expanded="false">
                 <span class="material-symbols-outlined">more_vert</span>
             </button>
-            <ul class="drop-menu__list">
-                <li class="drop-menu__item">
-                    <button class="drop-menu__option" type="button">
-                        <span class="material-symbols-outlined drop-menu__option-icon">add_circle</span>
-                        <span class="drop-menu__option-name">Добавить пользователя</span>
-                    </button>
-                </li>
-                <li class="drop-menu__item">
-                    <button class="drop-menu__option" type="button">
-                        <span class="material-symbols-outlined drop-menu__option-icon">cancel</span>
-                        <span class="drop-menu__option-name">Удалить пользователя</span>
-                    </button>
-                </li>
-            </ul>
+            <div class="drop-menu__panel" ref="userPanel">
+                <ul class="drop-menu__list">
+                    <li class="drop-menu__item">
+                        <button class="drop-menu__option" type="button" data-action="add-user">
+                            <span class="material-symbols-outlined drop-menu__option-icon">add_circle</span>
+                            <span class="drop-menu__option-name">Добавить пользователя</span>
+                        </button>
+                    </li>
+                    <li class="drop-menu__item">
+                        <button class="drop-menu__option" type="button" data-action="remove-user">
+                            <span class="material-symbols-outlined drop-menu__option-icon">cancel</span>
+                            <span class="drop-menu__option-name">Удалить пользователя</span>
+                        </button>
+                    </li>
+                    <li class="drop-menu__item">
+                        <button class="drop-menu__option" type="button" data-action="delete-chat">
+                            <span class="material-symbols-outlined drop-menu__option-icon">delete</span>
+                            <span class="drop-menu__option-name">Удалить чат</span>
+                        </button>
+                    </li>
+                </ul>
+                <form class="drop-menu__user" ref="userForm">
+                    <input class="drop-menu__user-input" type="text" name="login" placeholder="Логин"
+                        ref="userLogin" />
+                    <div class="drop-menu__user-actions">
+                        <button class="drop-menu__user-submit" type="submit">ОК</button>
+                        <button class="drop-menu__user-cancel" type="button"
+                            data-action="cancel-user">Отмена</button>
+                    </div>
+                </form>
+                <p class="drop-menu__error" ref="userError" hidden></p>
+            </div>
         </div>
     </nav>
     <div class="chat__horizontal-spacer"></div>
@@ -44,26 +62,28 @@
                 aria-expanded="false" aria-label="Прикрепить файл">
                 <span class="material-symbols-outlined">attach_file</span>
             </button>
-            <ul class="drop-menu__list">
-                <li class="drop-menu__item">
-                    <button class="drop-menu__option" type="button">
-                        <span class="material-symbols-outlined drop-menu__option-icon">photo</span>
-                        <span class="drop-menu__option-name">Фото или Видео</span>
-                    </button>
-                </li>
-                <li class="drop-menu__item">
-                    <button class="drop-menu__option" type="button">
-                        <span class="material-symbols-outlined drop-menu__option-icon">upload_file</span>
-                        <span class="drop-menu__option-name">Файл</span>
-                    </button>
-                </li>
-                <li class="drop-menu__item">
-                    <button class="drop-menu__option" type="button">
-                        <span class="material-symbols-outlined drop-menu__option-icon">share_location</span>
-                        <span class="drop-menu__option-name">Локация</span>
-                    </button>
-                </li>
-            </ul>
+            <div class="drop-menu__panel">
+                <ul class="drop-menu__list">
+                    <li class="drop-menu__item">
+                        <button class="drop-menu__option" type="button">
+                            <span class="material-symbols-outlined drop-menu__option-icon">photo</span>
+                            <span class="drop-menu__option-name">Фото или Видео</span>
+                        </button>
+                    </li>
+                    <li class="drop-menu__item">
+                        <button class="drop-menu__option" type="button">
+                            <span class="material-symbols-outlined drop-menu__option-icon">upload_file</span>
+                            <span class="drop-menu__option-name">Файл</span>
+                        </button>
+                    </li>
+                    <li class="drop-menu__item">
+                        <button class="drop-menu__option" type="button">
+                            <span class="material-symbols-outlined drop-menu__option-icon">share_location</span>
+                            <span class="drop-menu__option-name">Локация</span>
+                        </button>
+                    </li>
+                </ul>
+            </div>
         </div>
         {{{Input name="message" type="text" ref="messageInput"}}}
         <button class="typing_zone__send round" type="submit">

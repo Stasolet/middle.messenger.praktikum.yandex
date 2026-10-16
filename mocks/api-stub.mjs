@@ -26,6 +26,11 @@ const readFixture = async (fileName) =>
 const accounts = await readFixture('users.json');
 const chats = await readFixture('chats.json');
 
+/** Состав чатов: создатель и собеседник — чтобы добавление и удаление участника было на чём проверить */
+const members = new Map(
+  chats.map((chat) => [chat.id, [chat.created_by, chat.created_by === 1 ? 2 : 1]])
+);
+
 /** Загрузки лежат плоско: в профиле остаётся имя файла, URL клиент собирает из `/resources` */
 const uploadsDir = await mkdtemp(join(tmpdir(), 'messenger-api-stub-'));
 
@@ -224,6 +229,133 @@ const routes = {
 
     const { password, ...profile } = account;
     return reply(200, profile);
+  },
+
+  'POST /chats': async (req, reply) => {
+    const account = findAccount(loginFromRequest(req));
+
+    if (!account) {
+      return unauthorized(reply);
+    }
+
+    const body = await readJsonBody(req);
+    const title = typeof body?.title === 'string' ? body.title.trim() : '';
+
+    if (!title) {
+      return reply(400, { error: 'Название чата обязательно' });
+    }
+
+    const id = Math.max(0, ...chats.map((chat) => chat.id)) + 1;
+    chats.push({
+      id,
+      title,
+      avatar: null,
+      unread_count: 0,
+      created_by: account.id,
+      last_message: null,
+    });
+    members.set(id, [account.id]);
+
+    return reply(200, { id });
+  },
+
+  'DELETE /chats': async (req, reply) => {
+    const account = findAccount(loginFromRequest(req));
+
+    if (!account) {
+      return unauthorized(reply);
+    }
+
+    const body = await readJsonBody(req);
+    const chatId = Number(body?.chatId);
+    const index = chats.findIndex((chat) => chat.id === chatId);
+
+    if (index === -1) {
+      return reply(400, { error: 'Чат не найден' });
+    }
+
+    if (chats[index].created_by !== account.id) {
+      return reply(403, { error: 'Чат может удалить только его создатель' });
+    }
+
+    chats.splice(index, 1);
+    members.delete(chatId);
+    return reply(200, {});
+  },
+
+  'PUT /chats/users': async (req, reply) => {
+    const account = findAccount(loginFromRequest(req));
+
+    if (!account) {
+      return unauthorized(reply);
+    }
+
+    const body = await readJsonBody(req);
+    const chat = chats.find((candidate) => candidate.id === Number(body?.chatId));
+    const ids = Array.isArray(body?.users) ? body.users.map(Number) : [];
+
+    if (!chat) {
+      return reply(400, { error: 'Чат не найден' });
+    }
+
+    const unknown = ids.filter((id) => !accounts.some((candidate) => candidate.id === id));
+    if (unknown.length > 0) {
+      return reply(400, { error: `Пользователь ${unknown.join(', ')} не найден` });
+    }
+
+    const list = members.get(chat.id) ?? [];
+    members.set(chat.id, [...new Set([...list, ...ids])]);
+    return reply(200, {});
+  },
+
+  'DELETE /chats/users': async (req, reply) => {
+    const account = findAccount(loginFromRequest(req));
+
+    if (!account) {
+      return unauthorized(reply);
+    }
+
+    const body = await readJsonBody(req);
+    const chat = chats.find((candidate) => candidate.id === Number(body?.chatId));
+    const ids = Array.isArray(body?.users) ? body.users.map(Number) : [];
+
+    if (!chat) {
+      return reply(400, { error: 'Чат не найден' });
+    }
+
+    const list = members.get(chat.id) ?? [];
+    const missing = ids.filter((id) => !list.includes(id));
+
+    if (missing.length > 0) {
+      return reply(400, { error: 'Эти пользователи в чат не добавлены' });
+    }
+
+    members.set(
+      chat.id,
+      list.filter((id) => !ids.includes(id))
+    );
+    return reply(200, {});
+  },
+
+  'POST /user/search': async (req, reply) => {
+    const account = findAccount(loginFromRequest(req));
+
+    if (!account) {
+      return unauthorized(reply);
+    }
+
+    const body = await readJsonBody(req);
+    const term = typeof body?.login === 'string' ? body.login.trim().toLowerCase() : '';
+
+    if (!term) {
+      return reply(400, { error: 'Укажите логин для поиска' });
+    }
+
+    const found = accounts
+      .filter((candidate) => candidate.login.toLowerCase().includes(term))
+      .map(({ password, ...profile }) => ({ ...profile, role: 'User' }));
+
+    return reply(200, found);
   },
 
   'GET /chats': async (req, reply) => {

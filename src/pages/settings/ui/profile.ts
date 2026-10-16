@@ -7,6 +7,7 @@ import {
   isFormField,
 } from '../../../shared/ui';
 import { collectFormValues, validations, type SubmitHandler } from '../../../shared/lib';
+import { errorMessage } from '../../../shared/api';
 import { type User } from '../../../entities/user';
 import '../../../widgets/form/ui/form.scss';
 
@@ -131,8 +132,7 @@ export class Profile extends BaseBlock<ProfileProps, ProfileRefs> {
 
   private showError(error: unknown): void {
     const node = this.refs.error;
-    node.textContent =
-      error instanceof Error && error.message ? error.message : 'Не удалось выполнить запрос';
+    node.textContent = errorMessage(error);
     node.hidden = false;
   }
 

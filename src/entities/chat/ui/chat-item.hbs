@@ -1,27 +1,27 @@
-<div class='chat-item'>
-  <div class='chat-item__block'>
-    <div class='chat-item__avatar'>
-      {{#if avatarUrl}}
-        <img src='{{avatarUrl}}' alt='avatar' />
-      {{/if}}
+<a class="chat-item{{#if active}} chat-item--active{{/if}}" href="/messenger/{{id}}">
+    <div class="chat-item__block">
+        <div class="chat-item__avatar">
+            {{#if avatarUrl}}
+                <img src="{{avatarUrl}}" alt="avatar" />
+            {{/if}}
+        </div>
+        <div class="chat-item__user-block">
+            <div class="chat-item__name">
+                {{name}}
+            </div>
+            <div class="chat-item__message">
+                <span class="chat-item__message-text">{{lastMessage}}</span>
+            </div>
+        </div>
+        <div class="other-data">
+            <div class="chat-item__date">
+                {{#if lastMessageDate}}
+                    <time class="chat-item__date">{{time_from_timestamp lastMessageDate}}</time>
+                {{/if}}
+            </div>
+            {{#if unreadCount}}
+                <span class="chat-item__badge">{{unreadCount}}</span>
+            {{/if}}
+        </div>
     </div>
-    <div class='chat-item__user-block'>
-      <div class='chat-item__name'>
-        {{name}}
-      </div>
-      <div class='chat-item__message'>
-        <span class='chat-item__message-text'>{{lastMessage}}</span>
-      </div>
-    </div>
-    <div class='other-data'>
-      <div class='chat-item__date'>
-        {{#if lastMessageDate}}
-          <time class='chat-item__date'>{{time_from_timestamp lastMessageDate}}</time>
-        {{/if}}
-      </div>
-      {{#if unreadCount}}
-        <span class='chat-item__badge'>{{unreadCount}}</span>
-      {{/if}}
-    </div>
-  </div>
-</div>
+</a>

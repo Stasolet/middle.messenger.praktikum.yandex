@@ -37,6 +37,7 @@ router
   .add({ path: '/sign-up', Page: SignUpPage })
   .add({ path: '/settings', Page: SettingsPage })
   .add({ path: '/messenger', Page: MessengerPage })
+  .add({ path: '/messenger/:chatId', Page: MessengerPage })
   .add({ path: '/404', Page: Error404Page })
   .add({ path: '/500', Page: Error500Page })
   .notFound({ path: '/404', Page: Error404Page });

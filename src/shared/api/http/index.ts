@@ -7,4 +7,5 @@ export {
   ServerError,
   TransportError,
   UnauthorizedError,
+  errorMessage,
 } from './request-error';

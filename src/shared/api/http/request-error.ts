@@ -83,6 +83,11 @@ function resolveErrorMessage(status: number, body: unknown): string {
   return FALLBACK_MESSAGE_BY_STATUS[status] ?? `Ошибка запроса (код ${status})`;
 }
 
+/** Текст ошибки для показа человеку: сообщение сервера, а если его нет — общий текст. */
+export function errorMessage(error: unknown): string {
+  return error instanceof Error && error.message ? error.message : 'Не удалось выполнить запрос';
+}
+
 export function createRequestError(status: number, body: unknown): RequestError {
   const message = resolveErrorMessage(status, body);
 

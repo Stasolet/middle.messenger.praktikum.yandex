@@ -17,4 +17,7 @@ export const userService = {
 
   /** Замена аватара: удаления аватара API не знает, файл можно только заменить. */
   uploadAvatar: async (file: File): Promise<User> => toUser(await usersApi.uploadAvatar(file)),
+
+  /** Поиск по подстроке логина — нужен id пользователя, чтобы добавить его в чат. */
+  search: async (login: string): Promise<User[]> => (await usersApi.search(login)).map(toUser),
 };

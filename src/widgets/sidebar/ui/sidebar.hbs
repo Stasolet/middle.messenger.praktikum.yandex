@@ -1,15 +1,38 @@
 <aside class='sidebar'>
   <header class='sidebar-header'>
-    <a href='/settings' class='profile-link'>Профиль</a>
-    {{{ChatSearch}}}
+    <div class='sidebar-header__top'>
+      <button
+        class='sidebar-header__new-chat'
+        type='button'
+        data-action='new-chat'
+        aria-label='Создать чат'
+      >
+        <span class='material-symbols-outlined'>add_circle</span>
+      </button>
+      <a href='/settings' class='profile-link'>Профиль</a>
+    </div>
+    {{{ChatSearch ref='search'}}}
+    <form class='new-chat' ref='newChatForm' hidden>
+      <input
+        class='new-chat__input'
+        type='text'
+        name='title'
+        placeholder='Название чата'
+        ref='newChatInput'
+      />
+      <button class='new-chat__submit' type='submit'>Создать</button>
+      <button class='new-chat__cancel' type='button' data-action='cancel-new-chat'>Отмена</button>
+    </form>
+    <p class='sidebar__error' ref='error' hidden></p>
   </header>
   <nav class='chat-list'>
-    <ul>
+    <ul ref='chatItems'>
       {{#each chats}}
-        <li>
-          {{{ChatItem this}}}
+        <li data-name='{{name}}'>
+          {{{ChatItem this active=(eq id ../activeChatId)}}}
         </li>
       {{/each}}
     </ul>
+    <p class='chat-list__empty' ref='empty' hidden>Ничего не найдено</p>
   </nav>
 </aside>
