@@ -18,12 +18,14 @@ export type ProfileMode = 'view' | 'profile' | 'password';
 
 export interface ProfileProps extends BaseProps {
   title: string;
+  avatarUrl: string | null;
   profileFields: FormFieldProps[];
   passwordFields: FormFieldProps[];
   /** Запросы решает страница — вьюха только просит */
   onSignOut?: () => void;
   onSaveProfile?: SubmitHandler;
   onSavePassword?: SubmitHandler;
+  onUploadAvatar?: (file: File) => Promise<void>;
 }
 
 interface ProfileRefs extends BaseRefs {
@@ -122,6 +124,9 @@ export class Profile extends BaseBlock<ProfileProps, ProfileRefs> {
     if (button) {
       button.disabled = pending;
     }
+
+    // второй файл, выбранный во время загрузки, дал бы второй запрос
+    this.refs.avatarInput.disabled = pending;
   }
 
   private showError(error: unknown): void {
@@ -144,6 +149,11 @@ export class Profile extends BaseBlock<ProfileProps, ProfileRefs> {
         return;
       }
 
+      if (target.closest('[data-action="change-avatar"]')) {
+        this.refs.avatarInput.click();
+        return;
+      }
+
       if (target.closest('[data-action="edit-profile"]')) {
         this.setMode('profile');
         return;
@@ -163,6 +173,27 @@ export class Profile extends BaseBlock<ProfileProps, ProfileRefs> {
       if (target.closest('[data-action="sign-out"]')) {
         this.props.onSignOut?.();
       }
+    },
+
+    change: (e: Event) => {
+      const input = e.target;
+      if (!(input instanceof HTMLInputElement) || input.name !== 'avatar') {
+        return;
+      }
+
+      const file = input.files?.[0];
+      // сброс: повторный выбор того же файла должен снова дать change
+      input.value = '';
+
+      if (!file || this.pending) {
+        return;
+      }
+
+      this.clearError();
+      this.setPending(true);
+      Promise.resolve(this.props.onUploadAvatar?.(file))
+        .catch((error: unknown) => this.showError(error))
+        .finally(() => this.setPending(false));
     },
 
     submit: (e: Event) => {
@@ -213,11 +244,13 @@ export interface ProfileActions {
   onSignOut: () => void;
   onSaveProfile: SubmitHandler;
   onSavePassword: SubmitHandler;
+  onUploadAvatar: (file: File) => Promise<void>;
 }
 
 /** Собирает props вьюхи из профиля пользователя; поля изначально только для чтения */
 export const createProfileProps = (user: User, actions: ProfileActions): ProfileProps => ({
   title: user.nickName,
+  avatarUrl: user.avatarUrl,
   ...actions,
   profileFields: [
     {

@@ -21,6 +21,11 @@ export default defineConfig([
       'eol-last': ['error', 'always'],
     },
   },
+  // Заглушка API — Node-скрипт: браузерных глобалов (`Buffer`, `process`) у него нет
+  {
+    files: ['mocks/**/*.mjs'],
+    languageOptions: { globals: globals.node },
+  },
   // 3. Конфигурация для TypeScript файлов
   {
     files: ['**/*.{ts,mts,cts}'],

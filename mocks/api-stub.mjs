@@ -13,9 +13,10 @@
  * 501 с текстом маршрута: недоделанное видно во вкладке Network.
  */
 import { randomUUID } from 'node:crypto';
-import { readFile } from 'node:fs/promises';
+import { mkdtemp, readFile, writeFile } from 'node:fs/promises';
 import { createServer } from 'node:http';
-import { join } from 'node:path';
+import { tmpdir } from 'node:os';
+import { basename, extname, join } from 'node:path';
 
 const PORT = 4111;
 
@@ -24,6 +25,17 @@ const readFixture = async (fileName) =>
 
 const accounts = await readFixture('users.json');
 const chats = await readFixture('chats.json');
+
+/** Загрузки лежат плоско: в профиле остаётся имя файла, URL клиент собирает из `/resources` */
+const uploadsDir = await mkdtemp(join(tmpdir(), 'messenger-api-stub-'));
+
+const contentTypes = {
+  '.gif': 'image/gif',
+  '.jpeg': 'image/jpeg',
+  '.jpg': 'image/jpeg',
+  '.png': 'image/png',
+  '.webp': 'image/webp',
+};
 
 /** `sid` -> login */
 const sessions = new Map();
@@ -51,6 +63,22 @@ const readJsonBody = (req) =>
       }
     });
   });
+
+/** `multipart/form-data` разбирает нативный `FormData` из Web API Node */
+const readMultipart = async (req) => {
+  const chunks = [];
+  for await (const chunk of req) {
+    chunks.push(chunk);
+  }
+
+  const request = new Request('http://stub', {
+    method: 'PUT',
+    headers: { 'content-type': req.headers['content-type'] ?? '' },
+    body: Buffer.concat(chunks),
+  });
+
+  return request.formData();
+};
 
 const unauthorized = (reply) => reply(401, { error: 'Пользователь не авторизован' });
 
@@ -176,6 +204,28 @@ const routes = {
     return reply(200, {});
   },
 
+  'PUT /user/profile/avatar': async (req, reply) => {
+    const account = findAccount(loginFromRequest(req));
+
+    if (!account) {
+      return unauthorized(reply);
+    }
+
+    const file = (await readMultipart(req)).get('avatar');
+    const extension = file instanceof File ? extname(file.name).toLowerCase() : '';
+
+    if (!Object.hasOwn(contentTypes, extension)) {
+      return reply(400, { error: 'Аватар — изображение png, jpeg, gif или webp' });
+    }
+
+    const name = `${randomUUID()}${extension}`;
+    await writeFile(join(uploadsDir, name), Buffer.from(await file.arrayBuffer()));
+    account.avatar = name;
+
+    const { password, ...profile } = account;
+    return reply(200, profile);
+  },
+
   'GET /chats': async (req, reply) => {
     if (!loginFromRequest(req)) {
       return unauthorized(reply);
@@ -185,7 +235,7 @@ const routes = {
   },
 };
 
-createServer((req, res) => {
+createServer(async (req, res) => {
   const path = (req.url ?? '/').split('?')[0];
   const key = `${req.method} ${path}`;
 
@@ -204,6 +254,20 @@ createServer((req, res) => {
 
   if (req.method === 'OPTIONS') {
     res.writeHead(204, cors).end();
+    return;
+  }
+
+  if (req.method === 'GET' && path.startsWith('/resources/')) {
+    const name = basename(path);
+
+    try {
+      const data = await readFile(join(uploadsDir, name));
+      console.log(`200 ${key}`);
+      res.writeHead(200, { ...cors, 'content-type': contentTypes[extname(name).toLowerCase()] });
+      res.end(data);
+    } catch {
+      reply(404, { error: 'Файл не найден' });
+    }
     return;
   }
 

@@ -33,6 +33,13 @@
   cursor: pointer;
 }
 
+.load-photo__image {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  border-radius: inherit;
+}
+
 .load-photo__input {
   display: none;
 }

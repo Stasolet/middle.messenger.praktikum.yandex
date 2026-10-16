@@ -8,10 +8,19 @@
     ref='avatarInput'
     hidden
   />
-  <button class='load-photo' type='button' aria-label='Загрузить фото аватара'>
-    <span class='material-symbols-outlined'>
-      add_a_photo
-    </span>
+  <button
+    class='load-photo'
+    type='button'
+    data-action='change-avatar'
+    aria-label='Загрузить фото аватара'
+  >
+    {{#if avatarUrl}}
+      <img class='load-photo__image' src='{{avatarUrl}}' alt='{{title}}' />
+    {{else}}
+      <span class='material-symbols-outlined'>
+        add_a_photo
+      </span>
+    {{/if}}
   </button>
   <h1 class='form__title'>{{title}}</h1>
   <div class='form__fields' ref='profileFields'>
@@ -33,6 +42,10 @@
   <p class='form__error' ref='error' hidden></p>
   <div class='form__footer'>
     <ul>
+      <li>
+        <a class='internal-link' href='/messenger'>Вернуться в чат</a>
+        <div class='horizontal-spacer'></div>
+      </li>
       <li ref='editProfileItem'>
         <button class='internal-link' type='button' data-action='edit-profile'>Изменить данные</button>
         <div class='horizontal-spacer'></div>

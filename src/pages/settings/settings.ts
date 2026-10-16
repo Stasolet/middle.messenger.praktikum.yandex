@@ -57,6 +57,10 @@ export class SettingsPage extends BaseBlock<PageProps, SettingsPageRefs> {
         await this.renderProfile();
       },
       onSavePassword: (values) => userService.changePassword(passwordPayload(values)),
+      onUploadAvatar: async (file) => {
+        await userService.uploadAvatar(file);
+        await this.renderProfile();
+      },
     };
   }
 
