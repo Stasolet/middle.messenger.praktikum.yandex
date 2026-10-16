@@ -2,7 +2,9 @@
     <nav class="chat__nav">
         <div class="interlocutor-info">
             <div class="interlocutor-info__avatar">
-                <img class="interlocutor-info__avatar-img" src="{{avatarUrl}}" alt="{{name}}" />
+                {{#if avatarUrl}}
+                    <img class="interlocutor-info__avatar-img" src="{{avatarUrl}}" alt="{{name}}" />
+                {{/if}}
             </div>
             <h1 class="interlocutor-info__name">{{name}}</h1>
         </div>

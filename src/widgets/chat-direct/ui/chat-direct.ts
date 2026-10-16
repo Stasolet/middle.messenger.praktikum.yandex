@@ -8,7 +8,7 @@ registerComponent(ChatMessage);
 
 interface ChatDirectProps extends BaseProps {
   name: string;
-  avatarUrl: string;
+  avatarUrl: string | null;
   messages: Message[];
 }
 

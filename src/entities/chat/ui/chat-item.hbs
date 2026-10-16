@@ -1,7 +1,9 @@
 <div class='chat-item'>
   <div class='chat-item__block'>
     <div class='chat-item__avatar'>
-      <img src='{{avatarUrl}}' alt='avatar' />
+      {{#if avatarUrl}}
+        <img src='{{avatarUrl}}' alt='avatar' />
+      {{/if}}
     </div>
     <div class='chat-item__user-block'>
       <div class='chat-item__name'>
@@ -13,7 +15,9 @@
     </div>
     <div class='other-data'>
       <div class='chat-item__date'>
-        <time class='chat-item__date'>{{time_from_timestamp lastMessageDate}}</time>
+        {{#if lastMessageDate}}
+          <time class='chat-item__date'>{{time_from_timestamp lastMessageDate}}</time>
+        {{/if}}
       </div>
       {{#if unreadCount}}
         <span class='chat-item__badge'>{{unreadCount}}</span>

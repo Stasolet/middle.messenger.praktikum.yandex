@@ -1,5 +1,4 @@
-export { http, Http, type HttpBody, type HttpQuery } from './http';
-export { clearAuthToken, getAuthToken, setAuthToken } from './auth-token';
+export { http, Http, API_BASE_URL, type HttpBody, type HttpQuery } from './http';
 export {
   BadRequestError,
   ForbiddenError,

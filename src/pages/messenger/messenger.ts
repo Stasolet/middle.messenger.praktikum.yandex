@@ -5,7 +5,7 @@ import { chatsService } from '../../entities/chat';
 import { messagesService } from '../../entities/message';
 import { ChatDirect } from '../../widgets/chat-direct';
 import { Sidebar } from '../../widgets/sidebar';
-import type { PageProps } from '../../shared/router';
+import { errorRouteFor, type PageProps } from '../../shared/router';
 import template from './messenger.hbs';
 import './messenger.scss';
 
@@ -18,31 +18,39 @@ export class MessengerPage extends BaseBlock<PageProps, MessengerRefs> {
   protected template = template;
 
   protected componentDidMount(): void {
-    const chats = chatsService.getChats();
+    void this.renderChats();
+  }
 
-    const sidebar = new Sidebar({ chats });
-    const sidebarElement = sidebar.element();
-    if (sidebarElement) {
-      this.refs.chatsList.appendChild(sidebarElement);
-    }
+  private async renderChats(): Promise<void> {
+    const { chatsList, chatDirect } = this.refs;
+    chatsList.textContent = 'Загрузка чатов…';
 
-    const firstChat = chats[0];
-    if (!firstChat) {
-      return;
-    }
+    try {
+      const chats = await chatsService.getChats();
 
-    const currentChatInfo = chatsService.getChatById(firstChat.id);
-    if (currentChatInfo) {
+      const sidebar = new Sidebar({ chats });
+      const sidebarElement = sidebar.element();
+      if (sidebarElement) {
+        chatsList.replaceChildren(sidebarElement);
+      }
+
+      const firstChat = chats[0];
+      if (!firstChat) {
+        return;
+      }
+
       const currentChat = new ChatDirect({
-        name: currentChatInfo.name,
-        avatarUrl: currentChatInfo.avatarUrl,
-        messages: messagesService.getMessages(currentChatInfo.id),
+        name: firstChat.name,
+        avatarUrl: firstChat.avatarUrl,
+        messages: messagesService.getMessages(firstChat.id),
       });
 
       const currentChatElement = currentChat.element();
       if (currentChatElement) {
-        this.refs.chatDirect.appendChild(currentChatElement);
+        chatDirect.replaceChildren(currentChatElement);
       }
+    } catch (error) {
+      this.props.navigation.navigate(errorRouteFor(error));
     }
   }
 }

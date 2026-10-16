@@ -9,7 +9,8 @@ TypeScript + Vite (SPA: один вход `src/index.html`, composition root `sr
 ## Архитектура
 
 Feature-Sliced Design: `src/shared` → `src/entities` → `src/features` → `src/widgets` → `src/pages`. Импорт только снизу вверх; внутри слайса — через barrel `index.ts`.
-Данные: `mocks/*.json` → `shared/api` (transport, единственное место импорта JSON) → `entities/*/model/*-service` (домен) → страницы (composition root).
+Данные: `shared/api` (XHR-транспорт, DTO и пути Практикум API; история сообщений ещё на `mocks/chat-messages.json`) → `entities/*/model` (маппинг DTO→сущность и async-сервисы) → страницы (composition root).
+Сессия — cookie (`withCredentials`), своего токена нет: авторизованность известна только из `auth` (`entities/user`).
 Общеслайсовые утилиты (trim, merge, set, isEqual, deepCopy, queryString) — `src/shared/lib/utils.ts`, экспорт через баррел `shared/lib` namespace'ом `utils`.
 
 ## Рендеринг
@@ -37,6 +38,8 @@ Helper кладёт в props родителя: `__children` (embed в шабло
 
 - `setProps()` пересоздаёт DOM **и дочерние инстансы**: теряет фокус, каретку, value и связи `onBlur`-колбэков. Для частых UI-обновлений (ошибок валидации) менять DOM императивно через refs.
 - Роутер: `src/shared/router` (`Route` + `Router`). Страница — наследник `BaseBlock`, конструктор принимает `PageProps` (`params`/`query`/`navigation`). В шаблоне ссылки вида `/sign-up` — клик перехватывается; программный переход — `this.props.navigation.navigate(...)`. В DOM всегда одна страница (`replaceChildren`).
+- Первый рендер — после `auth.restore()` в `app.ts`: статус сессии известен только после `GET /auth/user`, поэтому guard работает синхронно. Гостю открыты `/`, `/sign-up`, `/404`, `/500`.
+- Данные приходят по сети: страница сразу рисует заглушку, данные добирает `await`-методом, сбой запроса ведёт на маршрут из `errorRouteFor(error)`.
 - Глобальные SCSS-переменные (`src/styles/global.scss`) инжектятся vite автоматически, `@use` в файлах не нужен.
 - Новое поле в props компонента — сначала спроси себя: не `BaseBlock` ли его место; и если кажется что `BaseBlock` — ещё раз: не оверинжиниринг ли это, согласовать с пользователем.
 - Комментарии описывают код, а не правку: не оставлять следы рефакторинга («раньше было X», «не Y, потому что…») и не дублировать то, что видно из кода.

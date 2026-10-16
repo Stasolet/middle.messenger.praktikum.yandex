@@ -1,8 +1,7 @@
 import { utils } from '../../lib';
-import { getAuthToken } from './auth-token';
 import { createRequestError, TransportError } from './request-error';
 
-const API_BASE_URL = 'https://ya-praktikum.tech/api/v2';
+export const API_BASE_URL = 'https://ya-praktikum.tech/api/v2';
 const REQUEST_TIMEOUT_MS = 10_000;
 
 type HttpMethod = 'GET' | 'POST' | 'PUT' | 'DELETE';
@@ -43,10 +42,9 @@ export class Http {
       const xhr = new XMLHttpRequest();
       xhr.open(method, this.buildUrl(path, query));
 
-      const token = getAuthToken();
-      if (token) {
-        xhr.setRequestHeader('Authorization', `Bearer ${token}`);
-      }
+      // Сессия Практикум API живёт в cookie: без флага браузер не приложит её к запросу,
+      // и даже сразу после входа сервер отвечал бы 401.
+      xhr.withCredentials = true;
 
       // У FormData браузер сам проставит Content-Type с boundary — руками не трогать.
       if (body && !(body instanceof FormData)) {

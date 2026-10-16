@@ -9,3 +9,4 @@ export {
   type RouteQuery,
 } from './route';
 export { Router, type RouterOptions } from './router';
+export { errorRouteFor } from './error-route';
