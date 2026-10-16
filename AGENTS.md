@@ -4,12 +4,15 @@
 
 ## Стек
 
-TypeScript + Vite (MPA: несколько `.html`-точек входа в `vite.config.js`) + Handlebars + SCSS. Фреймворка нет.
+TypeScript + Vite (SPA: один вход `src/index.html`, composition root `src/app.ts` — там таблица маршрутов) + Handlebars + SCSS. Фреймворка нет.
 
 ## Архитектура
 
 Feature-Sliced Design: `src/shared` → `src/entities` → `src/features` → `src/widgets` → `src/pages`. Импорт только снизу вверх; внутри слайса — через barrel `index.ts`.
-Данные: `mocks/*.json` → `shared/api` (transport, единственное место импорта JSON) → `entities/*/model/*-service` (домен) → страницы (composition root).
+Данные: `shared/api` (XHR-транспорт, DTO и пути Практикум API; адрес — `VITE_API_BASE_URL`, по умолчанию живой API; история сообщений ещё на `mocks/chat-messages.json`) → `entities/*/model` (маппинг DTO→сущность и async-сервисы) → страницы (composition root).
+Сессия — cookie (`withCredentials`), своего токена нет: авторизованность известна только из `auth` (`entities/user`).
+Живой API лежит — работа через заглушку: `npm run mock:api` (ответы `mocks/api/*.json` в формате DTO, вход по аккаунтам оттуда же) и `VITE_API_BASE_URL=http://localhost:4111 npm run dev`; нереализованные маршруты отвечают 501.
+Общеслайсовые утилиты (trim, merge, set, isEqual, deepCopy, queryString) — `src/shared/lib/utils.ts`, экспорт через баррел `shared/lib` namespace'ом `utils`.
 
 ## Рендеринг
 
@@ -22,7 +25,7 @@ Feature-Sliced Design: `src/shared` → `src/entities` → `src/features` → `s
 
 ## Дочерние компоненты
 
-Регистрируются один раз: `registerComponent(X)` (см. `initHbs()` в `src/shared/lib/initHbs.ts`, вызывается во входах страниц). В шаблонах: `{{{X prop=value ref="name"}}}`.
+Регистрируются один раз: `registerComponent(X)` (см. `initHbs()` в `src/shared/lib/hbs/initHbs.ts`, вызывается во входах страниц). В шаблонах: `{{{X prop=value ref="name"}}}`.
 Helper кладёт в props родителя: `__children` (embed в шаблон), а при наличии `ref` — `__namedChildren[name]` = **инстанс** ребёнка и `__refs[name]` = его DOM-элемент. Это канал связи родитель↔ребёнок для точечного доступа. Для перечисления детей use `this.children` (все, без ref) + type guard, напр. `isFormField`; в `namedChildren` поле без `ref` не попадёт — не полагаться на него как на реестр.
 
 ## Документация по областям — обязательно к прочтению
@@ -35,14 +38,16 @@ Helper кладёт в props родителя: `__children` (embed в шабло
 ## Важные грабли
 
 - `setProps()` пересоздаёт DOM **и дочерние инстансы**: теряет фокус, каретку, value и связи `onBlur`-колбэков. Для частых UI-обновлений (ошибок валидации) менять DOM императивно через refs.
-- Роутера нет: навигация ссылками / `window.location`.
+- Роутер: `src/shared/router` (`Route` + `Router`). Страница — наследник `BaseBlock`, конструктор принимает `PageProps` (`params`/`query`/`navigation`). В шаблоне ссылки вида `/sign-up` — клик перехватывается; программный переход — `this.props.navigation.navigate(...)`. В DOM всегда одна страница (`replaceChildren`).
+- Первый рендер — после `auth.restore()` в `app.ts`: статус сессии известен только после `GET /auth/user`, поэтому guard работает синхронно. Гостю открыты `/`, `/sign-up`, `/404`, `/500`.
+- Данные приходят по сети: страница сразу рисует заглушку, данные добирает `await`-методом, сбой запроса ведёт на маршрут из `errorRouteFor(error)`.
 - Глобальные SCSS-переменные (`src/styles/global.scss`) инжектятся vite автоматически, `@use` в файлах не нужен.
 - Новое поле в props компонента — сначала спроси себя: не `BaseBlock` ли его место; и если кажется что `BaseBlock` — ещё раз: не оверинжиниринг ли это, согласовать с пользователем.
 - Комментарии описывают код, а не правку: не оставлять следы рефакторинга («раньше было X», «не Y, потому что…») и не дублировать то, что видно из кода.
 
 ## Команды
 
-`npm run dev` | `build` | `typecheck` | `lint:js` | `lint:css` | `format`
+`npm run dev` | `mock:api` | `build` | `typecheck` | `lint:js` | `lint:css` | `format`
 
 ## Как поддерживать этот файл
 

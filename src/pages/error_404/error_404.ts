@@ -1,12 +1,21 @@
-import { ErrorWidget, type ErrorWidgetProps } from '../../widgets/error';
+import { BaseBlock, type BaseRefs } from '../../shared/ui';
+import { ErrorWidget } from '../../widgets/error';
+import type { PageProps } from '../../shared/router';
+import template from './error_404.hbs';
 
-const templateContent: ErrorWidgetProps = {
-  code: 404,
-  message: 'Не туда попали',
-};
+interface Error404PageRefs extends BaseRefs {
+  root: HTMLElement;
+}
 
-const errorPage = new ErrorWidget(templateContent);
-const errorElement = errorPage.element();
-if (errorElement) {
-  document.getElementById('error-container')!.appendChild(errorElement);
+export class Error404Page extends BaseBlock<PageProps, Error404PageRefs> {
+  protected template = template;
+
+  protected componentDidMount(): void {
+    const error = new ErrorWidget({ code: 404, message: 'Не туда попали' });
+
+    const errorElement = error.element();
+    if (errorElement) {
+      this.refs.root.appendChild(errorElement);
+    }
+  }
 }

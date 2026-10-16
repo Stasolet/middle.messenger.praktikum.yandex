@@ -1,8 +1,7 @@
 import { BaseBlock, type BaseProps, type ComponentLike } from '../../../shared/ui/base/base';
 import template from './form-field.hbs';
 import './form-field.scss';
-import { validations } from '../../../shared/lib/';
-import { composeValidators } from '../../lib/validations';
+import { composeValidators, type Validator } from '../../lib/validations';
 import { Input } from '../input/input';
 export interface FormFieldProps extends BaseProps {
   name: string;
@@ -12,7 +11,7 @@ export interface FormFieldProps extends BaseProps {
   value?: string | number;
   labelPosition?: 'top' | 'left';
   enabled?: boolean;
-  validators?: validations.Validator[];
+  validators?: Validator[];
   error?: string;
 }
 

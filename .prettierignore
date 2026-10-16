@@ -1,4 +1,8 @@
 node_modules
 dist
+sandbox
 package-lock.json
 .github
+
+# Handlebars: парсер prettier не понимает блоки {{#if}} внутри HTML-атрибутов
+*.hbs
