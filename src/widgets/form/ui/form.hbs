@@ -6,6 +6,7 @@
     {{/each}}
   </div>
   {{{Button text=buttonText type='submit'}}}
+  <p class='form__error' ref='error' hidden></p>
   {{#if footer}}
     <div class='form__footer'>
       <a class='internal-link' href='{{footer.link}}'>{{footer.text}}</a>

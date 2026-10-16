@@ -1,5 +1,6 @@
 import { BaseBlock, type BaseRefs } from '../../shared/ui';
 import { validations } from '../../shared/lib';
+import { auth } from '../../entities/user';
 import { type FormProps, Form } from '../../widgets/form';
 import type { PageProps } from '../../shared/router';
 import template from './login.hbs';
@@ -24,7 +25,8 @@ export class LoginPage extends BaseBlock<PageProps, LoginPageRefs> {
     return {
       title: 'Вход',
       buttonText: 'Авторизоваться',
-      onSubmit: () => {
+      onSubmit: async (values) => {
+        await auth.signIn({ login: values.login, password: values.password });
         this.props.navigation.navigate('/messenger');
       },
       fields: [

@@ -1,4 +1,9 @@
-import { usersApi, type SignInPayload, type SignUpPayload } from '../../../shared/api';
+import {
+  TransportError,
+  usersApi,
+  type SignInPayload,
+  type SignUpPayload,
+} from '../../../shared/api';
 import { toUser } from './user-mapper';
 import { type User } from './user';
 
@@ -29,14 +34,23 @@ class Auth {
     return this.currentUser;
   }
 
-  async signIn(payload: SignInPayload): Promise<User | null> {
+  /**
+   * Вход не считается успешным, пока профиль не подтвердил сессию: без cookie
+   * следующий запрос ушёл бы гостем, и страница вернула бы пользователя назад.
+   */
+  async signIn(payload: SignInPayload): Promise<User> {
     await usersApi.login(payload);
 
-    return this.restore();
+    const user = await this.restore();
+    if (!user) {
+      throw new TransportError('Сервер не подтвердил вход');
+    }
+
+    return user;
   }
 
   /** Сессию даёт вход, поэтому после регистрации входим теми же данными. */
-  async signUp(payload: SignUpPayload): Promise<User | null> {
+  async signUp(payload: SignUpPayload): Promise<User> {
     await usersApi.signUp(payload);
 
     return this.signIn({ login: payload.login, password: payload.password });

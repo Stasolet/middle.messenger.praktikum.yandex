@@ -1,5 +1,6 @@
 import { BaseBlock, type BaseRefs } from '../../shared/ui';
 import { validations } from '../../shared/lib';
+import { auth } from '../../entities/user';
 import { type FormProps, Form } from '../../widgets/form';
 import type { PageProps } from '../../shared/router';
 import template from './sign-up.hbs';
@@ -24,8 +25,16 @@ export class SignUpPage extends BaseBlock<PageProps, SignUpPageRefs> {
     return {
       title: 'Регистрация',
       buttonText: 'Зарегистрироваться',
-      onSubmit: () => {
-        this.props.navigation.navigate('/');
+      onSubmit: async (values) => {
+        await auth.signUp({
+          email: values.email,
+          login: values.login,
+          first_name: values.first_name,
+          second_name: values.second_name,
+          phone: values.phone,
+          password: values.password,
+        });
+        this.props.navigation.navigate('/messenger');
       },
       onValidate: (values): Record<string, string> =>
         values.password === values.passwordRepeat ? {} : { passwordRepeat: 'Пароли не совпадают' },
