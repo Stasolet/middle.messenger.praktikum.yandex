@@ -8,8 +8,9 @@
             </div>
             <h1 class="interlocutor-info__name">{{name}}</h1>
         </div>
-        <div id="userActionMenu" class="drop-menu drop-menu--open drop-menu--downside drop-menu--rightside">
-            <button id="userActionBtn" class="round" type="button" aria-label="Действия с пользователем">
+        <div id="userActionMenu" class="drop-menu drop-menu--downside drop-menu--rightside">
+            <button id="userActionBtn" class="round" type="button" aria-label="Действия с пользователем"
+                data-action="toggle-menu" aria-expanded="false">
                 <span class="material-symbols-outlined">more_vert</span>
             </button>
             <ul class="drop-menu__list">
@@ -38,8 +39,9 @@
         {{/each}}
     </div>
     <form action="" class="chat__typing_zone">
-        <div id="attachmentMenu" class="drop-menu drop-menu--open drop-menu--upside">
-            <button id="attachmentBtn" class="typing_zone__attach round" type="button">
+        <div id="attachmentMenu" class="drop-menu drop-menu--upside">
+            <button id="attachmentBtn" class="typing_zone__attach round" type="button" data-action="toggle-menu"
+                aria-expanded="false" aria-label="Прикрепить файл">
                 <span class="material-symbols-outlined">attach_file</span>
             </button>
             <ul class="drop-menu__list">
