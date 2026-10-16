@@ -16,6 +16,8 @@ import './profile.scss';
 export interface ProfileProps extends BaseProps {
   title: string;
   fields: FormFieldProps[];
+  /** Выход из аккаунта — решает страница, вьюха только просит */
+  onSignOut?: () => void;
 }
 
 interface ProfileRefs extends BaseRefs {
@@ -38,6 +40,10 @@ export class Profile extends BaseBlock<ProfileProps, ProfileRefs> {
         const avatarInput = this.refs['avatarInput'];
         avatarInput.click();
       }
+
+      if (target.closest('[data-action="sign-out"]')) {
+        this.props.onSignOut?.();
+      }
     },
     submit: (e: Event) => {
       e.preventDefault();
@@ -58,8 +64,9 @@ export class Profile extends BaseBlock<ProfileProps, ProfileRefs> {
 }
 
 /** Собирает props вьюхи из профиля пользователя */
-export const createProfileProps = (user: User): ProfileProps => ({
+export const createProfileProps = (user: User, onSignOut: () => void): ProfileProps => ({
   title: user.nickName,
+  onSignOut,
   fields: [
     {
       label: 'Почта',

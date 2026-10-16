@@ -7,3 +7,4 @@
 - Простые правила — в `validators` конкретного поля; кросс-полевые (напр. совпадение паролей на sign-up) — только в `onValidate` формы, показываются после submit.
 - `collectFormValues` / `logFormValues` / `FormValues` — `src/shared/lib/form.ts`.
 - Страница profile — не на виджете `Form` (свой `<form>` и свой submit: `validate()` всех полей → `logFormValues`, без кросс-проверок и навигации; временно: демо всех полей, будет переделана).
+- «Выйти» на profile — `button` с `data-action="sign-out"` и обработчик страницы (`auth.signOut()` → переход на вход); ссылкой на `/` быть не может: guard возвращает авторизованного на `/messenger`.
