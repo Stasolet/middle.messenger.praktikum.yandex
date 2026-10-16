@@ -1,4 +1,4 @@
-.form__footer .internal-link {
+.profile-settings .form__footer .internal-link {
   margin-block: 10px;
   background: none;
   border: none;
@@ -7,7 +7,7 @@
   padding: 0;
 }
 
-.form__fields {
+.profile-settings .form__fields {
   margin-block: 50px;
 }
 
@@ -38,7 +38,7 @@
   border-bottom: 1px solid $surface-spacer-color;
 }
 
-.form-field {
+.profile-settings .form-field {
   border-bottom: none;
   height: 18px;
 }
