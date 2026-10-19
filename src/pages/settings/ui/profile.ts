@@ -313,7 +313,9 @@ export const createProfileProps = (user: User, actions: ProfileActions): Profile
       labelPosition: 'left',
       placeholder: '•••••••••••',
       enabled: false,
-      validators: [validations.required, validations.password],
+      // формат и сложность проверяются только для новых паролей:
+      // существующий мог быть задан по иным правилам
+      validators: [validations.required],
     },
     {
       label: 'Новый пароль',
