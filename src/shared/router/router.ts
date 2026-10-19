@@ -99,26 +99,19 @@ export class Router {
 
   private renderAt(pathname: string, search: string, { replace }: { replace: boolean }): void {
     const redirect = this.guard?.(pathname);
-    if (redirect !== null && redirect !== undefined) {
-      const target = new URL(redirect, location.origin);
 
-      if (replace) {
-        history.replaceState({}, '', target.href);
-      } else {
-        history.pushState({}, '', target.href);
-      }
+    const url = redirect
+      ? new URL(redirect, location.origin)
+      : new URL(`${pathname}${search}`, location.origin);
 
-      this.renderRoute(target.pathname, target.search);
-      return;
-    }
-
-    if (replace) {
-      history.replaceState({}, '', `${pathname}${search}`);
+    // переход на тот же URL не должен добавлять в историю дубликат записи
+    if (replace || (url.pathname === location.pathname && url.search === location.search)) {
+      history.replaceState({}, '', url.href);
     } else {
-      history.pushState({}, '', `${pathname}${search}`);
+      history.pushState({}, '', url.href);
     }
 
-    this.renderRoute(pathname, search);
+    this.renderRoute(url.pathname, url.search);
   }
 
   private renderRoute(pathname: string, search: string): void {
