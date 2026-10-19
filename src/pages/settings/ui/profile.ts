@@ -9,7 +9,6 @@ import {
 import { collectFormValues, validations, type SubmitHandler } from '../../../shared/lib';
 import { errorMessage } from '../../../shared/api';
 import { type User } from '../../../entities/user';
-import '../../../widgets/form/ui/form.scss';
 
 import template from './profile.hbs';
 import './profile.scss';
@@ -210,15 +209,13 @@ export class Profile extends BaseBlock<ProfileProps, ProfileRefs> {
         .map((field) => field.validate())
         .some((error) => error !== null);
 
-      if (this.mode === 'password') {
-        const mismatch = values.new_password !== values.new_password_repeat;
-        this.fieldByName('new_password_repeat')?.setError(mismatch ? 'Пароли не совпадают' : '');
-        if (mismatch) {
-          return;
-        }
+      if (hasFieldErrors) {
+        return;
       }
 
-      if (hasFieldErrors) {
+      // после возврата по ошибкам полей: иначе при обоих пустых паролях затрём «Поле обязательно»
+      if (this.mode === 'password' && values.new_password !== values.new_password_repeat) {
+        this.fieldByName('new_password_repeat')?.setError('Пароли не совпадают');
         return;
       }
 
