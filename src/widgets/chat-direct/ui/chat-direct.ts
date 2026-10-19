@@ -141,15 +141,10 @@ export class ChatDirect extends BaseBlock<ChatDirectProps, ChatDirectRefs> {
     }
   }
 
-  /** Страница создаёт виджет императивно, без unmount — отписываемся, когда элемент отсоединён от DOM */
   private readonly onDocumentClick = (event: Event): void => {
     const root = this.element();
-    if (!root || !root.isConnected) {
-      document.removeEventListener('click', this.onDocumentClick);
-      return;
-    }
 
-    if (event.target instanceof Node && !root.contains(event.target)) {
+    if (root && event.target instanceof Node && !root.contains(event.target)) {
       this.closeMenus();
     }
   };

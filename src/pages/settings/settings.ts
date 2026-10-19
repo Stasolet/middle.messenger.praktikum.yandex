@@ -1,7 +1,7 @@
 import '@fontsource-variable/material-symbols-outlined';
 
 import { BaseBlock, type BaseRefs } from '../../shared/ui';
-import { auth, userService } from '../../entities/user';
+import { auth, userService, type User } from '../../entities/user';
 import { errorRouteFor, type PageProps } from '../../shared/router';
 import { type FormValues } from '../../shared/lib';
 import { type PasswordUpdatePayload, type ProfileUpdatePayload } from '../../shared/api';
@@ -29,21 +29,35 @@ const passwordPayload = (values: FormValues): PasswordUpdatePayload => ({
 export class SettingsPage extends BaseBlock<PageProps, SettingsPageRefs> {
   protected template = template;
 
+  /** Профиль создаётся императивно: страница отвечает за его размонтирование */
+  private profile: Profile | null = null;
+
   protected componentDidMount(): void {
-    this.renderProfile().catch((error: unknown) =>
+    this.loadProfile().catch((error: unknown) =>
       this.props.navigation.navigate(errorRouteFor(error))
     );
   }
 
-  private async renderProfile(): Promise<void> {
+  protected componentWillUnmount(): void {
+    this.profile?.unmountComponent();
+  }
+
+  private async loadProfile(): Promise<void> {
     const { root } = this.refs;
     root.textContent = 'Загрузка профиля…';
 
-    const profile = new Profile(createProfileProps(await userService.getProfile(), this.actions()));
+    this.attachProfile(await userService.getProfile());
+  }
+
+  private attachProfile(user: User): void {
+    const profile = new Profile(createProfileProps(user, this.actions()));
+
+    this.profile?.unmountComponent();
+    this.profile = profile;
 
     const profileElement = profile.element();
     if (profileElement) {
-      root.replaceChildren(profileElement);
+      this.refs.root.replaceChildren(profileElement);
     }
   }
 
@@ -52,14 +66,12 @@ export class SettingsPage extends BaseBlock<PageProps, SettingsPageRefs> {
     return {
       onSignOut: () => void this.signOut(),
       onSaveProfile: async (values) => {
-        await userService.update(profilePayload(values));
-        // значения после записи берутся с сервера, а не из полей формы
-        await this.renderProfile();
+        // значения после записи берутся из ответа сервера, а не из полей формы
+        this.attachProfile(await userService.update(profilePayload(values)));
       },
       onSavePassword: (values) => userService.changePassword(passwordPayload(values)),
       onUploadAvatar: async (file) => {
-        await userService.uploadAvatar(file);
-        await this.renderProfile();
+        this.attachProfile(await userService.uploadAvatar(file));
       },
     };
   }

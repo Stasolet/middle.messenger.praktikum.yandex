@@ -18,8 +18,17 @@ interface MessengerRefs extends BaseRefs {
 export class MessengerPage extends BaseBlock<PageProps, MessengerRefs> {
   protected template = template;
 
+  /** Виджеты, созданные императивно: страница отвечает за их размонтирование */
+  private sidebar: Sidebar | null = null;
+  private direct: ChatDirect | null = null;
+
   protected componentDidMount(): void {
     void this.renderChats();
+  }
+
+  protected componentWillUnmount(): void {
+    this.sidebar?.unmountComponent();
+    this.direct?.unmountComponent();
   }
 
   private async renderChats(): Promise<void> {
@@ -35,6 +44,7 @@ export class MessengerPage extends BaseBlock<PageProps, MessengerRefs> {
         activeChatId: current?.id ?? null,
         onCreateChat: (title) => this.createChat(title),
       });
+      this.sidebar = sidebar;
 
       const sidebarElement = sidebar.element();
       if (sidebarElement) {
@@ -72,6 +82,7 @@ export class MessengerPage extends BaseBlock<PageProps, MessengerRefs> {
       onRemoveUser: (login) => this.changeUser(chat.id, login, 'remove'),
       onDeleteChat: () => this.deleteChat(chat.id),
     });
+    this.direct = direct;
 
     const directElement = direct.element();
     if (directElement) {

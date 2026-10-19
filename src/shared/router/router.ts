@@ -1,5 +1,5 @@
 import { utils } from '../lib';
-import { Route, type RouteConfig, type RouteQuery } from './route';
+import { Route, type PageInstance, type RouteConfig, type RouteQuery } from './route';
 
 export interface RouterOptions {
   /**
@@ -13,6 +13,7 @@ export class Router {
   private readonly routes: Route[] = [];
   private notFoundRoute: Route | null = null;
   private guard: ((pathname: string) => string | null) | null = null;
+  private currentPage: PageInstance | null = null;
 
   private readonly container: HTMLElement;
 
@@ -57,7 +58,14 @@ export class Router {
    * Служебные случаи (target, download, модификаторы клавиш) остаются браузеру.
    */
   private onDocumentClick = (event: MouseEvent): void => {
-    if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey) {
+    if (
+      event.defaultPrevented ||
+      event.button !== 0 ||
+      event.metaKey ||
+      event.ctrlKey ||
+      event.shiftKey ||
+      event.altKey
+    ) {
       return;
     }
 
@@ -124,8 +132,13 @@ export class Router {
       return;
     }
 
-    const element = route.render(route.match(pathname) ?? {}, query);
+    // размонтирование до создания новой страницы: обработчики прежней не должны получать её события
+    this.currentPage?.unmountComponent();
 
+    const page = route.render(route.match(pathname) ?? {}, query);
+    this.currentPage = page;
+
+    const element = page.element();
     if (element) {
       this.container.replaceChildren(element);
     }

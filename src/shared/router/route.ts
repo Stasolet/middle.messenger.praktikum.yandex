@@ -20,6 +20,7 @@ export interface PageProps extends BaseProps {
 
 export interface PageInstance {
   element(): Element | null;
+  unmountComponent(): void;
 }
 
 export type PageConstructor = new (props: PageProps) => PageInstance;
@@ -101,13 +102,11 @@ export class Route {
     return params;
   }
 
-  render(params: RouteParams, query: RouteQuery): Element | null {
-    const page = new this.Page({
+  render(params: RouteParams, query: RouteQuery): PageInstance {
+    return new this.Page({
       ...this.baseProps,
       params,
       query,
     });
-
-    return page.element();
   }
 }

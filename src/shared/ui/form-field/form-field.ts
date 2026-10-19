@@ -79,10 +79,5 @@ export class FormField extends BaseBlock<FormFieldProps, FormFieldRefs> {
   }
 }
 
-/**
- * Type guard: дочерний компонент — поле формы.
- * FormField формально не расширяет ComponentLike (unmountComponent protected),
- * поэтому предикат — пересечение.
- */
-export const isFormField = (component: ComponentLike): component is FormField & ComponentLike =>
+export const isFormField = (component: ComponentLike): component is FormField =>
   component instanceof FormField;
