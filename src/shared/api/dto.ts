@@ -20,7 +20,7 @@ export type ChatUserDTO = UserDTO & { role: string };
 
 export type LastMessageDTO = {
   user: Pick<UserDTO, 'id' | 'first_name' | 'second_name' | 'display_name' | 'avatar'>;
-  time: string;
+  time: string | number;
   content: string;
 };
 

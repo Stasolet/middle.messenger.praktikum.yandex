@@ -3,8 +3,8 @@ export type Chat = {
   name: string;
   avatarUrl: string | null;
   lastMessage: string;
-  /** ISO-время последнего сообщения; `null` у пустого чата. */
-  lastMessageDate: string | null;
+  /** Время последнего сообщения: ISO-строка или epoch (секунды/миллисекунды); `null` у пустого чата. */
+  lastMessageDate: string | number | null;
   unreadCount: number;
   createdBy: number;
 };
