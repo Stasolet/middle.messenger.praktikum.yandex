@@ -359,11 +359,16 @@ const routes = {
   },
 
   'GET /chats': async (req, reply) => {
-    if (!loginFromRequest(req)) {
+    const account = findAccount(loginFromRequest(req));
+
+    if (!account) {
       return unauthorized(reply);
     }
 
-    return reply(200, chats);
+    return reply(
+      200,
+      chats.filter((chat) => (members.get(chat.id) ?? []).includes(account.id))
+    );
   },
 };
 
@@ -410,7 +415,11 @@ createServer(async (req, res) => {
     return;
   }
 
-  handler(req, reply);
+  try {
+    await handler(req, reply);
+  } catch {
+    reply(500, { error: 'Внутренняя ошибка заглушки' });
+  }
 }).listen(PORT, () => {
   console.log(`Заглушка API: http://localhost:${PORT}`);
   console.log(`VITE_API_BASE_URL=http://localhost:${PORT} npm run dev`);
