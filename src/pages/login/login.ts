@@ -35,14 +35,16 @@ export class LoginPage extends BaseBlock<PageProps, LoginPageRefs> {
           name: 'login',
           type: 'text',
           labelPosition: 'top',
-          validators: [validations.required, validations.login],
+          // формат и сложность проверяются только при регистрации:
+          // существующие данные могут им не соответствовать
+          validators: [validations.required],
         },
         {
           label: 'Пароль',
           name: 'password',
           type: 'password',
           labelPosition: 'top',
-          validators: [validations.required, validations.password],
+          validators: [validations.required],
         },
       ],
       footer: { text: 'Нет аккаунта?', link: '/sign-up' },
