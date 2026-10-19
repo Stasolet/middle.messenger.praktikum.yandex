@@ -63,6 +63,11 @@ class Auth {
       this.currentUser = null;
     }
   }
+
+  /** Сброс при 401 «в полёте»: иначе guard сочтёт сессию живой и вернёт `/` на `/messenger` */
+  invalidate(): void {
+    this.currentUser = null;
+  }
 }
 
 export const auth = new Auth();

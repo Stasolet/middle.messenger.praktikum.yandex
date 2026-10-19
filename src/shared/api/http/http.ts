@@ -12,6 +12,8 @@ export type HttpBody = Record<string, unknown> | FormData;
 
 export class Http {
   readonly baseUrl: string;
+  /** Транспорт ничего не знает о сессии: реакцию на 401 подключает composition root */
+  onUnauthorized: (() => void) | null = null;
 
   constructor(baseUrl: string) {
     this.baseUrl = baseUrl;
@@ -60,6 +62,10 @@ export class Http {
         if (xhr.status >= 200 && xhr.status < 300) {
           resolve(parsed as T);
           return;
+        }
+
+        if (xhr.status === 401) {
+          this.onUnauthorized?.();
         }
 
         reject(createRequestError(xhr.status, parsed));

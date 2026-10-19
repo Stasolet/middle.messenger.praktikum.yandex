@@ -1,4 +1,5 @@
 import { initHbs } from './shared/lib';
+import { http } from './shared/api';
 import { Router } from './shared/router';
 import { auth } from './entities/user';
 import { LoginPage } from './pages/login/login';
@@ -9,6 +10,8 @@ import { Error404Page } from './pages/error_404/error_404';
 import { Error500Page } from './pages/error_500/error_500';
 
 initHbs();
+
+http.onUnauthorized = () => auth.invalidate();
 
 const appContainer = document.getElementById('app');
 
