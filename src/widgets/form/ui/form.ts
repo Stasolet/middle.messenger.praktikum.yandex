@@ -14,7 +14,6 @@ import {
 } from '../../../shared/lib';
 import { errorMessage } from '../../../shared/api';
 import template from './form.hbs';
-import './form.scss';
 
 export interface FormProps extends BaseProps {
   title: string;
