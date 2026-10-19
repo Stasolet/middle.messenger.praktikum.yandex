@@ -1,12 +1,11 @@
-import { ErrorWidget, type ErrorWidgetProps } from '../../widgets/error';
+import { BaseBlock } from '../../shared/ui';
+import { registerComponent } from '../../shared/lib';
+import { ErrorWidget } from '../../widgets/error';
+import type { PageProps } from '../../shared/router';
+import template from './error_500.hbs';
 
-const templateContent: ErrorWidgetProps = {
-  code: 500,
-  message: 'Мы уже фиксим',
-};
+registerComponent(ErrorWidget);
 
-const errorPage = new ErrorWidget(templateContent);
-const errorElement = errorPage.element();
-if (errorElement) {
-  document.getElementById('error-container')!.appendChild(errorElement);
+export class Error500Page extends BaseBlock<PageProps> {
+  protected template = template;
 }

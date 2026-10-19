@@ -1,10 +1,10 @@
 export type Chat = {
   id: number;
   name: string;
-  type: string;
-  faction: string;
-  avatarUrl: string;
+  avatarUrl: string | null;
   lastMessage: string;
-  lastMessageDate: string | Date | number;
+  /** Время последнего сообщения: ISO-строка или epoch (секунды/миллисекунды); `null` у пустого чата. */
+  lastMessageDate: string | number | null;
   unreadCount: number;
+  createdBy: number;
 };

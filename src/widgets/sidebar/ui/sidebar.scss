@@ -26,10 +26,63 @@
 }
 
 .profile-link {
-  align-self: end;
   text-decoration: none;
   font-size: $font-base-size;
   color: $input-color;
+}
+
+.sidebar-header__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.sidebar-header__new-chat {
+  padding: 0;
+  border: none;
+  background: none;
+  color: $secondary-color;
+  line-height: 1;
+}
+
+.new-chat {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+.new-chat__input {
+  flex: 1;
+  min-width: 0;
+  height: 32px;
+  padding-inline: 8px;
+  border: none;
+  background-color: #efefef;
+  font: inherit;
+}
+
+.new-chat__submit,
+.new-chat__cancel {
+  padding: 0;
+  border: none;
+  background: none;
+  color: $secondary-color;
+  font-size: 0.9rem;
+}
+
+.sidebar__error {
+  margin: 0;
+  color: $error-color;
+  font-size: 0.75rem;
+  text-align: center;
+}
+
+.chat-list__empty {
+  margin: 0;
+  padding-block: 10px;
+  color: $input-color;
+  font-size: 0.9rem;
+  text-align: center;
 }
 
 .chat-item__members-avatar + .chat-item__members-avatar {

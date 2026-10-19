@@ -1,6 +1,7 @@
 import {
   BaseBlock,
   type BaseProps,
+  type BaseRefs,
   type FormFieldProps,
   FormField,
   isFormField,
@@ -11,8 +12,8 @@ import {
   type FormValues,
   type SubmitHandler,
 } from '../../../shared/lib';
+import { errorMessage } from '../../../shared/api';
 import template from './form.hbs';
-import './form.scss';
 
 export interface FormProps extends BaseProps {
   title: string;
@@ -31,9 +32,16 @@ export interface FormProps extends BaseProps {
   onValidate?: (values: FormValues) => Record<string, string>;
 }
 
-export class Form extends BaseBlock<FormProps> {
+interface FormRefs extends BaseRefs {
+  error: HTMLElement;
+}
+
+export class Form extends BaseBlock<FormProps, FormRefs> {
   static componentName = 'Form';
   protected template = template;
+
+  /** Отправка в полёте: повторный submit пока ответа нет не нужен */
+  private pending = false;
 
   /** Все поля формы, отрендеренные из props.fields */
   protected get fields(): FormField[] {
@@ -59,9 +67,47 @@ export class Form extends BaseBlock<FormProps> {
     return hasErrors;
   }
 
+  private submitButton(): HTMLButtonElement | null {
+    return this.element()?.querySelector<HTMLButtonElement>('button[type="submit"]') ?? null;
+  }
+
+  private setPending(pending: boolean): void {
+    this.pending = pending;
+
+    const button = this.submitButton();
+    if (button) {
+      button.disabled = pending;
+    }
+  }
+
+  /** Сообщение об ошибке отправки: текст ошибки сервера либо общий текст, если его нет */
+  private showError(error: unknown): void {
+    const node = this.refs.error;
+    if (!node) {
+      return;
+    }
+
+    node.textContent = errorMessage(error);
+    node.hidden = false;
+  }
+
+  private clearError(): void {
+    const node = this.refs.error;
+    if (!node) {
+      return;
+    }
+
+    node.textContent = '';
+    node.hidden = true;
+  }
+
   protected events = {
     submit: (e: Event) => {
       e.preventDefault();
+
+      if (this.pending) {
+        return;
+      }
 
       const root = this.element();
       if (!(root instanceof HTMLFormElement)) {
@@ -76,7 +122,16 @@ export class Form extends BaseBlock<FormProps> {
         return;
       }
 
-      (this.props.onSubmit ?? logFormValues)(values);
+      this.clearError();
+
+      const result = (this.props.onSubmit ?? logFormValues)(values);
+
+      if (result instanceof Promise) {
+        this.setPending(true);
+        result
+          .catch((error: unknown) => this.showError(error))
+          .finally(() => this.setPending(false));
+      }
     },
   };
 }
