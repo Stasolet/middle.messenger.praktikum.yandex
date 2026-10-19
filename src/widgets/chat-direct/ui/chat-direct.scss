@@ -48,6 +48,7 @@
 }
 
 .chat__typing_zone {
+  position: relative;
   display: flex;
   align-items: center;
   gap: 8px;
@@ -62,6 +63,15 @@
     border-radius: 24px;
     background: #fff;
   }
+}
+
+.chat__typing-error {
+  position: absolute;
+  bottom: calc(100% - 4px);
+  left: 20px;
+  margin: 0;
+  color: $error-color;
+  font-size: 0.75rem;
 }
 
 button {

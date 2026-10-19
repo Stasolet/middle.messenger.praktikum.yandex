@@ -21,6 +21,8 @@ interface ChatDirectRefs extends BaseRefs {
   userForm: HTMLElement;
   userLogin: HTMLInputElement;
   userError: HTMLElement;
+  messageInput: HTMLInputElement;
+  typingError: HTMLElement;
 }
 
 /** Третье состояние меню пользователя: список или форма с логином */
@@ -103,6 +105,16 @@ export class ChatDirect extends BaseBlock<ChatDirectProps, ChatDirectRefs> {
   private clearError(): void {
     this.refs.userError.textContent = '';
     this.refs.userError.hidden = true;
+  }
+
+  private showTypingError(text: string): void {
+    this.refs.typingError.textContent = text;
+    this.refs.typingError.hidden = false;
+  }
+
+  private clearTypingError(): void {
+    this.refs.typingError.textContent = '';
+    this.refs.typingError.hidden = true;
   }
 
   private async changeUser(login: string): Promise<void> {
@@ -200,6 +212,12 @@ export class ChatDirect extends BaseBlock<ChatDirectProps, ChatDirectRefs> {
       }
     },
 
+    input: (event: Event) => {
+      if (event.target === this.refs.messageInput) {
+        this.clearTypingError();
+      }
+    },
+
     submit: (e: Event) => {
       e.preventDefault();
 
@@ -215,11 +233,13 @@ export class ChatDirect extends BaseBlock<ChatDirectProps, ChatDirectRefs> {
 
       const values = collectFormValues(form);
       const error = validations.required(values.message);
+
       if (error) {
-        console.log(error);
+        this.showTypingError(error);
         return;
       }
 
+      this.clearTypingError();
       messagesService.send(values);
       form.reset();
     },
