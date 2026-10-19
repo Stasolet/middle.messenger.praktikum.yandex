@@ -2,7 +2,7 @@
   command = "npm run build"
   publish = "dist"
 
-# SPA-fallback: неизвестные пути отдają index.html, а 404 рисует роутер
+# SPA-fallback: неизвестные пути отдают index.html, а 404 рисует роутер
 [[redirects]]
   from = "/*"
   to = "/index.html"

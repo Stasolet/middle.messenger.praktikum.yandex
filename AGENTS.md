@@ -10,7 +10,7 @@ TypeScript + Vite (SPA: один вход `src/index.html`, composition root `sr
 
 Feature-Sliced Design: `src/shared` → `src/entities` → `src/features` → `src/widgets` → `src/pages`. Импорт только снизу вверх; внутри слайса — через barrel `index.ts`.
 Данные: `shared/api` (XHR-транспорт, DTO и пути Практикум API; адрес — `VITE_API_BASE_URL`, по умолчанию живой API; история сообщений ещё на `mocks/chat-messages.json`) → `entities/*/model` (маппинг DTO→сущность и async-сервисы) → страницы (composition root).
-Сессия — cookie (`withCredentials`), своего токена нет: авторизованность известна только из `auth` (`entities/user`).
+Сессия — cookie (`withCredentials`), своего токена нет: авторизованность известна только из `auth` (`entities/user`). 401 любого запроса снимает статус сразу: `http.onUnauthorized = () => auth.invalidate()` в `app.ts`, иначе guard зацикливает редирект `/` → `/messenger` на истёкшей сессии.
 Живой API лежит — работа через заглушку: `npm run mock:api` (ответы `mocks/api/*.json` в формате DTO, вход по аккаунтам оттуда же) и `VITE_API_BASE_URL=http://localhost:4111 npm run dev`; нереализованные маршруты отвечают 501.
 Общеслайсовые утилиты (trim, merge, set, isEqual, deepCopy, queryString) — `src/shared/lib/utils.ts`, экспорт через баррел `shared/lib` namespace'ом `utils`.
 
@@ -38,7 +38,7 @@ Helper кладёт в props родителя: `__children` (embed в шабло
 ## Важные грабли
 
 - `setProps()` пересоздаёт DOM **и дочерние инстансы**: теряет фокус, каретку, value и связи `onBlur`-колбэков. Для частых UI-обновлений (ошибок валидации) менять DOM императивно через refs.
-- Роутер: `src/shared/router` (`Route` + `Router`). Страница — наследник `BaseBlock`, конструктор принимает `PageProps` (`params`/`query`/`navigation`). В шаблоне ссылки вида `/sign-up` — клик перехватывается; программный переход — `this.props.navigation.navigate(...)`. В DOM всегда одна страница (`replaceChildren`).
+- Роутер: `src/shared/router` (`Route` + `Router`). Страница — наследник `BaseBlock`, конструктор принимает `PageProps` (`params`/`query`/`navigation`). В шаблоне ссылки вида `/sign-up` — клик перехватывается; программный переход — `this.props.navigation.navigate(...)`. В DOM всегда одна страница; перед заменой роутер вызывает `unmountComponent()` прежней — императивно созданные виджеты страница размонтирует сама в `componentWillUnmount`.
 - Первый рендер — после `auth.restore()` в `app.ts`: статус сессии известен только после `GET /auth/user`, поэтому guard работает синхронно. Гостю открыты `/`, `/sign-up`, `/404`, `/500`.
 - Данные приходят по сети: страница сразу рисует заглушку, данные добирает `await`-методом, сбой запроса ведёт на маршрут из `errorRouteFor(error)`.
 - Глобальные SCSS-переменные (`src/styles/global.scss`) инжектятся vite автоматически, `@use` в файлах не нужен.
