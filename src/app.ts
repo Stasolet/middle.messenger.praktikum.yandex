@@ -19,8 +19,8 @@ if (!(appContainer instanceof HTMLElement)) {
   throw new Error('Контейнер #app не найден в index.html');
 }
 
-/** Страницы, доступные гостю: вход, регистрация и обе страницы ошибки. */
-const GUEST_PATHS = new Set(['/', '/sign-up', '/404', '/500']);
+/** Требуют сессию; остальные пути гость открывает свободно, включая неизвестные — там 404 от роутера. */
+const PROTECTED_PATH = /^\/(settings|messenger)(\/|$)/;
 
 /** Вход и регистрация не нужны тому, кто уже вошёл. */
 const LOGIN_PATHS = new Set(['/', '/sign-up']);
@@ -30,7 +30,7 @@ function authGuard(pathname: string): string | null {
     return LOGIN_PATHS.has(pathname) ? '/messenger' : null;
   }
 
-  return GUEST_PATHS.has(pathname) ? null : '/';
+  return PROTECTED_PATH.test(pathname) ? '/' : null;
 }
 
 const router = new Router(appContainer, { guard: authGuard });
