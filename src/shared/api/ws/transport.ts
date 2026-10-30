@@ -52,6 +52,7 @@ export class WsTransport {
 
   connect(): void {
     this.stopped = false;
+    this.reconnectAttempt = 0;
     void this.open();
   }
 
@@ -88,8 +89,17 @@ export class WsTransport {
       return;
     }
 
-    const socket = new WebSocket(url);
+    // close() мог прийти, пока ждали токен: сокет создавать уже не нужно
+    if (this.stopped) {
+      return;
+    }
+
+    // прежняя попытка соединения закрывается: иначе повторный connect оставил бы два живых сокета
+    this.clearTimers();
     this.detach(this.socket);
+    this.socket?.close();
+
+    const socket = new WebSocket(url);
     this.socket = socket;
 
     socket.onopen = () => {
@@ -159,9 +169,16 @@ export class WsTransport {
   }
 
   private scheduleReconnect(): void {
+    if (this.stopped) {
+      return;
+    }
+
     this.clearTimers();
 
     if (this.reconnectAttempt >= RECONNECT_MAX_ATTEMPTS) {
+      // терминальный отказ: сокет и очередь больше не возобновятся, статус закрыт по-настоящему
+      this.stopped = true;
+      this.queue = [];
       this.options.onStatus('closed');
       return;
     }

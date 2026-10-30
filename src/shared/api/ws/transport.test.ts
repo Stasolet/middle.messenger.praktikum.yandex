@@ -192,4 +192,46 @@ describe('WsTransport', () => {
     expect(FakeWebSocket.instances).toHaveLength(1);
     expect(FakeWebSocket.instances[0].url).toBe('wss://test/ws/chats/1/2/4');
   });
+
+  it('close() во время ожидания токена обрывает попытку: сокет не создаётся', async () => {
+    let releaseUrl: (url: string) => void = () => {};
+    const transport = new WsTransport({
+      url: () => new Promise<string>((resolve) => (releaseUrl = resolve)),
+      onFrame: () => {},
+      onStatus: () => {},
+    });
+
+    transport.connect();
+    transport.close();
+    releaseUrl('wss://test/ws/chats/1/2/3');
+    await vi.advanceTimersByTimeAsync(60_000);
+
+    expect(FakeWebSocket.instances).toHaveLength(0);
+    void transport;
+  });
+
+  it('отказ переподключений терминален, а повторный connect начинает с первой попытки', async () => {
+    const transport = makeTransport();
+    await vi.waitFor(() => expect(FakeWebSocket.instances).toHaveLength(1));
+
+    for (const delay of [1_000, 2_000, 4_000, 8_000, 16_000]) {
+      FakeWebSocket.last.drop();
+      await vi.advanceTimersByTimeAsync(delay);
+    }
+    FakeWebSocket.last.drop();
+    await vi.advanceTimersByTimeAsync(60_000);
+
+    // статус закрыт по-настоящему: транспорт остановлен, очередь не копится
+    expect(transport.status).toBe('closed');
+    transport.send({ type: 'message', content: 'после отказа' });
+
+    const before = FakeWebSocket.instances.length;
+    transport.connect();
+    await vi.waitFor(() => expect(FakeWebSocket.instances).toHaveLength(before + 1));
+
+    // счётчик попыток сброшен: первый разрыв даёт переподключение, а не мгновенный отказ
+    FakeWebSocket.last.drop();
+    await vi.advanceTimersByTimeAsync(1_000);
+    expect(FakeWebSocket.instances).toHaveLength(before + 2);
+  });
 });
