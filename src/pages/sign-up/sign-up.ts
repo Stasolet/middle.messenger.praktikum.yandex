@@ -12,13 +12,20 @@ interface SignUpPageRefs extends BaseRefs {
 export class SignUpPage extends BaseBlock<PageProps, SignUpPageRefs> {
   protected template = template;
 
-  protected componentDidMount(): void {
-    const form = new Form(this.buildFormProps());
+  /** Форма создана императивно: страница отвечает за её размонтирование */
+  private form: Form | null = null;
 
-    const formElement = form.element();
+  protected componentDidMount(): void {
+    this.form = new Form(this.buildFormProps());
+
+    const formElement = this.form.element();
     if (formElement) {
       this.refs.root.appendChild(formElement);
     }
+  }
+
+  protected componentWillUnmount(): void {
+    this.form?.unmountComponent();
   }
 
   private buildFormProps(): FormProps {
