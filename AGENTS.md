@@ -9,9 +9,9 @@ TypeScript + Vite (SPA: один вход `src/index.html`, composition root `sr
 ## Архитектура
 
 Feature-Sliced Design: `src/shared` → `src/entities` → `src/features` → `src/widgets` → `src/pages`. Импорт только снизу вверх; внутри слайса — через barrel `index.ts`.
-Данные: `shared/api` (XHR-транспорт, DTO и пути Практикум API; адрес — `VITE_API_BASE_URL`, по умолчанию живой API; история сообщений ещё на `mocks/chat-messages.json`) → `entities/*/model` (маппинг DTO→сущность и async-сервисы) → страницы (composition root).
+Данные: `shared/api` (XHR-транспорт, WS-транспорт чата, DTO и пути Практикум API; адрес — `VITE_API_BASE_URL`, по умолчанию живой API) → `entities/*/model` (маппинг DTO→сущность и async-сервисы; переписка ходит по WS по протоколу `openapi/ws`) → страницы (composition root).
 Сессия — cookie (`withCredentials`), своего токена нет: авторизованность известна только из `auth` (`entities/user`). 401 любого запроса снимает статус сразу: `http.onUnauthorized = () => auth.invalidate()` в `app.ts`, иначе guard зацикливает редирект `/` → `/messenger` на истёкшей сессии.
-Живой API лежит — работа через заглушку: `npm run mock:api` (ответы `mocks/api/*.json` в формате DTO, вход по аккаунтам оттуда же) и `VITE_API_BASE_URL=http://localhost:4111 npm run dev`; нереализованные маршруты отвечают 501.
+Живой API лежит — работа через заглушку: `npm run mock:api` (ответы `mocks/api/*.json` в формате DTO, вход по аккаунтам оттуда же, чат-WS на том же порту) и `VITE_API_BASE_URL=http://localhost:4111 npm run dev`; нереализованные маршруты отвечают 501.
 Общеслайсовые утилиты (trim, merge, set, isEqual, deepCopy, queryString) — `src/shared/lib/utils.ts`, экспорт через баррел `shared/lib` namespace'ом `utils`.
 
 ## Рендеринг
@@ -47,7 +47,7 @@ Helper кладёт в props родителя: `__children` (embed в шабло
 
 ## Команды
 
-`npm run dev` | `mock:api` | `build` | `typecheck` | `lint:js` | `lint:css` | `format`
+`npm run dev` | `mock:api` | `build` | `typecheck` | `lint:js` | `lint:css` | `format` | `test`
 
 ## Как поддерживать этот файл
 

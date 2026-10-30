@@ -17,6 +17,7 @@ import { mkdtemp, readFile, writeFile } from 'node:fs/promises';
 import { createServer } from 'node:http';
 import { tmpdir } from 'node:os';
 import { basename, extname, join } from 'node:path';
+import { WebSocketServer } from 'ws';
 
 const PORT = 4111;
 
@@ -44,6 +45,17 @@ const contentTypes = {
 
 /** `sid` -> login */
 const sessions = new Map();
+
+/** Выданные токены сокетов: `token` -> chatId, как в живом API — ключ одноразовый и привязан к чату. */
+const issuedTokens = new Map();
+
+/** История переписки: chatId -> массив сообщений от старых к новым (id — порядковый в чате). */
+const messageLog = new Map();
+
+/** Открытые сокеты чатов: chatId -> множество клиентов для вещания. */
+const chatSockets = new Map();
+
+const HISTORY_PAGE_SIZE = 20;
 
 let nextAccountId = Math.max(...accounts.map((account) => account.id)) + 1;
 
@@ -280,6 +292,7 @@ const routes = {
 
     chats.splice(index, 1);
     members.delete(chatId);
+    messageLog.delete(chatId);
     return reply(200, {});
   },
 
@@ -372,13 +385,18 @@ const routes = {
   },
 };
 
-createServer(async (req, res) => {
+const server = createServer(async (req, res) => {
   const path = (req.url ?? '/').split('?')[0];
   const key = `${req.method} ${path}`;
 
+  const origin = req.headers.origin ?? '';
+  const devOrigin = /^http:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/.test(origin);
+
   const cors = {
-    'access-control-allow-origin': req.headers.origin ?? '*',
-    'access-control-allow-credentials': 'true',
+    // CORS разрешаем только локальному dev-серверу: чужая страница ответов с credentials не получит
+    ...(devOrigin
+      ? { 'access-control-allow-origin': origin, 'access-control-allow-credentials': 'true' }
+      : {}),
     'access-control-allow-headers': 'content-type',
     'access-control-allow-methods': 'GET,POST,PUT,DELETE,OPTIONS',
   };
@@ -408,6 +426,26 @@ createServer(async (req, res) => {
     return;
   }
 
+  const tokenMatch = /^\/chats\/token\/(\d+)$/.exec(path);
+  if (req.method === 'POST' && tokenMatch) {
+    const account = findAccount(loginFromRequest(req));
+
+    if (!account) {
+      return unauthorized(reply);
+    }
+
+    const chatId = Number(tokenMatch[1]);
+
+    if (!chats.some((chat) => chat.id === chatId)) {
+      return reply(400, { error: 'Чат не найден' });
+    }
+
+    const token = randomUUID();
+    issuedTokens.set(token, chatId);
+
+    return reply(200, { token });
+  }
+
   const handler = routes[key];
 
   if (!handler) {
@@ -420,7 +458,112 @@ createServer(async (req, res) => {
   } catch {
     reply(500, { error: 'Внутренняя ошибка заглушки' });
   }
-}).listen(PORT, () => {
+});
+
+/**
+ * Сокеты чатов, как в живом API: /ws/chats/{userId}/{chatId}/{token},
+ * где token выдан `POST /chats/token/:chatId` и используется один раз.
+ */
+const wss = new WebSocketServer({ noServer: true });
+
+wss.on('error', (error) => {
+  // сорванный handshake без слушателя 'error' уронил бы процесс заглушки
+  console.log(`WS handshake error: ${error.message}`);
+});
+
+const broadcast = (chatId, payload, except = null) => {
+  for (const client of chatSockets.get(chatId) ?? []) {
+    if (client !== except && client.readyState === client.OPEN) {
+      client.send(payload);
+    }
+  }
+};
+
+server.on('upgrade', (req, socket, head) => {
+  const match = /^\/ws\/chats\/(\d+)\/(\d+)\/([^/?]+)$/.exec((req.url ?? '/').split('?')[0]);
+
+  if (!match || issuedTokens.get(match[3]) !== Number(match[2])) {
+    socket.destroy();
+    return;
+  }
+
+  wss.handleUpgrade(req, socket, head, (ws) => {
+    ws.chatId = Number(match[2]);
+    ws.userId = Number(match[1]);
+    connect(ws);
+  });
+});
+
+const connect = (ws) => {
+  if (!chatSockets.has(ws.chatId)) {
+    chatSockets.set(ws.chatId, new Set());
+  }
+  chatSockets.get(ws.chatId).add(ws);
+
+  broadcast(ws.chatId, JSON.stringify({ content: String(ws.userId), type: 'user connected' }), ws);
+  console.log(`WS open chat=${ws.chatId} user=${ws.userId}`);
+
+  ws.on('error', () => {
+    // невалидный кадр: без слушателя 'error' это необработанное исключение, процесс упал бы
+    ws.terminate();
+  });
+
+  ws.on('message', (raw) => {
+    let frame;
+    try {
+      frame = JSON.parse(String(raw));
+    } catch {
+      return;
+    }
+
+    if (frame.type === 'ping') {
+      ws.send(JSON.stringify({ type: 'pong' }));
+      return;
+    }
+
+    if (frame.type === 'get old') {
+      const offset = Number(frame.content) || 0;
+      const history = (messageLog.get(ws.chatId) ?? [])
+        .filter((message) => offset === 0 || message.id < offset)
+        .slice(-HISTORY_PAGE_SIZE)
+        .reverse();
+      ws.send(JSON.stringify(history));
+      return;
+    }
+
+    if (frame.type === 'message') {
+      const history = messageLog.get(ws.chatId) ?? [];
+      const message = {
+        id: history.length + 1,
+        user_id: ws.userId,
+        chat_id: ws.chatId,
+        type: 'message',
+        content: typeof frame.content === 'string' ? frame.content : String(frame.content ?? ''),
+        time: new Date().toISOString(),
+        is_read: false,
+      };
+      history.push(message);
+      messageLog.set(ws.chatId, history);
+
+      const payload = JSON.stringify(message);
+      // Как живой сервер: копию получает и отправитель — лента строится на эхе.
+      for (const client of chatSockets.get(ws.chatId)) {
+        if (client.readyState === client.OPEN) {
+          client.send(payload);
+        }
+      }
+      return;
+    }
+
+    ws.send(JSON.stringify({ type: 'error', content: "Something's wrong. Try again" }));
+  });
+
+  ws.on('close', () => {
+    chatSockets.get(ws.chatId)?.delete(ws);
+  });
+};
+
+server.listen(PORT, '127.0.0.1', () => {
   console.log(`Заглушка API: http://localhost:${PORT}`);
   console.log(`VITE_API_BASE_URL=http://localhost:${PORT} npm run dev`);
 });

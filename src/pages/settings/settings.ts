@@ -33,9 +33,11 @@ export class SettingsPage extends BaseBlock<PageProps, SettingsPageRefs> {
   private profile: Profile | null = null;
 
   protected componentDidMount(): void {
-    this.loadProfile().catch((error: unknown) =>
-      this.props.navigation.navigate(errorRouteFor(error))
-    );
+    this.loadProfile().catch((error: unknown) => {
+      if (!this.disposed) {
+        this.props.navigation.navigate(errorRouteFor(error));
+      }
+    });
   }
 
   protected componentWillUnmount(): void {
@@ -50,6 +52,11 @@ export class SettingsPage extends BaseBlock<PageProps, SettingsPageRefs> {
   }
 
   private attachProfile(user: User): void {
+    // ответ профиля мог прийти после ухода со страницы: вешать виджет поверх новой не нужно
+    if (this.disposed) {
+      return;
+    }
+
     const profile = new Profile(createProfileProps(user, this.actions()));
 
     this.profile?.unmountComponent();
@@ -79,6 +86,9 @@ export class SettingsPage extends BaseBlock<PageProps, SettingsPageRefs> {
   /** Выход нужен и когда сервер не ответил: локальную сессию `auth` снимает в любом случае. */
   private async signOut(): Promise<void> {
     await auth.signOut().catch(() => undefined);
-    this.props.navigation.navigate('/');
+
+    if (!this.disposed) {
+      this.props.navigation.navigate('/');
+    }
   }
 }

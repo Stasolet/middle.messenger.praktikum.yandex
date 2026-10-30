@@ -66,14 +66,22 @@ export abstract class BaseBlock<
     }
     return templateElement.content.firstElementChild;
   }
+  /**
+   * true после unmountComponent(): продолжения await-запросов сверяются с флагом,
+   * чтобы не создавать виджеты и не вести навигацию поверх уже другой страницы.
+   */
+  protected disposed = false;
+
   protected componentDidMount() {}
   private mountComponent() {
+    this.disposed = false;
     this.attachListeners();
     this.componentDidMount();
   }
   protected componentWillUnmount() {}
   unmountComponent() {
     if (this.domElement) {
+      this.disposed = true;
       this.children.forEach((child) => child.unmountComponent());
 
       this.removeListeners();

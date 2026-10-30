@@ -38,8 +38,8 @@ export class NotFoundError extends RequestError {
 }
 
 export class ServerError extends RequestError {
-  constructor(message: string) {
-    super(500, message);
+  constructor(status: number, message: string) {
+    super(status, message);
     this.name = 'ServerError';
   }
 }
@@ -60,8 +60,10 @@ const FALLBACK_MESSAGE_BY_STATUS: Record<number, string> = {
 };
 
 /**
- * Практикум API в ошибочном ответе отдаёт `{ error }` или `{ code, description }` —
- * берём сообщение оттуда, иначе подставляем общее по статусу.
+ * Практикум API в ошибочном ответе отдаёт текст в `reason` (аутентификация,
+ * 409 и др.), иногда дублируя его техническим `error: "Bad format"`; у части
+ * ручек — `{ error }` или `{ code, description }`. Берём сообщение оттуда,
+ * иначе подставляем общее по статусу.
  */
 function resolveErrorMessage(status: number, body: unknown): string {
   if (typeof body === 'string' && body) {
@@ -69,7 +71,16 @@ function resolveErrorMessage(status: number, body: unknown): string {
   }
 
   if (body && typeof body === 'object') {
-    const { error, description } = body as { error?: unknown; description?: unknown };
+    const { error, description, reason } = body as {
+      error?: unknown;
+      description?: unknown;
+      reason?: unknown;
+    };
+
+    // reason конкретнее error: при 400 сервер кладёт в error заглушку "Bad format".
+    if (typeof reason === 'string' && reason) {
+      return reason;
+    }
 
     if (typeof error === 'string' && error) {
       return error;
@@ -92,7 +103,7 @@ export function createRequestError(status: number, body: unknown): RequestError 
   const message = resolveErrorMessage(status, body);
 
   if (status >= 500) {
-    return new ServerError(message);
+    return new ServerError(status, message);
   }
 
   switch (status) {
