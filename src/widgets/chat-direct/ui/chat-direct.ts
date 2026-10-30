@@ -46,18 +46,37 @@ export class ChatDirect extends BaseBlock<ChatDirectProps, ChatDirectRefs> {
 
   private connectionStatus: WsStatus = 'connecting';
 
+  /** История ещё не развёрнута: живые сообщения копим в буфере, чтобы replaceChildren их не затёр. */
+  private historyReady = false;
+
+  /** История не пришла (таймаут): её объяснение не должен затирать поздний статус «open». */
+  private historyFailed = false;
+
+  private missedLive: Message[] = [];
+
   private scrollBottom(): void {
     const list = this.refs.messagesList;
     list.scrollTop = list.scrollHeight;
   }
 
+  /** Пользователь у нижнего края: новые сообщения должны оставаться на виду. */
+  private nearBottom(): boolean {
+    const list = this.refs.messagesList;
+    return list.scrollHeight - list.scrollTop - list.clientHeight < 80;
+  }
+
   /** Лента меняется императивно: setProps() пересобрал бы DOM и украл фокус у поля ввода. */
   private appendMessage(message: Message): void {
+    const stick = this.nearBottom();
     const element = new ChatMessage(message).element();
 
     if (element) {
       this.refs.messagesList.appendChild(element);
-      this.scrollBottom();
+
+      // читающего историю не срываем в конец
+      if (stick) {
+        this.scrollBottom();
+      }
     }
   }
 
@@ -74,7 +93,9 @@ export class ChatDirect extends BaseBlock<ChatDirectProps, ChatDirectRefs> {
     this.connectionStatus = status;
 
     if (status === 'open') {
-      this.clearTypingError();
+      if (!this.historyFailed) {
+        this.clearTypingError();
+      }
       return;
     }
 
@@ -82,15 +103,49 @@ export class ChatDirect extends BaseBlock<ChatDirectProps, ChatDirectRefs> {
   }
 
   private openChat(): void {
+    this.historyReady = false;
+    this.historyFailed = false;
+    this.missedLive = [];
+
     this.connection = messagesService.open(this.props.chatId, this.props.userId, {
-      onMessage: (message) => this.appendMessage(message),
+      onMessage: (message) => this.onLiveMessage(message),
       onStatus: (status) => this.handleStatus(status),
     });
 
     void this.connection
       .getHistory()
-      .then((messages) => this.renderMessages(messages))
-      .catch((error: unknown) => this.showTypingError(errorMessage(error)));
+      .then((messages) => {
+        this.renderMessages(messages);
+        this.flushMissed(messages);
+      })
+      .catch((error: unknown) => {
+        this.historyFailed = true;
+        // история так и не пришла, но лента дальше живая: буфер дорисовываем на пустое
+        this.flushMissed([]);
+        this.showTypingError(errorMessage(error));
+      });
+  }
+
+  private onLiveMessage(message: Message): void {
+    if (this.historyReady) {
+      this.appendMessage(message);
+      return;
+    }
+
+    // ответ истории пересоберёт ленту через replaceChildren: до него только копим
+    this.missedLive.push(message);
+  }
+
+  /** После разворота истории дорисовываем пришедшее во время ожидания, без дублей по id. */
+  private flushMissed(history: Message[]): void {
+    this.historyReady = true;
+
+    const seen = new Set(history.map((message) => message.id));
+    for (const message of this.missedLive.splice(0)) {
+      if (!seen.has(message.id)) {
+        this.appendMessage(message);
+      }
+    }
   }
 
   private menus(): HTMLElement[] {
