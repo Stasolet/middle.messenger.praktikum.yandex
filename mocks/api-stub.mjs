@@ -389,9 +389,14 @@ const server = createServer(async (req, res) => {
   const path = (req.url ?? '/').split('?')[0];
   const key = `${req.method} ${path}`;
 
+  const origin = req.headers.origin ?? '';
+  const devOrigin = /^http:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/.test(origin);
+
   const cors = {
-    'access-control-allow-origin': req.headers.origin ?? '*',
-    'access-control-allow-credentials': 'true',
+    // CORS разрешаем только локальному dev-серверу: чужая страница ответов с credentials не получит
+    ...(devOrigin
+      ? { 'access-control-allow-origin': origin, 'access-control-allow-credentials': 'true' }
+      : {}),
     'access-control-allow-headers': 'content-type',
     'access-control-allow-methods': 'GET,POST,PUT,DELETE,OPTIONS',
   };
@@ -461,6 +466,11 @@ const server = createServer(async (req, res) => {
  */
 const wss = new WebSocketServer({ noServer: true });
 
+wss.on('error', (error) => {
+  // сорванный handshake без слушателя 'error' уронил бы процесс заглушки
+  console.log(`WS handshake error: ${error.message}`);
+});
+
 const broadcast = (chatId, payload, except = null) => {
   for (const client of chatSockets.get(chatId) ?? []) {
     if (client !== except && client.readyState === client.OPEN) {
@@ -492,6 +502,11 @@ const connect = (ws) => {
 
   broadcast(ws.chatId, JSON.stringify({ content: String(ws.userId), type: 'user connected' }), ws);
   console.log(`WS open chat=${ws.chatId} user=${ws.userId}`);
+
+  ws.on('error', () => {
+    // невалидный кадр: без слушателя 'error' это необработанное исключение, процесс упал бы
+    ws.terminate();
+  });
 
   ws.on('message', (raw) => {
     let frame;
@@ -548,7 +563,7 @@ const connect = (ws) => {
   });
 };
 
-server.listen(PORT, () => {
+server.listen(PORT, '127.0.0.1', () => {
   console.log(`Заглушка API: http://localhost:${PORT}`);
   console.log(`VITE_API_BASE_URL=http://localhost:${PORT} npm run dev`);
 });
