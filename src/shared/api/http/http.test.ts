@@ -168,6 +168,13 @@ describe('Http', () => {
     await expect(promise).rejects.toMatchObject({ status: 500, message: 'Внутренняя ошибка' });
   });
 
+  it('5xx сохраняет реальный статус ответа, а не сводит его к 500', async () => {
+    const promise = http.get('/chats');
+    FakeXHR.expectLast().respond(503, '{"description":"Сервер временно недоступен"}');
+
+    await expect(promise).rejects.toMatchObject({ name: 'ServerError', status: 503 });
+  });
+
   it('нет сети — TransportError', async () => {
     const promise = http.get('/chats');
     FakeXHR.expectLast().failNetwork();

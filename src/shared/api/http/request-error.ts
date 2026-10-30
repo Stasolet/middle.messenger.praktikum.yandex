@@ -38,8 +38,8 @@ export class NotFoundError extends RequestError {
 }
 
 export class ServerError extends RequestError {
-  constructor(message: string) {
-    super(500, message);
+  constructor(status: number, message: string) {
+    super(status, message);
     this.name = 'ServerError';
   }
 }
@@ -103,7 +103,7 @@ export function createRequestError(status: number, body: unknown): RequestError 
   const message = resolveErrorMessage(status, body);
 
   if (status >= 500) {
-    return new ServerError(message);
+    return new ServerError(status, message);
   }
 
   switch (status) {
