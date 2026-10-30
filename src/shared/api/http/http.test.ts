@@ -138,6 +138,28 @@ describe('Http', () => {
     });
   });
 
+  it('reason из тела Практикум API становится текстом ошибки', async () => {
+    const promise = http.post('/auth/signup', { login: 'taken' });
+    FakeXHR.expectLast().respond(409, '{"reason":"Login already exists"}');
+
+    await expect(promise).rejects.toMatchObject({
+      name: 'RequestError',
+      status: 409,
+      message: 'Login already exists',
+    });
+  });
+
+  it('reason конкретнее технического error при 400', async () => {
+    const promise = http.post('/auth/signup', { email: 'bad' });
+    FakeXHR.expectLast().respond(400, '{"reason":"email is not valid","error":"Bad format"}');
+
+    await expect(promise).rejects.toMatchObject({
+      name: 'BadRequestError',
+      status: 400,
+      message: 'email is not valid',
+    });
+  });
+
   it('5xx — ServerError со статусом', async () => {
     const promise = http.post('/chats', { title: 'x' });
     FakeXHR.expectLast().respond(500, '{"description":"Внутренняя ошибка"}');
