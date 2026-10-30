@@ -49,11 +49,18 @@ class Auth {
     return user;
   }
 
-  /** Сессию даёт вход, поэтому после регистрации входим теми же данными. */
+  /**
+   * Живой сервер выдаёт сессионную cookie сразу ответом на регистрацию, а signin
+   * для уже авторизованной сессии отвечает 400 «User already in system». Поэтому
+   * после регистрации сначала пробуем восстановить сессию и только если её нет
+   * (заглушка выдаёт cookie лишь со signin) — входим теми же данными.
+   */
   async signUp(payload: SignUpPayload): Promise<User> {
     await usersApi.signUp(payload);
 
-    return this.signIn({ login: payload.login, password: payload.password });
+    const user = await this.restore();
+
+    return user ?? this.signIn({ login: payload.login, password: payload.password });
   }
 
   async signOut(): Promise<void> {
