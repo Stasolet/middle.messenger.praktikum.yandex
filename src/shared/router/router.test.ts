@@ -188,6 +188,21 @@ describe('Router', () => {
     expect(renderedClass(container)).toContain('page--login');
   });
 
+  it('клик по текущему адресу не пересоздаёт отрисованную страницу', () => {
+    makeRouter();
+    const first = currentStub();
+    const rendered = container.firstElementChild;
+    const link = document.createElement('a');
+    link.href = '/';
+    document.body.appendChild(link);
+
+    link.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true, button: 0 }));
+
+    expect(StubPage.created).toHaveLength(1);
+    expect(first.unmounted).toBe(false);
+    expect(container.firstElementChild).toBe(rendered);
+  });
+
   it('программный navigate из пропсов страницы ведёт через тот же роутер', () => {
     makeRouter();
     currentStub().props.navigation.navigate('/messenger/9');

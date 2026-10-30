@@ -15,6 +15,11 @@ export class Router {
   private guard: ((pathname: string) => string | null) | null = null;
   private currentPage: PageInstance | null = null;
 
+  /** Адрес страницы, отрисованной сейчас: на него сравниваются переходы, чтобы не пересобирать её. */
+  private renderedPathname: string | null = null;
+
+  private renderedSearch: string | null = null;
+
   private readonly container: HTMLElement;
 
   constructor(container: HTMLElement, options: RouterOptions = {}) {
@@ -112,13 +117,27 @@ export class Router {
       ? new URL(redirect, location.origin)
       : new URL(`${pathname}${search}`, location.origin);
 
+    const sameUrl = url.pathname === location.pathname && url.search === location.search;
+
     // переход на тот же URL не должен добавлять в историю дубликат записи
-    if (replace || (url.pathname === location.pathname && url.search === location.search)) {
+    if (replace || sameUrl) {
       history.replaceState({}, '', url.href);
     } else {
       history.pushState({}, '', url.href);
     }
 
+    // страница на этом адресе уже отрисована: пересобирать её (с потерей фокуса и соединений) не нужно.
+    // Сверяется с отрисованным адресом, а не с location: при popstate браузер уже сменил адрес.
+    if (
+      this.currentPage &&
+      url.pathname === this.renderedPathname &&
+      url.search === this.renderedSearch
+    ) {
+      return;
+    }
+
+    this.renderedPathname = url.pathname;
+    this.renderedSearch = url.search;
     this.renderRoute(url.pathname, url.search);
   }
 
