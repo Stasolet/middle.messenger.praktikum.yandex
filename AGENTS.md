@@ -47,7 +47,7 @@ Helper кладёт в props родителя: `__children` (embed в шабло
 
 ## Команды
 
-`npm run dev` | `mock:api` | `build` | `typecheck` | `lint:js` | `lint:css` | `format`
+`npm run dev` | `mock:api` | `build` | `typecheck` | `lint:js` | `lint:css` | `format` | `test`
 
 ## Как поддерживать этот файл
 
