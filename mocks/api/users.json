@@ -1,0 +1,35 @@
+[
+  {
+    "id": 1,
+    "login": "stasolet",
+    "password": "Sup3rSecret",
+    "first_name": "Станислав",
+    "second_name": "Емельянов",
+    "display_name": "Стрелок",
+    "email": "stasolet@example.com",
+    "phone": "88005553535",
+    "avatar": null
+  },
+  {
+    "id": 2,
+    "login": "sidorovich",
+    "password": "Sup3rSecret",
+    "first_name": "Сидор",
+    "second_name": "Сидоров",
+    "display_name": "Сидорович",
+    "email": "sidorovich@example.com",
+    "phone": "89990000101",
+    "avatar": "https://avatarko.ru/img/avatar/2/igra_muzhchina_kapyushon_Stalker_1688.jpg"
+  },
+  {
+    "id": 3,
+    "login": "novichok",
+    "password": "Sup3rSecret",
+    "first_name": "Иван",
+    "second_name": "Молодых",
+    "display_name": "Новичок",
+    "email": "novichok@example.com",
+    "phone": "89990000202",
+    "avatar": null
+  }
+]

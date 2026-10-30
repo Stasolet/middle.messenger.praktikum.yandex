@@ -5,7 +5,7 @@ import tseslint from 'typescript-eslint';
 
 export default defineConfig([
   {
-    ignores: ['dist', 'node_modules', 'coverage'],
+    ignores: ['dist', 'node_modules', 'coverage', 'sandbox'],
   },
   {
     files: ['**/*.{js,mjs,cjs,ts,mts,cts}'],
@@ -18,8 +18,13 @@ export default defineConfig([
       'no-unused-vars': 'off',
       'no-undef': 'error',
       semi: ['error', 'always'],
-      "eol-last": ["error", "always"]
+      'eol-last': ['error', 'always'],
     },
+  },
+  // Заглушка API — Node-скрипт: браузерных глобалов (`Buffer`, `process`) у него нет
+  {
+    files: ['mocks/**/*.mjs'],
+    languageOptions: { globals: globals.node },
   },
   // 3. Конфигурация для TypeScript файлов
   {

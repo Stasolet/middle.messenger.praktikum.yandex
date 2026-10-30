@@ -1,7 +1,11 @@
 /** Значения, собранные из именованных полей формы */
 export type FormValues = Record<string, string>;
 
-export type SubmitHandler = (values: FormValues) => void;
+/**
+ * Промис означает «запрос в полёте»: виджет `Form` на это время блокирует кнопку
+ * отправки, а при отклонении показывает сообщение об ошибке.
+ */
+export type SubmitHandler = (values: FormValues) => void | Promise<void>;
 
 type FieldElement = HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement;
 

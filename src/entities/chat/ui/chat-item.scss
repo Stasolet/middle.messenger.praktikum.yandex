@@ -17,9 +17,17 @@
 }
 
 .chat-item {
+  display: block;
   padding-block: 0.5rem;
   border-block: 1px solid $surface-spacer-color;
   font-family: sans-serif, system-ui;
+  color: inherit;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.chat-item--active {
+  background-color: $surface-container-high-color;
 }
 
 .chat-item:hover {

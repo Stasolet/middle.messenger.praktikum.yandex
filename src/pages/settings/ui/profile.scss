@@ -1,0 +1,61 @@
+.profile-settings .form__footer .internal-link {
+  margin-block: 10px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  padding: 0;
+}
+
+.profile-settings .form__fields {
+  margin-block: 50px;
+}
+
+/* переопределяет display: flex у .form__fields, иначе скрытая группа остаётся на месте */
+.profile-settings .form__fields[hidden] {
+  display: none;
+}
+
+.profile-settings .form__footer .internal-link:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+.load-photo {
+  background: $surface-container-high-color;
+  border: none;
+  height: 130px;
+  width: 130px;
+  border-radius: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.load-photo__image {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  border-radius: inherit;
+}
+
+.load-photo__input {
+  display: none;
+}
+
+.profile-settings {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 510px;
+}
+
+.profile-settings .horizontal-spacer {
+  border-bottom: 1px solid $surface-spacer-color;
+}
+
+.profile-settings .form-field {
+  border-bottom: none;
+  height: 18px;
+}

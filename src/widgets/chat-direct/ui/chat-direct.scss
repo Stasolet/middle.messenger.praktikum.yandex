@@ -48,6 +48,7 @@
 }
 
 .chat__typing_zone {
+  position: relative;
   display: flex;
   align-items: center;
   gap: 8px;
@@ -62,6 +63,15 @@
     border-radius: 24px;
     background: #fff;
   }
+}
+
+.chat__typing-error {
+  position: absolute;
+  bottom: calc(100% - 4px);
+  left: 20px;
+  margin: 0;
+  color: $error-color;
+  font-size: 0.75rem;
 }
 
 button {
@@ -89,18 +99,7 @@ button:hover {
   display: inline-block;
 }
 
-.drop-menu__btn {
-  width: 32px;
-  height: 32px;
-  border: none;
-  background: $surface-container-color;
-  border-radius: 50%;
-  cursor: pointer;
-  font-size: 20px;
-  line-height: 1;
-}
-
-.drop-menu__list {
+.drop-menu__panel {
   display: none;
   position: absolute;
   margin: 0;
@@ -108,25 +107,78 @@ button:hover {
   background: #fff;
   border-radius: 8px;
   box-shadow: 0 4px 12px rgb(0 0 0 / 10%);
-  list-style: none;
-  min-width: 120px;
+  min-width: 160px;
 }
 
-.drop-menu--upside .drop-menu__list {
+.drop-menu--upside .drop-menu__panel {
   margin-bottom: 8px;
   bottom: 100%;
 }
 
-.drop-menu--downside .drop-menu__list {
+.drop-menu--downside .drop-menu__panel {
   margin-top: 8px;
   top: 100%;
 }
 
-.drop-menu--rightside .drop-menu__list {
+.drop-menu--rightside .drop-menu__panel {
   right: 0;
 }
 
-.drop-menu--open .drop-menu__list {
+.drop-menu--open .drop-menu__panel,
+.drop-menu--user .drop-menu__panel {
+  display: block;
+}
+
+.drop-menu__list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.drop-menu--user .drop-menu__list {
+  display: none;
+}
+
+.drop-menu__user {
+  display: none;
+  padding: 0 8px 8px;
+}
+
+.drop-menu--user .drop-menu__user {
+  display: block;
+}
+
+.drop-menu__user-input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 6px 8px;
+  border: 1px solid $surface-spacer-color;
+  border-radius: 6px;
+  font: inherit;
+}
+
+.drop-menu__user-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.drop-menu__user-submit,
+.drop-menu__user-cancel {
+  padding: 0;
+  background: none;
+  color: $secondary-color;
+  font-size: 0.9rem;
+}
+
+.drop-menu__error {
+  display: none;
+  margin: 8px 8px 0;
+  color: $error-color;
+  font-size: 0.75rem;
+}
+
+.drop-menu__error:not([hidden]) {
   display: block;
 }
 

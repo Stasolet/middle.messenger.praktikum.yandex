@@ -72,7 +72,7 @@ export abstract class BaseBlock<
     this.componentDidMount();
   }
   protected componentWillUnmount() {}
-  protected unmountComponent() {
+  unmountComponent() {
     if (this.domElement) {
       this.children.forEach((child) => child.unmountComponent());
 
