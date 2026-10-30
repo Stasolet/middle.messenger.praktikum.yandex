@@ -36,6 +36,12 @@ export class MessengerPage extends BaseBlock<PageProps, MessengerRefs> {
 
     try {
       const chats = await chatsService.getChats();
+
+      // страница могла быть размонтирована во время запроса: не создаём виджеты поверх новой
+      if (this.disposed) {
+        return;
+      }
+
       const current = this.currentChat(chats);
 
       const sidebar = new Sidebar({
@@ -52,7 +58,9 @@ export class MessengerPage extends BaseBlock<PageProps, MessengerRefs> {
 
       this.renderChat(chatDirect, current);
     } catch (error) {
-      this.props.navigation.navigate(errorRouteFor(error));
+      if (!this.disposed) {
+        this.props.navigation.navigate(errorRouteFor(error));
+      }
     }
   }
 
@@ -101,12 +109,18 @@ export class MessengerPage extends BaseBlock<PageProps, MessengerRefs> {
   /** Новый чат открывается сразу: ответ создания даёт id, остальное придёт со списком */
   private async createChat(title: string): Promise<void> {
     const chatId = await chatsService.createChat(title);
-    this.props.navigation.navigate(`/messenger/${chatId}`);
+
+    if (!this.disposed) {
+      this.props.navigation.navigate(`/messenger/${chatId}`);
+    }
   }
 
   private async deleteChat(chatId: number): Promise<void> {
     await chatsService.removeChat(chatId);
-    this.props.navigation.navigate('/messenger');
+
+    if (!this.disposed) {
+      this.props.navigation.navigate('/messenger');
+    }
   }
 
   private async changeUser(chatId: number, login: string, action: 'add' | 'remove'): Promise<void> {
