@@ -19,12 +19,15 @@
     "format": "prettier --write .",
     "check-format": "prettier --check .",
     "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
     "build": "vite build"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
     "eslint": "^10.10.0",
     "globals": "^17.12.0",
+    "happy-dom": "^21.0.4",
     "jiti": "^2.7.0",
     "prettier": "^3.9.6",
     "sass": "^1.103.1",
@@ -33,6 +36,7 @@
     "typescript": "^6.0.3",
     "typescript-eslint": "^8.70.0",
     "vite": "^8.2.0",
+    "vitest": "^5.0.5",
     "ws": "^8.22.0"
   },
   "dependencies": {

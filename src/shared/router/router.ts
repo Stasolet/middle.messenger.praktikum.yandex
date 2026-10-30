@@ -41,6 +41,14 @@ export class Router {
     this.renderAt(location.pathname, location.search, { replace: true });
   }
 
+  /** Отвязка слушателей и размонтирование последней страницы. */
+  destroy(): void {
+    window.removeEventListener('popstate', this.onPopState);
+    document.removeEventListener('click', this.onDocumentClick);
+    this.currentPage?.unmountComponent();
+    this.currentPage = null;
+  }
+
   /** Программный переход: /messenger/:chatId и т.п. */
   navigate(path: string, query?: Record<string, string | number>): void {
     const url = this.buildUrl(path, query);
