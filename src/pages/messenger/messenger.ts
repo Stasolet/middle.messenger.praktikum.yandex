@@ -2,8 +2,7 @@ import '@fontsource-variable/material-symbols-outlined';
 
 import { BaseBlock, type BaseRefs } from '../../shared/ui';
 import { chatsService, type Chat } from '../../entities/chat';
-import { messagesService } from '../../entities/message';
-import { userService } from '../../entities/user';
+import { auth, userService } from '../../entities/user';
 import { ChatDirect } from '../../widgets/chat-direct';
 import { Sidebar } from '../../widgets/sidebar';
 import { errorRouteFor, type PageProps } from '../../shared/router';
@@ -74,10 +73,19 @@ export class MessengerPage extends BaseBlock<PageProps, MessengerRefs> {
       return;
     }
 
+    // Сокет чата аутентифицируется id пользователя; пустой он не у guard'а, а у истёкшей сессии.
+    const user = auth.user;
+    if (!user) {
+      this.props.navigation.navigate('/');
+
+      return;
+    }
+
     const direct = new ChatDirect({
       name: chat.name,
       avatarUrl: chat.avatarUrl,
-      messages: messagesService.getMessages(chat.id),
+      chatId: chat.id,
+      userId: user.id,
       onAddUser: (login) => this.changeUser(chat.id, login, 'add'),
       onRemoveUser: (login) => this.changeUser(chat.id, login, 'remove'),
       onDeleteChat: () => this.deleteChat(chat.id),

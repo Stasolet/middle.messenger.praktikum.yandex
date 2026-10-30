@@ -1,16 +1,21 @@
-import { collectFormValues, registerComponent, validations } from '../../../shared/lib';
-import { errorMessage } from '../../../shared/api';
-import { ChatMessage, messagesService, type Message } from '../../../entities/message';
+import { collectFormValues, validations } from '../../../shared/lib';
+import { errorMessage, type WsStatus } from '../../../shared/api';
+import {
+  ChatMessage,
+  messagesService,
+  type ChatConnection,
+  type Message,
+} from '../../../entities/message';
 import { BaseBlock, type BaseProps, type BaseRefs } from '../../../shared/ui';
 import template from './chat-direct.hbs';
 import './chat-direct.scss';
 
-registerComponent(ChatMessage);
-
 interface ChatDirectProps extends BaseProps {
   name: string;
   avatarUrl: string | null;
-  messages: Message[];
+  /** Сокат чата живёт вместе с виджетом: id нужны для токена и «моих» сообщений. */
+  chatId: number;
+  userId: number;
   /** Состав чата и его существование меняет страница — виджет только просит */
   onAddUser?: (login: string) => Promise<void>;
   onRemoveUser?: (login: string) => Promise<void>;
@@ -22,6 +27,7 @@ interface ChatDirectRefs extends BaseRefs {
   userLogin: HTMLInputElement;
   userError: HTMLElement;
   messageInput: HTMLInputElement;
+  messagesList: HTMLElement;
   typingError: HTMLElement;
 }
 
@@ -35,6 +41,57 @@ export class ChatDirect extends BaseBlock<ChatDirectProps, ChatDirectRefs> {
   private action: UserAction = 'add';
 
   private pending = false;
+
+  private connection: ChatConnection | null = null;
+
+  private connectionStatus: WsStatus = 'connecting';
+
+  private scrollBottom(): void {
+    const list = this.refs.messagesList;
+    list.scrollTop = list.scrollHeight;
+  }
+
+  /** Лента меняется императивно: setProps() пересобрал бы DOM и украл фокус у поля ввода. */
+  private appendMessage(message: Message): void {
+    const element = new ChatMessage(message).element();
+
+    if (element) {
+      this.refs.messagesList.appendChild(element);
+      this.scrollBottom();
+    }
+  }
+
+  private renderMessages(messages: Message[]): void {
+    const nodes = messages
+      .map((message) => new ChatMessage(message).element())
+      .filter((node): node is Element => node !== null);
+
+    this.refs.messagesList.replaceChildren(...nodes);
+    this.scrollBottom();
+  }
+
+  private handleStatus(status: WsStatus): void {
+    this.connectionStatus = status;
+
+    if (status === 'open') {
+      this.clearTypingError();
+      return;
+    }
+
+    this.showTypingError(status === 'closed' ? 'Связь с чатом потеряна' : 'Подключение к чату…');
+  }
+
+  private openChat(): void {
+    this.connection = messagesService.open(this.props.chatId, this.props.userId, {
+      onMessage: (message) => this.appendMessage(message),
+      onStatus: (status) => this.handleStatus(status),
+    });
+
+    void this.connection
+      .getHistory()
+      .then((messages) => this.renderMessages(messages))
+      .catch((error: unknown) => this.showTypingError(errorMessage(error)));
+  }
 
   private menus(): HTMLElement[] {
     return Array.from(this.element()?.querySelectorAll<HTMLElement>('.drop-menu') ?? []);
@@ -163,10 +220,13 @@ export class ChatDirect extends BaseBlock<ChatDirectProps, ChatDirectRefs> {
 
   protected componentDidMount(): void {
     document.addEventListener('click', this.onDocumentClick);
+    this.openChat();
   }
 
   protected componentWillUnmount(): void {
     document.removeEventListener('click', this.onDocumentClick);
+    this.connection?.close();
+    this.connection = null;
   }
 
   protected events = {
@@ -240,7 +300,13 @@ export class ChatDirect extends BaseBlock<ChatDirectProps, ChatDirectRefs> {
       }
 
       this.clearTypingError();
-      messagesService.send(values);
+
+      if (!this.connection || this.connectionStatus === 'closed') {
+        this.showTypingError('Нет соединения — сообщение не отправлено');
+        return;
+      }
+
+      this.connection.send(values.message);
       form.reset();
     },
   };

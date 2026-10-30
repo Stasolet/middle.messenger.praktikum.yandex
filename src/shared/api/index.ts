@@ -1,7 +1,7 @@
 export * from './http';
+export * from './ws';
 export { RESOURCES_URL, toAvatarUrl } from './resources';
 export { chatsApi } from './chats';
-export { messagesApi } from './messages';
 export { usersApi } from './users';
 export type {
   ChatDTO,
@@ -13,4 +13,7 @@ export type {
   SignInPayload,
   SignUpPayload,
   UserDTO,
+  WsFrameDTO,
+  WsMessageDTO,
+  WsTokenDTO,
 } from './dto';
